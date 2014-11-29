@@ -1,0 +1,24 @@
+web:
+  image: luis/sails
+  volumes:
+    - ./:/var/www
+    - /var/log/docker/dashi3:/var/log/supervisor
+  links:
+    - "mysql:mysql"
+  ports:
+    - "80:1337"
+  environment:
+    NODE_ENV: development 
+    PORT: 1337
+    GOOGLE_OAUTH_CLIENTID: something.apps.googleusercontent.com
+    GOOGLE_OAUTH_CLIENTSECRET: secret 
+    GOOGLE_OAUTH_CALLBACKURL: http://localhost/auth/google/callback
+mysql:
+  image: mysql
+  expose:
+    - "3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: root123
+    MYSQL_DATABASE: dashi3
+    MYSQL_USER: admin
+    MYSQL_PASSWORD: admin123
