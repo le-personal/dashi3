@@ -1,0 +1,247 @@
+<div ng-controller="DashboardController">
+  <script type="text/ng-template" id="openAddDataPoint.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Add data point</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="data-point">Value</label>
+            <input type="text" name="data-point" class="form-control" />
+          </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="openDataList.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Historic values</h3>
+    </div>
+    <div class="modal-body">
+      <table class="table table-condensed table-striped table-hover">
+        <thead>
+          <th>Fecha</th>
+          <th>Valor</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hoy</td>
+            <td>250</td>
+          </tr>
+          <tr>
+            <td>Ayer</td>
+            <td>249</td>
+          </tr>
+          <tr>
+            <td>Miércoles</td>
+            <td>245</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-warning" ng-click="cancel()">Close</button>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="openWidgetSettings.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Settings</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="data-point">Value</label>
+            <input type="text" name="data-point" class="form-control" />
+          </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="navbar-brand" href="./">Dashi3</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="/dashboard/pdt">PDT</a></li>
+          <li><a href="/dashboard/piimce">PIIMCE</a></li>
+          <li><a href="/dashboard/it">IT</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Total de enlaces en Edulink
+            <div class="pull-right">
+              <i class="glyphicon glyphicon-th-list" ng-click="openDataList({})"></i>
+              <i class="glyphicon glyphicon-plus" ng-click="openAddDataPoint({})"></i>
+              <i class="glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
+            </div>
+          </div>
+          <div class="chart-stage blue">
+            <div id="grid-1-1">
+              <h1>250 enlaces</h1>
+            </div>
+          </div>
+          <div class="chart-notes">
+            Enlaces totales de http://edulink.iiiepe.edu.mx
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Historial de enlaces en Edulink
+            <div class="pull-right">
+              <i class="glyphicon glyphicon-th-list" ng-click="openDataList({})"></i>
+              <i class="glyphicon glyphicon-plus" ng-click="openAddDataPoint({})"></i>
+              <i class="glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
+            </div>
+          </div>
+          <div class="chart-stage">
+            <div id="grid-1-1">
+              <canvas id="line" 
+                class="chart chart-line" 
+                data="data"
+                labels="labels" 
+                legend="true" 
+                series="series" 
+                click="onClick">
+              </canvas>
+            </div>
+          </div>
+          <div class="chart-notes">
+            Enlaces totales de http://edulink.iiiepe.edu.mx
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x180/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+<!-- end of three -->
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x180/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x180/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x180/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+<!-- end of three -->
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x180/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x180/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x180/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <hr>
+
+    <p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p>
+
+  </div>
+
+  </div>
