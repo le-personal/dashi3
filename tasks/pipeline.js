@@ -39,6 +39,7 @@ var jsFilesToInject = [
   'vendor/angular-resource/angular-resource.js',
   // 'vendor/angular-bootstrap/ui-bootstrap.min.js',
   'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
+  'vendor/masonry/dist/masonry.pkgd.min.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
   'js/app.js',
