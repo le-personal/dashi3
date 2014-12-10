@@ -32,10 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'DashboardController.main'
-  },
-  
+  'get /': 'DashboardController.main',
   'get /dashboard/:path': 'DashboardController.getDashboard',
 
   // allows us to get templates with a request.

@@ -10,7 +10,10 @@ var DashboardRepository = include("api/repositories/DashboardRepository");
 
 function main(req, res) {
 	// get all dashboards
-	res.view("homepage");
+	new DashboardRepository().getAll(function(err, results) {
+		if(err) return res.serverError(err);
+		return res.view("homepage", {dashboards: results});
+	});
 }
 
 function getDashboard(req, res) {
