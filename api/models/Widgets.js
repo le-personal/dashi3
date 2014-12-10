@@ -24,6 +24,9 @@ module.exports = {
 			type: "integer",
 			required: false,
 			defaultsTo: 0
+		},
+		dashboard: {
+			model: "Dashboard"
 		}
 	}
 }

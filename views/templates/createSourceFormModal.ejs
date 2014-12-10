@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h3 class="modal-title">Create new source</h3>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" name="name" class="form-control" ng-model="data.name" />
+    </div>
+    <div class="form-group">
+      <label for="type">Path</label>
+      <select class="form-control" ng-model="data.type" name="type">
+        <option value="number">Number</option>
+        <option value="float">Float</option>
+        <option value="text">Text</option>
+      </select>
+      <div class="help-block">Choose from the select box what kind of data do you want to save in this source</div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" name="description" ng-model="data.description"></textarea>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok()">Create</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

@@ -33,10 +33,22 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'homepage'
+    view: 'DashboardController.main'
+  },
+  
+  'get /dashboard/:path': 'DashboardController.getDashboard',
+
+  // allows us to get templates with a request.
+  // the layout will be defined to an empty string so it doesn't
+  // return the default layout.ejs
+  // all files must end with .ejs extension
+  "/templates/:name": function(req, res) {
+    res.locals.layout = "";
+    
+    var name = req.param("name");
+    return res.view("templates/" + name);
   },
 
-  'get /dashboard': 'DashboardController.main'
 
   /***************************************************************************
   *                                                                          *

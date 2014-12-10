@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h3 class="modal-title">Create new dashboard</h3>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" name="name" class="form-control" ng-model="data.name" />
+    </div>
+    <div class="form-group">
+      <label for="path">Path</label>
+      <input type="text" name="path" class="form-control" ng-model="data.path" />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" name="description" ng-model="data.description"></textarea>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok()">Create</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

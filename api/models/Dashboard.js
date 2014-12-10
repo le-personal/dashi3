@@ -17,6 +17,10 @@ module.exports = {
   		type: "string",
   		required: true
   	},
+    description: {
+      type: "text",
+      required: false,
+    },
   	path: {
   		type: "string",
   		required: true,

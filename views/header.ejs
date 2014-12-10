@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="MainHeaderController">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -14,10 +14,24 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="/dashboard/pdt">PDT</a></li>
-        <li><a href="/dashboard/piimce">PIIMCE</a></li>
-        <li><a href="/dashboard/it">IT</a></li>
+        <li ng-repeat="dashboard in dashboards">
+          <a href="/dashboard/{{ dashboard.path }}" alt="{{ dashboard.description }}" title="{{ dashboard.name }}">{{ dashboard.name }}</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#" ng-click="openNewDashboardFormModal()">
+            <i class="glyphicon glyphicon-plus"></i> Dashboard
+          </a>
+        </li>
+
+        <li>
+          <a href="#" ng-click="openNewSourceFormModal()">
+            <i class="glyphicon glyphicon-plus"></i> Source
+          </a>
+        </li>
+
       </ul>
     </div>
-  </div>
+  </div>  
 </div>
