@@ -1,7 +1,7 @@
 web:
   image: luis/sails
   volumes:
-    - ./application:/var/www
+    - application:/var/www
     - /var/log/docker/dashi3:/var/log/supervisor
   links:
     - "mysql:mysql"
