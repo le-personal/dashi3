@@ -1,0 +1,20 @@
+{
+	"widgets": [
+		{
+			"name": "Line Chart",
+			"template": "line"
+		},
+		{
+			"name": "Text",
+			"template": "text"
+		},
+		{
+			"name": "Messages",
+			"template": "messages"
+		},
+		{
+			"name": "Pie Chart",
+			"template": "pie"
+		}
+	]
+}
