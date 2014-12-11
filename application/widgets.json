@@ -1,12 +1,16 @@
 {
-	"widgets": [
-		{
+ 	"widgets": [
+ 		{
 			"name": "Line Chart",
 			"template": "line"
-		},
-		{
+ 		},
+ 		{
 			"name": "Text",
 			"template": "text"
+		},
+		{
+			"name": "Number",
+			"template": "number"
 		},
 		{
 			"name": "Messages",
@@ -15,6 +19,6 @@
 		{
 			"name": "Pie Chart",
 			"template": "pie"
-		}
-	]
-}
+ 		}
+ 	]
+ }

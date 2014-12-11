@@ -25,12 +25,7 @@ module.exports = {
   		type: "string",
   		required: true,
   		unique: true
-  	},
-  	widgets: {
-  		collection: "Widgets",
-  		via: "id"
   	}
-
   }
 };
 

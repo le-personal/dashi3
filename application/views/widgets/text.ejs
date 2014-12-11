@@ -1,0 +1,22 @@
+<div ng-controller="WidgetTextController">
+	<div class="item small">
+	  <div class="chart-wrapper">
+	    <div class="chart-title">
+	      {{ widget.title }}
+	      <div class="pull-right">
+	        <i class="glyphicon glyphicon-th-list" ng-click="openDataList({})"></i>
+	        <i class="glyphicon glyphicon-plus" ng-click="openAddDataPoint({})"></i>
+	        <i class="glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
+	      </div>
+	    </div>
+	    <div class="chart-stage blue">
+	      <div id="grid-1-1">
+	        <h1>{{ data }}</h1>
+	      </div>
+	    </div>
+	    <div class="chart-notes">
+	    	{{ widget.description }}
+	    </div>
+	  </div>
+	</div>
+</div>

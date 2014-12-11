@@ -13,9 +13,6 @@ module.exports = {
 			type: "text",
 			required: false
 		},
-		source: {
-			model: "Sources"
-		},
 		template: {
 			type: "string",
 			required: true
@@ -24,6 +21,9 @@ module.exports = {
 			type: "integer",
 			required: false,
 			defaultsTo: 0
+		},
+		source: {
+			model: "Sources"
 		},
 		dashboard: {
 			model: "Dashboard"

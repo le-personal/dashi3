@@ -18,4 +18,13 @@ DashboardRepository.prototype.getByPath = function(path, callback) {
 	})
 }
 
+DashboardRepository.prototype.get = function(id, callback) {
+	Dashboard.findOne({id: id})
+	.exec(function(err, result) {
+		if(err) return callback(err, false);
+		if(result) return callback(false, result);
+		return callback(true, false);
+	})	
+}
+
 module.exports = DashboardRepository;

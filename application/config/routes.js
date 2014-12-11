@@ -34,6 +34,8 @@ module.exports.routes = {
 
   'get /': 'DashboardController.main',
   'get /dashboard/:path': 'DashboardController.getDashboard',
+  'get /api/v1/dashboard/:id': 'DashboardController.getDashboardAPI',
+  'get /api/v1/dashboard/:id/widgets': 'DashboardController.getWidgets',
 
   // allows us to get templates with a request.
   // the layout will be defined to an empty string so it doesn't
@@ -44,6 +46,13 @@ module.exports.routes = {
     
     var name = req.param("name");
     return res.view("templates/" + name);
+  },
+
+  "/widgets/:name": function(req, res) {
+    res.locals.layout = "";
+    
+    var name = req.param("name");
+    return res.view("widgets/" + name);
   },
 
 

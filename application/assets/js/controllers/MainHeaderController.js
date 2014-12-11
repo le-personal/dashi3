@@ -11,7 +11,8 @@
 		'$scope',
 		'$modal',
 		'Dashboard',
-		function($scope, $modal, Dashboard) {
+		'Sources',
+		function($scope, $modal, Dashboard, Sources) {
 
 			// Get all dashboards so we can build the menu
 			$scope.dashboards = Dashboard.all();
@@ -35,6 +36,19 @@
 					templateUrl: "/templates/createSourceFormModal",
 					controller: "CreateSourceFormModal"
 				})
+			}
+
+			$scope.openSourcesList = function() {
+				var sources = Sources.all();
+				$modal.open({
+					templateUrl: "/templates/openSourcesList",
+					controller: "OpenSourcesList",
+					resolve: {
+						sources: function() {
+							return sources;
+						}
+					}
+				});
 			}
 		}
 	])
@@ -75,6 +89,24 @@
 
 			$scope.ok = function() {
 				var source = Sources.save($scope.data);
+				$modalInstance.close();
+			}
+
+			$scope.cancel = function() {
+				$modalInstance.dismiss("cancel");
+			}
+		}
+	])
+
+	.controller("OpenSourcesList", [
+		"$scope",
+		"$modalInstance",
+		"sources",
+		function($scope, $modalInstance, sources) {
+
+			$scope.sources = sources;
+			
+			$scope.ok = function() {
 				$modalInstance.close();
 			}
 

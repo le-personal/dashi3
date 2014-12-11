@@ -1,5 +1,6 @@
 var include = require("include");
 var DashboardRepository = include("api/repositories/DashboardRepository");
+var WidgetsRepository = include("api/repositories/WidgetsRepository");
 
 /**
  * DashboardController
@@ -22,9 +23,37 @@ function getDashboard(req, res) {
 
 	new DashboardRepository().getByPath(path, function(err, dashboard) {
 		if(err) return res.notFound();
-		return res.view("dashboard", {dashboard: dashboard});
-	})
 
+		new WidgetsRepository().getWidgets(dashboard.id, function(err, widgets) {
+			if(err) return res.notFound();
+			return res.view("dashboard", {dashboard: dashboard, widgets: widgets});
+		});
+	})
+}
+
+function getDashboardAPI(req, res) {
+	var id = req.param("id");
+	sails.log("Getting dashboard with id: " + id);
+
+	new DashboardRepository().get(id, function(err, dashboard) {
+		if(err) return res.notFound();
+
+		new WidgetsRepository().getWidgets(dashboard.id, function(err, widgets) {
+			if(err) return res.notFound();
+
+			var result = dashboard.toObject();
+			result.widgets = widgets;
+			return res.jsonp(200, result);
+		});
+	})
+}
+
+function getDashboardAPIWidgets(req, res) {
+	var id = req.param("id");
+	new WidgetsRepository().getWidgets(id, function(err, widgets) {
+		if(err) return res.notFound();
+		return res.jsonp(200, widgets);
+	});
 }
 
 module.exports = {
@@ -34,6 +63,14 @@ module.exports = {
 
 	getDashboard: function(req, res) {
 		return getDashboard(req, res);
+	},
+
+	getWidgets: function(req, res) {
+		return getWidgets(req, res);
+	},
+
+	getDashboardAPI: function(req, res) {
+		return getDashboardAPI(req, res);
 	}
 };
 

@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h3 class="modal-title">Create new widget</h3>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" ng-model="data.title" name="title" />
+    </div>
+    <div class="form-group">
+      <label for="title">Description</label>
+      <textarea class="form-control" ng-model="data.description" name="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="title">Template</label>
+      <select class="form-control" ng-model="data.template" name="type" ng-options="template.template as template.name for template in templates">
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="title">Source</label>
+      <select class="form-control" ng-model="data.source" name="type" ng-options="source.id as source.name for source in sources">
+      </select>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok()">Create</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
