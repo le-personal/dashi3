@@ -43,6 +43,8 @@ var jsFilesToInject = [
   'vendor/masonry/dist/masonry.pkgd.min.js',
   'vendor/angular-sails/dist/angular-sails.min.js',
   'vendor/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
+  'vendor/moment/moment.js',
+  'vendor/angular-moment/angular-moment.min.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
   'js/app.js',

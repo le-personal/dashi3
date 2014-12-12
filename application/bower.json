@@ -29,6 +29,7 @@
     "masonry": "~3.2.1",
     "angular-bootstrap": "~0.12.0",
     "angular-sails": "~1.0.4",
-    "angular-bootstrap-colorpicker": "~3.0.9"
+    "angular-bootstrap-colorpicker": "~3.0.9",
+    "angular-moment": "~0.8.3"
   }
 }

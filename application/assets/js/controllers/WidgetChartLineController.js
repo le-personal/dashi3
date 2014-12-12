@@ -20,7 +20,7 @@
 			io.socket.get("/api/v1/data?source="+ sourceId +"&sort=createdAt DESC&limit=10", function(data, res) {
 				// $scope.data = !angular.isUndefined(data[0]) ? data[0].valueNumber : 0;
 				angular.forEach(data, function(item) {
-					$scope.labels.push(item.createdAt);
+					$scope.labels.push(moment(item.createdAt).format("MMM/D"));
 					chartData.push(item.valueNumber);
 				});
 
