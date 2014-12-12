@@ -8,17 +8,9 @@
       <th>Valor</th>
     </thead>
     <tbody>
-      <tr>
-        <td>Hoy</td>
-        <td>250</td>
-      </tr>
-      <tr>
-        <td>Ayer</td>
-        <td>249</td>
-      </tr>
-      <tr>
-        <td>Miércoles</td>
-        <td>245</td>
+      <tr ng-repeat="item in data">
+        <td>{{ item.createdAt }}</td>
+        <td>{{ item.valueNumber }}</td>
       </tr>
     </tbody>
   </table>

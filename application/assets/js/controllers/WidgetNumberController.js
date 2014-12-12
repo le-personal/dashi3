@@ -38,7 +38,7 @@
 					controller: "OpenDataList",
 					resolve: {
 						widget: function() {
-							return widget;
+							return $scope.widget;
 						}
 					}
 				});
@@ -113,6 +113,12 @@
 		"$modalInstance",
 		"widget",
 		function($scope, $modalInstance, widget) {
+			var sourceId = widget.source;
+			$scope.data = [];
+			io.socket.get("/api/v1/data?source="+ sourceId +"&sort=createdAt DESC&limit=25", function(data) {
+				$scope.data = data;
+			});
+
 			$scope.ok = function () {
 		    $modalInstance.close($scope.selected.item);
 		  };
