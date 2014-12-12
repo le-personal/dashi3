@@ -45,6 +45,7 @@ var jsFilesToInject = [
   'vendor/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
   'vendor/moment/moment.js',
   'vendor/angular-moment/angular-moment.min.js',
+  'vendor/draggabilly/draggabilly.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
   'js/app.js',
