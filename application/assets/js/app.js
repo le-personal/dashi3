@@ -9,8 +9,7 @@
 	angular.module("dashi3",  [
 		'ngResource',
 		'chart.js', 
-		'ui.bootstrap',
-		'ngSails'
+		'ui.bootstrap'
 	]);	
 })();
 
