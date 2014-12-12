@@ -26,6 +26,14 @@ module.exports = {
 			type: "string",
 			required: false
 		},
+		backgroundColor: {
+			type: "string",
+			required: false
+		},
+		textColor: {
+			type: "string",
+			required: false
+		},
 		source: {
 			model: "Sources"
 		},

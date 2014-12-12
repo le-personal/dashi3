@@ -59,6 +59,8 @@
 					template: data.template,
 					textToAppend: data.textToAppend,
 					weight: 0,
+					backgroundColor: $scope.data.backgroundColor,
+					textColor: $scope.data.textColor,
 					source: data.source,
 					dashboard: dashboard.id
 				});

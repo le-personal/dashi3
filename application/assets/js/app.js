@@ -10,7 +10,8 @@
 		'ngResource',
 		'chart.js', 
 		'ui.bootstrap',
-		'ngSails'
+		'ngSails',
+		'colorpicker.module'
 	]);	
 })();
 

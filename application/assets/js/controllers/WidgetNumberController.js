@@ -139,6 +139,8 @@
 					title: $scope.data.title,
 					description: $scope.data.description,
 					textToAppend: $scope.data.textToAppend,
+					backgroundColor: $scope.data.backgroundColor,
+					textColor: $scope.data.textColor,
 					weight: 0
 				}, function(result) {
 					
