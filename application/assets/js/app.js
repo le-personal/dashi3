@@ -1,9 +1,14 @@
 (function() {
 	'use strict';
 
-	var msnry = new Masonry("#page", {
-		itemSelector: '.item',
-		columnWidth: 200,
+	var $container = $('#page');
+	// init
+	$container.packery({
+	  itemSelector: '.item',
+	  gutter: 10,
+		columnWidth: 60
+
+
 	});
 
 	angular.module("dashi3",  [

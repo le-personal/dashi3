@@ -8,7 +8,31 @@
 	padding: 10px 20px;
 }
 
-.item { width: @small; }
-.small { width: @small; }
-.medium { width: @medium; }
-.large { width: @large; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+.packery {
+  
+}
+
+/* clearfix */
+.packery:after {
+  content: ' ';
+  display: block;
+  clear: both;
+}
+
+.item,
+.grid-sizer {
+  width: @small;
+}
+
+.item {
+  height: 80px;
+  float: left;
+}
+
+.item.w2 { width:  @medium; }
+.item.w4 { width:  @large; }
+
+.item.h2 { height: 160px; }
+.item.h4 { height: 320px; }

@@ -40,7 +40,7 @@ var jsFilesToInject = [
   'vendor/angular-resource/angular-resource.js',
   // 'vendor/angular-bootstrap/ui-bootstrap.min.js',
   'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
-  'vendor/masonry/dist/masonry.pkgd.min.js',
+  'vendor/packery/dist/packery.pkgd.min.js',
   'vendor/angular-sails/dist/angular-sails.min.js',
   'vendor/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
   'vendor/moment/moment.js',
