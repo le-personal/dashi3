@@ -10,6 +10,7 @@
 		'ngResource',
 		'chart.js', 
 		'ui.bootstrap',
+		'ngSails'
 	]);	
 })();
 

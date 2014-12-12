@@ -11,31 +11,5 @@
       })
     }
   ]);
-  
+
 })();
-
-
-// module.exports = {
-//   attributes: {
-//   	id: {
-//   		type: "integer",
-//   		autoIncrement: true,
-//   		primaryKey: true
-//   	},
-//   	source: {
-//   		model: "Sources"
-//   	},
-//   	valueText: {
-//   		type: "string",
-//   		required: false
-//   	},
-//   	valueNumber: {
-//   		type: "integer",
-//   		required: false,
-//   	},
-//   	valueFloat: {
-//   		type: "float",
-//   		required: false
-//   	}
-//   }
-// };
