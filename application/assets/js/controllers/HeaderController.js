@@ -4,12 +4,12 @@
 	angular.module("dashi3")
 	.controller("HeaderController", [
 		'$scope',
+		'$sails',
 		'$modal',
 		'Sources',
 		'Widgets',
 		'Dashboard',
-		function($scope, $modal, Sources, Widgets, Dashboard) {
-
+		function($scope, $sails, $modal, Sources, Widgets, Dashboard) {
 			var dashboard = {};
 			$scope.init = function(dashboardId) {
 				dashboard = Dashboard.get({dashboardId: dashboardId});
@@ -40,17 +40,16 @@
 
 	.controller("OpenNewWidgetFormModal", [
 		'$scope',
+		'$sails',
 		'$modalInstance',
 		'Widgets',
 		'sources',
 		'templates',
 		'dashboard',
-		function($scope, $modalInstance, Widgets, sources, templates, dashboard) {
+		function($scope, $sails, $modalInstance, Widgets, sources, templates, dashboard) {
 			$scope.data = {};
 			$scope.templates = templates;
 			$scope.sources = sources;
-
-			console.log(sources);
 
 			$scope.ok = function() {
 				var data = $scope.data;
@@ -58,12 +57,11 @@
 					title: data.title,
 					description: data.description,
 					template: data.template,
+					textToAppend: data.textToAppend,
 					weight: 0,
 					source: data.source,
 					dashboard: dashboard.id
 				});
-
-				console.log(widget);
 
 				$modalInstance.close();
 			}

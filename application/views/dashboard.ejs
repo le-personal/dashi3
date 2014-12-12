@@ -3,7 +3,7 @@
 <div ng-controller="DashboardController" ng-init="init(<%- dashboard.id %>)">
   <div id="page" class="container-fluid">
     <div class="row">
-      <div ng-repeat="widget in dashboard.widgets">
+      <div ng-repeat="widget in widgets">
         <ng-include src="'/widgets/' + widget.template" onload="widget = widget"></ng-include>
       </div>
     </div>

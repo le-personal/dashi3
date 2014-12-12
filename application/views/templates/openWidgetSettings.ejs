@@ -3,13 +3,22 @@
 </div>
 <div class="modal-body">
     <form>
-      <div class="form-group">
-        <label for="data-point">Value</label>
-        <input type="text" name="data-point" class="form-control" />
-      </div>
-    </form>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" ng-model="data.title" name="title" />
+    </div>
+    <div class="form-group">
+      <label for="title">Description</label>
+      <textarea class="form-control" ng-model="data.description" name="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="title">Text to append to number</label>
+      <input type="text" class="form-control" ng-model="data.textToAppend" name="textToAppend" />
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-primary" ng-click="update()">Update</button>
+    <button class="btn btn-danger" ng-click="remove()">Remove</button>
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>

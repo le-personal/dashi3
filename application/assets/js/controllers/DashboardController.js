@@ -5,15 +5,24 @@
 	.controller("DashboardController", [
 		"$scope",
 		"$modal",
+		"$sails",
 		'Dashboard',
 		'Widgets',
-		function($scope, $modal, Dashboard, Widgets) {
+		function($scope, $modal, $sails, Dashboard, Widgets) {
 			$scope.dashboard = {};
 			$scope.widgets = [];
 			$scope.init = function(dashboardId) {
-				$scope.dashboard = Dashboard.get({dashboardId: dashboardId});
-				console.log($scope.dashboard);
+				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
+					$scope.dashboard = dashboard;
+					$scope.widgets = dashboard.widgets;
+				});
 			}
+
+			// a new widget is created
+			io.socket.on("widgets", function(data) {
+				console.log("Fired");
+				console.log(data);
+			});
 		}
 	]);
 })();

@@ -22,6 +22,10 @@ module.exports = {
 			required: false,
 			defaultsTo: 0
 		},
+		textToAppend: {
+			type: "string",
+			required: false
+		},
 		source: {
 			model: "Sources"
 		},

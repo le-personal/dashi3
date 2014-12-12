@@ -15,7 +15,7 @@
 
 			// populate initial data value
 			io.socket.get("/api/v1/data?source="+ sourceId +"&sort=createdAt DESC&limit=1", function(data, res) {
-				$scope.data = data[0].valueNumber ? data[0].valueNumber : 0;
+				$scope.data = !angular.isUndefined(data[0]) ? data[0].valueNumber : 0;
 			});
 
 			// when there is a change on the server, update
@@ -82,12 +82,11 @@
 
 	.controller("OpenAddDataPoint", [
 		"$scope",
-		"$rootScope",
 		"$modalInstance",
 		"widget",
 		"source",
 		"Data",
-		function($scope, $rootScope, $modalInstance, widget, source, Data) {
+		function($scope, $modalInstance, widget, source, Data) {
 			$scope.ok = function () {
 				var data = {
 					source: source,
@@ -126,10 +125,26 @@
 	.controller("OpenWidgetSettings", [
 		"$scope",
 		"$modalInstance",
-		"widget", 
-		function($scope, $modalInstance, widget) {
-			$scope.ok = function () {
-		    $modalInstance.close($scope.selected.item);
+		"widget",
+		"Widgets",
+		function($scope, $modalInstance, widget, Widgets) {
+			$scope.data = widget;
+			$scope.remove = function() {
+				Widgets.remove({widgetId: widget.id});
+				$modalInstance.close();
+			}
+
+			$scope.update = function () {
+				Widgets.update({widgetId: widget.id}, {
+					title: $scope.data.title,
+					description: $scope.data.description,
+					textToAppend: $scope.data.textToAppend,
+					weight: 0
+				}, function(result) {
+					
+				});
+
+		    $modalInstance.close();
 		  };
 
 		  $scope.cancel = function () {

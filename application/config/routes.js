@@ -36,6 +36,7 @@ module.exports.routes = {
   'get /dashboard/:path': 'DashboardController.getDashboard',
   'get /api/v1/dashboard/:id': 'DashboardController.getDashboardAPI',
   'get /api/v1/dashboard/:id/widgets': 'DashboardController.getWidgets',
+  'get /api/v1/widgets/available': 'WidgetsController.available',
 
   // allows us to get templates with a request.
   // the layout will be defined to an empty string so it doesn't
