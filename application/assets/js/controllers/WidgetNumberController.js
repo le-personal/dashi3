@@ -19,6 +19,7 @@
 			});
 
 			// when there is a change on the server, update
+			// data is refering to the model Data
 			io.socket.on("data", function(data) {
 				// only update if the source of this widget is the same
 				// as the source of the data updated
@@ -124,13 +125,15 @@
 
 	.controller("OpenWidgetSettings", [
 		"$scope",
+		"$rootScope",
 		"$modalInstance",
 		"widget",
 		"Widgets",
-		function($scope, $modalInstance, widget, Widgets) {
+		function($scope, $rootScope, $modalInstance, widget, Widgets) {
 			$scope.data = widget;
 			$scope.remove = function() {
 				Widgets.remove({widgetId: widget.id});
+				$rootScope.$broadcast("dashboard:widget:remove", widget);
 				$modalInstance.close();
 			}
 

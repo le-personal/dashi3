@@ -40,20 +40,21 @@
 
 	.controller("OpenNewWidgetFormModal", [
 		'$scope',
+		'$rootScope',
 		'$sails',
 		'$modalInstance',
 		'Widgets',
 		'sources',
 		'templates',
 		'dashboard',
-		function($scope, $sails, $modalInstance, Widgets, sources, templates, dashboard) {
+		function($scope, $rootScope, $sails, $modalInstance, Widgets, sources, templates, dashboard) {
 			$scope.data = {};
 			$scope.templates = templates;
 			$scope.sources = sources;
 
 			$scope.ok = function() {
 				var data = $scope.data;
-				var widget = Widgets.save({
+				Widgets.save({
 					title: data.title,
 					description: data.description,
 					template: data.template,
@@ -63,9 +64,12 @@
 					textColor: $scope.data.textColor,
 					source: data.source,
 					dashboard: dashboard.id
+				}, function(widget) {
+					// emit an event
+					$rootScope.$emit("dashboard:widget:new", widget);
+					$modalInstance.close();
 				});
 
-				$modalInstance.close();
 			}
 
 			$scope.cancel = function() {
