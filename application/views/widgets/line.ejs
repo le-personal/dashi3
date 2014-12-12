@@ -1,0 +1,25 @@
+<div ng-controller="WidgetChartLineController">
+	<div class="item medium">
+	  <div class="chart-wrapper">
+	    <div class="chart-title">
+	      {{ widget.title }}
+	      <div class="pull-right">
+	        <i class="glyphicon glyphicon-th-list" ng-click="openDataList({})"></i>
+	        <i class="glyphicon glyphicon-plus" ng-click="openAddDataPoint({})"></i>
+	        <i class="glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
+	      </div>
+	    </div>
+	    <div class="chart-stage" style="background-color: {{ widget.backgroundColor }};">
+	      <div id="grid-1-1">
+	        <canvas id="line" class="chart chart-line" data="data"
+					  labels="labels" legend="true" series="series"
+					  click="onClick">
+					</canvas> 
+	      </div>
+	    </div>
+	    <div class="chart-notes">
+	    	{{ widget.description }}
+	    </div>
+	  </div>
+	</div>
+</div>
