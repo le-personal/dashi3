@@ -24,11 +24,13 @@
     "sails": "~0.10.5",
     "sails-disk": "~0.10.0",
     "sails-mysql": "^0.10.8",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "async": "~0.9.0"
   },
   "scripts": {
     "start": "node app.js",
-    "debug": "node debug app.js"
+    "debug": "node debug app.js",
+    "test": " mocha test/tests/*"
   },
   "main": "app.js",
   "repository": {
@@ -36,5 +38,13 @@
     "url": "git://github.com/anonymous node/sails user/dashi3.git"
   },
   "author": "anonymous node/sails user",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "sails-factory": "~0.2.3",
+    "should": "~4.4.0",
+    "mysql": "~2.5.3",
+    "chance": "~0.7.0",
+    "factory-mysql-fixtures": "~1.0.0",
+    "supertest": "~0.15.0"
+  }
 }
