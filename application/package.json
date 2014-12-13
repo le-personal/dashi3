@@ -45,6 +45,7 @@
     "mysql": "~2.5.3",
     "chance": "~0.7.0",
     "factory-mysql-fixtures": "~1.0.0",
-    "supertest": "~0.15.0"
+    "supertest": "~0.15.0",
+    "cheerio": "~0.18.0"
   }
 }

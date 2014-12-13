@@ -58,6 +58,9 @@ before(function(done) {
   Sails.lift({
     log: {
       level: "error"
+    },
+    hooks: {
+      grunt: false
     }
   }, function(err, sails) {
     if(err) {
