@@ -9,3 +9,6 @@ module.exports = {
 	
 };
 
+// 'get /api/v1/sources/:source/data': 'DataController.index',
+//   'get /api/v1/sources/:source/data/:id': 'DataController.get',
+//   'post /api/v1/sources/:source/data': 'DataController.post',
