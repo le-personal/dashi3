@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module("dashi3")
-	.controller("WidgetTextController", [
+	.controller("WidgetMessagesController", [
 		"$scope",
 		"$rootScope",
 		"$sails",
@@ -14,7 +14,7 @@
 			// populate initial data value
 			io.socket.get("/api/v1/data?source="+ sourceId +"&sort=createdAt DESC&limit=5", function(data) {
 				angular.forEach(data, function(element, key) {
-					$scope.data.push(element.valueText);
+					$scope.data.push(element);
 				})
 			});
 
@@ -24,7 +24,7 @@
 				// only update if the source of this widget is the same
 				// as the source of the data updated
 				if(data.data.source == sourceId) {
-					$scope.data.append(data.data.valueText);
+					$scope.data.unshift(data.data);
 				}
 			});
 

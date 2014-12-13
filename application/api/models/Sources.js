@@ -12,7 +12,7 @@ module.exports = {
 		type: {
 			type: "string",
 			required: true,
-			enum: ["number", "float", "text"]
+			enum: ["number", "float", "messages"]
 		},
 		description: {
 			type: "string",

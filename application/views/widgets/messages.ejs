@@ -1,4 +1,4 @@
-<div class="item" ng-controller="WidgetTextController">
+<div class="item" ng-controller="WidgetMessagesController">
   <div class="chart-wrapper">
     <div class="chart-title">
       {{ widget.title }}
@@ -11,7 +11,7 @@
     <div class="chart-stage" style="background-color: {{ widget.backgroundColor }};">
       <div id="grid-1-1">
         <div style="color: {{ widget.textColor }};" ng-repeat="element in data">
-        	<p>{{ element }}</p>
+        	<p>{{ element.valueText }}</p>
         </div>
       </div>
     </div>

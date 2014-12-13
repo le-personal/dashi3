@@ -5,16 +5,12 @@
 			"template": "line"
  		},
  		{
-			"name": "Text",
-			"template": "text"
+			"name": "Messages",
+			"template": "messages"
 		},
 		{
 			"name": "Number",
 			"template": "number"
-		},
-		{
-			"name": "Messages",
-			"template": "messages"
 		},
 		{
 			"name": "Pie Chart",
