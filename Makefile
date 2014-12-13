@@ -10,9 +10,11 @@ clean:
 	@fig stop
 
 install:
+	@fig up -d
 	@fig run --rm web npm install
 
 build:
+	@fig up -d
 	@fig run --rm web npm install
 	@docker build --tag=dashi3 .
 
