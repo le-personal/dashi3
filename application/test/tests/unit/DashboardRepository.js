@@ -5,7 +5,7 @@ var should = require("should");
 var include = require("include");
 var bootstrap = include("test/bootstrap");
 var DashboardRepository = include("api/repositories/DashboardRepository");
-var Factory = include("test/factories/Dashboard");
+var Factory = include("test/factories/mysqlfactories");
 var Chance = require("chance");
 
 describe("DashboardRepository", function() {
