@@ -8,11 +8,11 @@
 		"$sails",
 		"$modal",
 		function($scope, $rootScope, $sails, $modal) {
-			var sourceId = $scope.widget.source;
+			var storageId = $scope.widget.storage;
 
 			$scope.data = [];
 			// populate initial data value
-			io.socket.get("/api/v1/data?source="+ sourceId +"&sort=createdAt DESC&limit=5", function(data) {
+			io.socket.get("/api/v1/data?storage="+ storageId +"&sort=createdAt DESC&limit=5", function(data) {
 				angular.forEach(data, function(element, key) {
 					$scope.data.push(element);
 				})
@@ -21,9 +21,9 @@
 			// when there is a change on the server, update
 			// data is refering to the model Data
 			io.socket.on("data", function(data) {
-				// only update if the source of this widget is the same
-				// as the source of the data updated
-				if(data.data.source == sourceId) {
+				// only update if the storage of this widget is the same
+				// as the storage of the data updated
+				if(data.data.storage == storageId) {
 					$scope.data.unshift(data.data);
 				}
 			});
@@ -57,8 +57,8 @@
 						widget: function() {
 							return $scope.widget;
 						},
-						source: function() {
-							return $scope.widget.source;
+						storage: function() {
+							return $scope.widget.storage;
 						}
 					}
 				});

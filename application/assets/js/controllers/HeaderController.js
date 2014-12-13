@@ -6,25 +6,25 @@
 		'$scope',
 		'$sails',
 		'$modal',
-		'Sources',
+		'Storage',
 		'Widgets',
 		'Dashboard',
-		function($scope, $sails, $modal, Sources, Widgets, Dashboard) {
+		function($scope, $sails, $modal, Storage, Widgets, Dashboard) {
 			var dashboard = {};
 			$scope.init = function(dashboardId) {
 				dashboard = Dashboard.get({dashboardId: dashboardId});
 			}
 
 			$scope.openNewWidgetFormModal = function() {
-				var sources = Sources.all();
+				var storage = Storage.all();
 				var templates = Widgets.query({widgetId: "available"});
 
 				$modal.open({
 					templateUrl: "/templates/openNewWidgetFormModal",
 					controller: "OpenNewWidgetFormModal",
 					resolve: {
-						sources: function() {
-							return sources;
+						storage: function() {
+							return storage;
 						},
 						templates: function() {
 							return templates;
@@ -44,13 +44,13 @@
 		'$sails',
 		'$modalInstance',
 		'Widgets',
-		'sources',
+		'storage',
 		'templates',
 		'dashboard',
-		function($scope, $rootScope, $sails, $modalInstance, Widgets, sources, templates, dashboard) {
+		function($scope, $rootScope, $sails, $modalInstance, Widgets, storage, templates, dashboard) {
 			$scope.data = {};
 			$scope.templates = templates;
-			$scope.sources = sources;
+			$scope.storage = storage;
 
 			$scope.ok = function() {
 				var data = $scope.data;
@@ -58,11 +58,10 @@
 					title: data.title,
 					description: data.description,
 					template: data.template,
-					textToAppend: data.textToAppend,
 					weight: 0,
 					backgroundColor: $scope.data.backgroundColor,
 					textColor: $scope.data.textColor,
-					source: data.source,
+					storage: data.storage,
 					dashboard: dashboard.id
 				}, function(widget) {
 					// emit an event

@@ -12,8 +12,8 @@ module.exports = {
   		autoIncrement: true,
   		primaryKey: true
   	},
-  	source: {
-  		model: "Sources"
+  	storage: {
+  		model: "Storage"
   	},
   	value: {
   		type: "float",

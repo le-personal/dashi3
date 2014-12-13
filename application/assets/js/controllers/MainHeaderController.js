@@ -11,8 +11,8 @@
 		'$scope',
 		'$modal',
 		'Dashboard',
-		'Sources',
-		function($scope, $modal, Dashboard, Sources) {
+		'Storage',
+		function($scope, $modal, Dashboard, Storage) {
 
 			// Get all dashboards so we can build the menu
 			$scope.dashboards = Dashboard.all();
@@ -31,21 +31,21 @@
 				});
 			}
 
-			$scope.openNewSourceFormModal = function() {
+			$scope.openNewStorageFormModal = function() {
 				$modal.open({
-					templateUrl: "/templates/createSourceFormModal",
-					controller: "CreateSourceFormModal"
+					templateUrl: "/templates/createStorageFormModal",
+					controller: "CreateStorageFormModal"
 				})
 			}
 
-			$scope.openSourcesList = function() {
-				var sources = Sources.all();
+			$scope.openStorageList = function() {
+				var storage = Storage.all();
 				$modal.open({
-					templateUrl: "/templates/openSourcesList",
-					controller: "OpenSourcesList",
+					templateUrl: "/templates/openStorageList",
+					controller: "OpenStorageList",
 					resolve: {
-						sources: function() {
-							return sources;
+						storage: function() {
+							return storage;
 						}
 					}
 				});
@@ -80,15 +80,15 @@
 		}
 	])
 
-	.controller("CreateSourceFormModal", [
+	.controller("CreateStorageFormModal", [
 		"$scope",
 		"$modalInstance",
-		"Sources",
-		function($scope, $modalInstance, Sources) {
+		"Storage",
+		function($scope, $modalInstance, Storage) {
 			$scope.data = {};
 
 			$scope.ok = function() {
-				var source = Sources.save($scope.data);
+				var storage = Storage.save($scope.data);
 				$modalInstance.close();
 			}
 
@@ -98,13 +98,13 @@
 		}
 	])
 
-	.controller("OpenSourcesList", [
+	.controller("OpenStorageList", [
 		"$scope",
 		"$modalInstance",
-		"sources",
-		function($scope, $modalInstance, sources) {
+		"storage",
+		function($scope, $modalInstance, storage) {
 
-			$scope.sources = sources;
+			$scope.storage = storage;
 			
 			$scope.ok = function() {
 				$modalInstance.close();

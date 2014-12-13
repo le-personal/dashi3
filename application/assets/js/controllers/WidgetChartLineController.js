@@ -9,7 +9,7 @@
 		"$sails",
 		function($scope, $rootScope, $modal, $sails) {
 			var widget = $scope.widget;
-			var sourceId = $scope.widget.source;
+			var storageId = $scope.widget.storage;
 
 			$scope.data = [];
 			var chartData = [];
@@ -17,7 +17,7 @@
 			$scope.series = [widget.title];
 
 			// populate initial data value
-			io.socket.get("/api/v1/data?source="+ sourceId +"&sort=createdAt DESC&limit=10", function(data, res) {
+			io.socket.get("/api/v1/data?storage="+ storageId +"&sort=createdAt DESC&limit=10", function(data, res) {
 				// $scope.data = !angular.isUndefined(data[0]) ? data[0].valueNumber : 0;
 				angular.forEach(data, function(item) {
 					$scope.labels.push(moment(item.createdAt).format("MMM/D"));
@@ -30,9 +30,9 @@
 			// when there is a change on the server, update
 			// data is refering to the model Data
 			io.socket.on("data", function(data) {
-				// only update if the source of this widget is the same
-				// as the source of the data updated
-				if(data.data.source == sourceId) {
+				// only update if the storage of this widget is the same
+				// as the storage of the data updated
+				if(data.data.storage == storageId) {
 					$scope.data[0].push(data.data.valueNumber);
 					$scope.labels.push(data.data.createdAt);
 				}
@@ -66,8 +66,8 @@
 						widget: function() {
 							return $scope.widget;
 						},
-						source: function() {
-							return $scope.widget.source;
+						storage: function() {
+							return $scope.widget.storage;
 						}
 					}
 				});

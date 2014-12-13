@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular.module("dashi3")
-	.service("Sources", [
+	.service("Storage", [
 		"$resource",
 		function($resource) {
-			return $resource("/api/v1/sources/:sourceId", {
-					sourceId: "@sourceId"
+			return $resource("/api/v1/storage/:storageId", {
+					storageId: "@storageId"
 				}, {
 					'get': {method: "GET"},
 					'save': {method: "POST"},

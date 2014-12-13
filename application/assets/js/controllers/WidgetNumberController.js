@@ -9,21 +9,21 @@
 		"$sails",
 		function($scope, $rootScope, $modal, $sails) {
 			var widget = $scope.widget;
-			var sourceId = $scope.widget.source;
+			var storageId = $scope.widget.storage;
 
 			$scope.data = 0;
 
 			// populate initial data value
-			io.socket.get("/api/v1/data?source="+ sourceId +"&sort=createdAt DESC&limit=1", function(data, res) {
+			io.socket.get("/api/v1/data?storage="+ storageId +"&sort=createdAt DESC&limit=1", function(data, res) {
 				$scope.data = !angular.isUndefined(data[0]) ? data[0].valueNumber : 0;
 			});
 
 			// when there is a change on the server, update
 			// data is refering to the model Data
 			io.socket.on("data", function(data) {
-				// only update if the source of this widget is the same
-				// as the source of the data updated
-				if(data.data.source == sourceId) {
+				// only update if the storage of this widget is the same
+				// as the storage of the data updated
+				if(data.data.storage == storageId) {
 					$scope.data = data.data.valueNumber;
 				}
 			});
@@ -56,8 +56,8 @@
 						widget: function() {
 							return $scope.widget;
 						},
-						source: function() {
-							return $scope.widget.source;
+						storage: function() {
+							return $scope.widget.storage;
 						}
 					}
 				});
@@ -85,12 +85,12 @@
 		"$scope",
 		"$modalInstance",
 		"widget",
-		"source",
+		"storage",
 		"Data",
-		function($scope, $modalInstance, widget, source, Data) {
+		function($scope, $modalInstance, widget, storage, Data) {
 			$scope.ok = function () {
 				var data = {
-					source: source,
+					storage: storage,
 					valueNumber: $scope.value
 				}
 
@@ -113,9 +113,9 @@
 		"$modalInstance",
 		"widget",
 		function($scope, $modalInstance, widget) {
-			var sourceId = widget.source;
+			var storageId = widget.storage;
 			$scope.data = [];
-			io.socket.get("/api/v1/data?source="+ sourceId +"&sort=createdAt DESC&limit=25", function(data) {
+			io.socket.get("/api/v1/data?storage="+ storageId +"&sort=createdAt DESC&limit=25", function(data) {
 				$scope.data = data;
 			});
 
@@ -147,7 +147,6 @@
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
 					description: $scope.data.description,
-					textToAppend: $scope.data.textToAppend,
 					backgroundColor: $scope.data.backgroundColor,
 					textColor: $scope.data.textColor,
 					weight: 0

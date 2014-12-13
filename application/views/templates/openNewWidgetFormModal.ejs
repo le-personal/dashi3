@@ -12,10 +12,6 @@
       <textarea class="form-control" ng-model="data.description" name="description"></textarea>
     </div>
     <div class="form-group">
-      <label for="title">Text to append to number</label>
-      <input type="text" class="form-control" ng-model="data.textToAppend" name="textToAppend" />
-    </div>
-    <div class="form-group">
       <label for="title">Background color</label>
       <input type="text" class="form-control" ng-model="data.backgroundColor" name="backgroundColor" colorpicker="hex" />
     </div>
@@ -29,8 +25,8 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="title">Source</label>
-      <select class="form-control" ng-model="data.source" name="type" ng-options="source.id as source.name for source in sources">
+      <label for="title">Storage</label>
+      <select class="form-control" ng-model="data.storage" name="type" ng-options="source.id as source.name for source in storage">
       </select>
     </div>
   </form>
