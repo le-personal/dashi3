@@ -5,10 +5,36 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+var include = require("include");
+var DataRepository = include("/api/repositories/DataRepository");
+var StorageRepository = include("/api/repositories/StorageRepository");
+
 module.exports = {
-	
+	index: function index(req, res) {
+		// Get the storage first to determine the type
+		var storageId = req.param("storage");
+		new StorageRepository().get(storageId, function(err, storage) {
+			if(err) return res.notFound();
+
+			new DataRepository().getAllOfType(storage.type, storage.id, function(err, results) {
+				if(err) return res.notFound();
+				return res.jsonp(200, results);
+			});	
+		});
+	},
+
+	get: function get(req, res) {
+		var storageId = req.param("storage");
+		var dataId = req.param("dataid");
+		new StorageRepository().get(storageId, function(err, storage) {
+			if(err) return res.notFound();
+
+			new DataRepository().get(storage.type, dataId, function(err, result) {
+				if(err) return res.notFound();
+				return res.jsonp(200, result);
+			});
+		});
+	},
 };
 
-// 'get /api/v1/sources/:source/data': 'DataController.index',
-//   'get /api/v1/sources/:source/data/:id': 'DataController.get',
 //   'post /api/v1/sources/:source/data': 'DataController.post',

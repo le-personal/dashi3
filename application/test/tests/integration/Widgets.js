@@ -9,7 +9,7 @@ var Chance = require("chance");
 var cheerio = require("cheerio");
 var request = require("supertest");
 
-describe("Widgets", function() {
+describe("Widgets Controller", function() {
 	
 	describe("Get Widgets", function() {
 		it("Should get all widgets available", function(done) {

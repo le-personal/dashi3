@@ -40,8 +40,8 @@ module.exports.routes = {
   'get /api/v1/dashboard/:id/widgets': 'WidgetsController.getWidgets',
   'get /api/v1/widgets/available': 'WidgetsController.available',
   
-  // 'get /api/v1/storage/:storage/data': 'DataController.index',
-  // 'get /api/v1/storage/:storage/data/:id': 'DataController.get',
+  'get /api/v1/storage/:storage/data': 'DataController.index',
+  'get /api/v1/storage/:storage/data/:dataid': 'DataController.get',
   // 'post /api/v1/storage/:storage/data': 'DataController.post',
 
   // allows us to get templates with a request.
