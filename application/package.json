@@ -40,12 +40,13 @@
   "author": "anonymous node/sails user",
   "license": "",
   "devDependencies": {
-    "sails-factory": "~0.2.3",
+    "sails-factory": "git://github.com/luiselizondo/sails-factory.git",
     "should": "~4.4.0",
     "mysql": "~2.5.3",
     "chance": "~0.7.0",
     "factory-mysql-fixtures": "~1.0.0",
     "supertest": "~0.15.0",
-    "cheerio": "~0.18.0"
+    "cheerio": "~0.18.0",
+    "factory-lady": "~0.1.0"
   }
 }

@@ -13,7 +13,8 @@ module.exports = {
   		primaryKey: true
   	},
   	storage: {
-  		model: "Storage"
+  		model: "Storage",
+      required: true
   	},
   	message: {
   		type: "string",

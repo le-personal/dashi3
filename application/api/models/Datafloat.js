@@ -13,11 +13,12 @@ module.exports = {
   		primaryKey: true
   	},
   	storage: {
-  		model: "Storage"
+  		model: "Storage",
+      required: true
   	},
   	value: {
   		type: "float",
-  		required: false
+  		required: true
   	},
   	definition: {
   		type: "string",

@@ -3,9 +3,9 @@
 var assert = require("assert");
 var should = require("should");
 var include = require("include");
-var bootstrap = include("test/bootstrap");
+var bootstrap = include("test/bootstrap.test");
 var DashboardRepository = include("api/repositories/DashboardRepository");
-var Factory = include("test/factories/mysqlfactories");
+var Factory = require("sails-factory").load();
 var Chance = require("chance");
 
 describe("DashboardRepository", function() {
@@ -37,19 +37,13 @@ describe("DashboardRepository", function() {
 		});
 
 		it("Should create a dashboard and get it", function(done) {
-			var data = {
-				name: new Chance().word(),
-				description: new Chance().string(),
-				path: new Chance().word()
-			};
-
-			Factory.create("dashboard", data, function(err, id) {
-				new DashboardRepository().get(id, function(err, result) {
+			Factory.create("dashboard", function(dashboard) {
+				new DashboardRepository().get(dashboard.id, function(err, result) {
 					err.should.be.false;
-					result.should.have.property("id", id);
-					result.should.have.property("name", data.name);
-					result.should.have.property("path", data.path);
-					result.should.have.property("description", data.description);
+					result.should.have.property("id", dashboard.id);
+					result.should.have.property("name", dashboard.name);
+					result.should.have.property("path", dashboard.path);
+					result.should.have.property("description", dashboard.description);
 					done();
 				});
 			});
@@ -65,19 +59,13 @@ describe("DashboardRepository", function() {
 		});
 
 		it("Should get a dashboard using the path", function(done) {
-			var data = {
-				name: new Chance().word(),
-				description: new Chance().string(),
-				path: new Chance().word()
-			};
-
-			Factory.create("dashboard", data, function(err, id) {
-				new DashboardRepository().getByPath(data.path, function(err, result) {
+			Factory.create("dashboard", function(dashboard) {
+				new DashboardRepository().getByPath(dashboard.path, function(err, result) {
 					err.should.be.false;
-					result.should.have.property("id", id);
-					result.should.have.property("name", data.name);
-					result.should.have.property("path", data.path);
-					result.should.have.property("description", data.description);
+					result.should.have.property("id", dashboard.id);
+					result.should.have.property("name", dashboard.name);
+					result.should.have.property("path", dashboard.path);
+					result.should.have.property("description", dashboard.description);
 					done();
 				});
 			});
@@ -95,14 +83,8 @@ describe("DashboardRepository", function() {
 			});
 		});
 
-		it("Should create one dashboards and get them all", function(done) {
-			var dash1 =  {
-				name: new Chance().word(),
-				description: new Chance().string(),
-				path: new Chance().word()
-			};
-
-			Factory.create("dashboard", dash1, function(err, id1) {
+		it("Should create one dashboard and get them all", function(done) {
+			Factory.create("dashboard", function(dashboard) {
 				new DashboardRepository().getAll(function(err, results) {
 					results.should.be.an.Array;
 					err.should.be.false;
@@ -133,19 +115,14 @@ describe("DashboardRepository", function() {
 
 		it("Should give an error when saving a duplicated path", function(done) {
 			var path = new Chance().word();
-			var dash1 =  {
-				name: new Chance().word(),
-				description: new Chance().string(),
-				path: path
-			};
-
+			
 			var dash2 =  {
 				name: new Chance().word(),
 				description: new Chance().string(),
 				path: path
 			};
 
-			Factory.create("dashboard", dash1, function(err, id) {
+			Factory.create("dashboard", {path: path}, function(dashboard) {
 				new DashboardRepository().save(dash2, function(err, result) {
 					result.should.be.false;
 					err.should.not.be.false;
