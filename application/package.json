@@ -30,7 +30,7 @@
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js",
-    "test": " mocha test/tests/*"
+    "test": "mocha test/tests/*"
   },
   "main": "app.js",
   "repository": {

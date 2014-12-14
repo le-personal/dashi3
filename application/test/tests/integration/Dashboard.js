@@ -27,30 +27,6 @@ describe("Dashboard controller", function() {
 				});
 			});
 		});
-
-		// it("Should get the widgets", function(done) {
-		// 	request.agent(sails.hooks.http.app)
-		// 	.get("/api/v1/widgets/available")
-		// 	.expect(200)
-		// 	.end(function(err, res) {
-		// 		assert.equal(err, null);
-		// 		res.body.widgets.should.be.an.Array;
-
-		// 		res.body.widgets[0].should.have.property("name", "Line Chart");
-		// 		res.body.widgets[0].should.have.property("template", "line");
-
-		// 		res.body.widgets[1].should.have.property("name", "Messages");
-		// 		res.body.widgets[1].should.have.property("template", "messages");
-
-		// 		res.body.widgets[2].should.have.property("name", "Number");
-		// 		res.body.widgets[2].should.have.property("template", "number");
-
-		// 		res.body.widgets[3].should.have.property("name", "Pie Chart");
-		// 		res.body.widgets[3].should.have.property("template", "pie");
-
-		// 		done();
-		// 	});
-		// });
 		
 	});
 

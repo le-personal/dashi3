@@ -35,4 +35,14 @@ module.exports = function(Factory) {
 		.parent("storageMessages")
 	  .attr('message', new Chance().sentence({words: 5}))
 	  .attr("type", "info");
+
+	Factory.define("widget", "Widgets")
+		.attr("title", new Chance().sentence({words: 5}))
+		.attr("description", new Chance().sentence({words: 10}))
+		.attr("template", "number")
+		.attr("weight", 0)
+		.attr("backgroundColor", "#fff")
+		.attr("textColor", "#000")
+		.parent("storageNumber")
+		.parent("dashboard");
 }
