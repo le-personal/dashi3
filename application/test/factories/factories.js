@@ -6,23 +6,33 @@ module.exports = function(Factory) {
 		.attr("description", new Chance().string())
 		.attr("path", new Chance().word());
 
-	Factory.define('storage', "Storage")
+	Factory.define('storageNumber', "Storage")
 	  .attr('name', new Chance().word())
 	  .attr('type', 'number')
 	  .attr("description", new Chance().word());
 
+	Factory.define('storageFloat', "Storage")
+	  .attr('name', new Chance().word())
+	  .attr('type', 'float')
+	  .attr("description", new Chance().word());
+
+	Factory.define('storageMessages', "Storage")
+	  .attr('name', new Chance().word())
+	  .attr('type', 'messages')
+	  .attr("description", new Chance().word());
+
 	Factory.define('datafloat', "Datafloat")
-		.parent("storage")
-	  .attr('value', new Chance().floating({fixed: 4}))
+		.parent("storageFloat")
+	  .attr('value', new Chance().floating({fixed: 2, min: 0, max: 100}))
 	  .attr("definition", "units");
 
 	Factory.define('datanumber', "Datanumber")
-		.parent("storage")
+		.parent("storageNumber")
 	  .attr('value', new Chance().natural({min: 1, max: 20000}))
 	  .attr("definition", "units");
 
 	Factory.define('datamessages', "Datamessages")
-		.parent("storage")
+		.parent("storageMessages")
 	  .attr('message', new Chance().sentence({words: 5}))
 	  .attr("type", "info");
 }
