@@ -1,8 +1,8 @@
 <%- partial('header.ejs') %>
 
-<div ng-controller="DashboardController" ng-init="init(<%- dashboard.id %>)">
+<div id="page" ng-controller="DashboardController" ng-init="init(<%- dashboard.id %>)">
   <div class="packery">
- 		<div class="grid-sizer"></div>
+ 		
     <div ng-repeat="widget in widgets">
       <ng-include src="'/widgets/' + widget.template" onload="widget = widget"></ng-include>
     </div>

@@ -16,7 +16,7 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
   'vendor/bootstrap/dist/css/bootstrap.min.css',
-  'vendor/dashboard/css/keen-dashboards.css',
+  'vendor/dashboard/css/main.css',
   'vendor/angular-bootstrap-colorpicker/css/colorpicker.css',
   'styles/**/*.css'
 ];
@@ -45,7 +45,7 @@ var jsFilesToInject = [
   'vendor/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
   'vendor/moment/moment.js',
   'vendor/angular-moment/angular-moment.min.js',
-  // 'vendor/draggabilly/draggabilly.js',
+  'vendor/draggabilly/draggabilly.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
   'js/app.js',
