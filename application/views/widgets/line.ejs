@@ -1,25 +1,23 @@
 <div class="item w2" ng-controller="WidgetChartLineController">
-	
-	  <div class="chart-wrapper">
-	    <div class="chart-title">
-	      {{ widget.title }}
-	      <div class="pull-right">
-	        <i class="glyphicon glyphicon-th-list" ng-click="openDataList({})"></i>
-	        <i class="glyphicon glyphicon-plus" ng-click="openAddDataPoint({})"></i>
-	        <i class="glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
-	      </div>
-	    </div>
-	    <div class="chart-stage" style="background-color: {{ widget.backgroundColor }};">
-	      <div id="grid-1-1">
-	        <canvas id="line" class="chart chart-line" data="data"
-					  labels="labels" legend="true" series="series"
-					  click="onClick">
-					</canvas> 
-	      </div>
-	    </div>
-	    <div class="chart-notes">
-	    	{{ widget.description }}
-	    </div>
-	  </div>
-	
+  <div class="dash-unit">
+    <div class="dash-title">
+      {{ widget.title }}
+    </div>
+    <div class="dash-content">
+  		<canvas id="line" class="chart chart-line" data="data"
+			  labels="labels" legend="true" series="series"
+			  click="onClick">
+			</canvas> 
+    </div>
+    <div class="dash-footer">
+      <span class="dash-description">
+        {{ widget.description }}
+      </span>
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-th-list" ng-click="openDataList({})"></i>
+        <i class="as-link glyphicon glyphicon-plus" ng-click="openAddDataPoint({})"></i>
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
+      </div>
+    </div>
+  </div>
 </div>
