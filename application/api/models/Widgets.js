@@ -22,14 +22,6 @@ module.exports = {
 			required: false,
 			defaultsTo: 0
 		},
-		backgroundColor: {
-			type: "string",
-			required: false
-		},
-		textColor: {
-			type: "string",
-			required: false
-		},
 		storage: {
 			model: "Storage"
 		},

@@ -147,8 +147,6 @@
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
 					description: $scope.data.description,
-					backgroundColor: $scope.data.backgroundColor,
-					textColor: $scope.data.textColor,
 					weight: 0
 				}, function(result) {
 					

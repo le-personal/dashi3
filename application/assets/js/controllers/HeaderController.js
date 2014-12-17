@@ -59,8 +59,6 @@
 					description: data.description,
 					template: data.template,
 					weight: 0,
-					backgroundColor: $scope.data.backgroundColor,
-					textColor: $scope.data.textColor,
 					storage: data.storage,
 					dashboard: dashboard.id
 				}, function(widget) {
