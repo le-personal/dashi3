@@ -23,7 +23,11 @@ module.exports = {
 		sails.log("Getting dashboard with path: " + path);
 
 		new DashboardRepository().getByPath(path, function(err, dashboard) {
-			if(err) return res.notFound();
+
+			if(err) {
+				console.log(err);
+				return res.notFound();
+			}
 
 			new WidgetsRepository().getWidgets(dashboard.id, function(err, widgets) {
 				if(err) return res.notFound();

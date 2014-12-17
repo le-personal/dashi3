@@ -48,6 +48,10 @@ module.exports = {
 
 			new DataRepository().create(data, function(err, result) {
 				if(err) return res.notFound();
+
+				console.log("emitting");
+				console.log(result);
+				req.socket.emit("data", result);
 				return res.jsonp(201, result);
 			});
 		});

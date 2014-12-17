@@ -14,13 +14,15 @@
 			$scope.data = 0;
 
 			// populate initial data value
-			io.socket.get("/api/v1/data?storage="+ storageId +"&sort=createdAt DESC&limit=1", function(data, res) {
+			io.socket.get("/api/v1/storage/" + storageId + "/data&sort=createdAt DESC&limit=1", function(data, res) {
+				console.log(data);
 				$scope.data = !angular.isUndefined(data[0]) ? data[0].valueNumber : 0;
 			});
 
 			// when there is a change on the server, update
 			// data is refering to the model Data
 			io.socket.on("data", function(data) {
+				console.log(data);
 				// only update if the storage of this widget is the same
 				// as the storage of the data updated
 				if(data.data.storage == storageId) {
@@ -90,8 +92,9 @@
 		function($scope, $modalInstance, widget, storage, Data) {
 			$scope.ok = function () {
 				var data = {
-					storage: storage,
-					valueNumber: $scope.value
+					storageId: storage,
+					value: $scope.value,
+					definition: $scope.definition
 				}
 
 				// By using the API, we make sure that the event is received
