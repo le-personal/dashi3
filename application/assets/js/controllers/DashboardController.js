@@ -11,26 +11,12 @@
 		'Widgets',
 		'Globals',
 		function($scope, $rootScope, $modal, $sails, Dashboard, Widgets, Globals) {
-
-
 			$scope.dashboard = {};
 			$scope.widgets = [];
 			$scope.init = function(dashboardId) {
 				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
 					$scope.dashboard = dashboard;
 					$scope.widgets = dashboard.widgets;
-
-					setTimeout(function() {
-						$('.item').each(function(i, element) {
-							console.log(element);
-						  // make element draggable with Draggabilly
-						  var draggie = new Draggabilly(element);
-						  console.log(draggie);
-						  // bind Draggabilly events to Packery
-						  Globals.packeryContainer.packery('bindDraggabillyEvents', draggie);
-						});
-					}, 2000);
-
 				});
 			}
 

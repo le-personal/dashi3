@@ -1,11 +1,9 @@
 <%- partial('header.ejs') %>
 
-<div id="page" ng-controller="DashboardController" ng-init="init(<%- dashboard.id %>)">
-  <div class="packery">
- 		
+<div id="page" class="container-fluid" ng-controller="DashboardController" ng-init="init(<%- dashboard.id %>)">
+  <div class="packery col-lg-12">
     <div ng-repeat="widget in widgets">
       <ng-include src="'/widgets/' + widget.template" onload="widget = widget"></ng-include>
     </div>
-    
   </div>
 </div>

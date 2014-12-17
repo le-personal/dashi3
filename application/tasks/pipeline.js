@@ -16,7 +16,6 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
   'vendor/bootstrap/dist/css/bootstrap.min.css',
-  'vendor/dashboard/css/main.css',
   'vendor/angular-bootstrap-colorpicker/css/colorpicker.css',
   'styles/**/*.css'
 ];
@@ -30,8 +29,8 @@ var jsFilesToInject = [
   'js/dependencies/sails.io.js',
 
   // Dependencies like jQuery, or Angular are brought in here
-  'vendor/angularjs/angular.js',
   'vendor/jquery/dist/jquery.min.js',
+  'vendor/angularjs/angular.js',
   'vendor/bootstrap/dist/js/bootstrap.min.js',
   'vendor/dashboard/lib/holderjs/holder.js',  
   'vendor/dashboard/js/meta.js',
@@ -45,7 +44,8 @@ var jsFilesToInject = [
   'vendor/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
   'vendor/moment/moment.js',
   'vendor/angular-moment/angular-moment.min.js',
-  'vendor/draggabilly/draggabilly.js',
+  'vendor/Sortable/Sortable.min.js',
+  'vendor/Sortable/ng-sortable.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
   'js/app.js',

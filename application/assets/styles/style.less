@@ -2,10 +2,13 @@
 @medium: 50%;
 @large: 70%;
 
-body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+body { 
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+	background: #000;
+}
 
 #page {
-  margin-top: 3.75em;
+  margin-top: 4.75em;
 }
 
 .packery {
@@ -17,6 +20,52 @@ body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
   content: ' ';
   display: block;
   clear: both;
+}
+
+.as-link {
+	cursor: pointer;
+}
+
+.graph-status {
+	margin-top: 1em;
+}
+
+.dash-unit {
+    background: none repeat scroll 0 0 #222222;
+    border: 2px solid #000;
+    color: #fff;
+    margin-right: 1em;
+
+    .dash-title {
+    	padding: 0.5em 1em;
+    	font-size: 1em;
+    	border-bottom: 1px solid #000;
+    	background: #111;
+    	text-transform: uppercase;
+    }
+
+    .dash-content {
+    	padding: 1em;
+    	color: #eee;
+    	min-height: 150px;
+
+    	h1 {
+	    	font-weight: bold;
+    		font-size: 4em;
+    		margin: 0;
+    	}
+
+    	h2 {
+    		margin: 0;
+    	}
+    }
+
+    .dash-footer {
+    	padding: 1em;
+    	font-size: 90%;
+    	color: #999;
+    	background: #111;
+    }
 }
 
 .item,
@@ -36,3 +85,4 @@ body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 .item.h2 { height: 160px; }
 .item.h4 { height: 320px; }
+
