@@ -35,6 +35,23 @@ module.exports = {
 			});
 		});
 	},
+
+	post: function save(req, res) {
+		var storageId = req.param("storage");
+
+		new StorageRepository().get(storageId, function(err, storage) {
+			if(err) return err.notFound();
+
+			var data = req.body;
+			data.storage = storageId;
+			data.valuetype = storage.type;
+
+			new DataRepository().create(data, function(err, result) {
+				if(err) return res.notFound();
+				return res.jsonp(201, result);
+			});
+		});
+	}
 };
 
 //   'post /api/v1/sources/:source/data': 'DataController.post',

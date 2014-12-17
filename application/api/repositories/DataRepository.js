@@ -52,7 +52,7 @@ DataRepository.prototype.create = function(data, callback) {
 				return self.createFloat(data, callback);
 			break;
 
-			case "message":
+			case "messages":
 				return self.createMessage(data, callback);
 			break;
 		}
@@ -82,7 +82,7 @@ DataRepository.prototype.getAllOfType = function(type, storage, callback) {
 				return self.getAllFloats(storage, callback);
 			break;
 
-			case "message":
+			case "messages":
 				return self.getAllMessages(storage, callback);
 			break;
 		}

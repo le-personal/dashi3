@@ -363,7 +363,7 @@ describe("DataRepository", function() {
 					storage: storage.id,
 					message: new Chance().sentence({words: 5}),
 					type: "info",
-					valuetype: "message"
+					valuetype: "messages"
 				}
 
 				new DataRepository().create(data, function(err, result) {
@@ -553,7 +553,7 @@ describe("DataRepository", function() {
 						return next(false, dataMessage);
 					});
 				}, function(err, data) {
-					new DataRepository().getAllOfType("message", storage.id, function(err, results) {
+					new DataRepository().getAllOfType("messages", storage.id, function(err, results) {
 						err.should.be.false;
 						results.should.be.an.Array.with.lengthOf(25);
 						done();

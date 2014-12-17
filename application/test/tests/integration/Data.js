@@ -52,6 +52,30 @@ describe("Data Controller", function() {
 			});
 		});
 
+		it("Should post a data record of type number using the route /api/v1/storage/:storage/data", function(done) {
+			Factory.create("storageNumber", function(storage) {
+				var data = {
+					valuetype: "number",
+					value: 25,
+					definition: new Chance().word(),
+				}
+
+				request.agent(sails.hooks.http.app)
+				.post("/api/v1/storage/" + storage.id + "/data")
+				.expect(201)
+				.send(data)
+				.end(function(err, res) {
+					assert.equal(err, null);
+					res.body.should.be.an.Object;
+					res.body.should.have.property("id");
+					res.body.should.have.property("storage", storage.id);
+					res.body.should.have.property("value", data.value);
+					res.body.should.have.property("definition", data.definition);
+					done();
+				}); 
+			});
+		});
+
 	});
 
 });

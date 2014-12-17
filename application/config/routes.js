@@ -42,7 +42,7 @@ module.exports.routes = {
   
   'get /api/v1/storage/:storage/data': 'DataController.index',
   'get /api/v1/storage/:storage/data/:dataid': 'DataController.get',
-  // 'post /api/v1/storage/:storage/data': 'DataController.post',
+  'post /api/v1/storage/:storage/data': 'DataController.post',
 
   // allows us to get templates with a request.
   // the layout will be defined to an empty string so it doesn't
