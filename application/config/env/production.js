@@ -29,13 +29,12 @@ module.exports = {
       maxAge: 24 * 60 * 60 * 1000 * 30
     },
     adapter: 'redis',
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
+    host: process.env.REDIS_PORT_6379_TCP_ADDR,
+    port: process.env.REDIS_PORT_6379_TCP_PORT,
     ttl: 24 * 60 * 60 * 30,
     db: 0,
     // pass: <redis auth password>
     prefix: 'sess:'
   },  
-
 };
 

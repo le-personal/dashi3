@@ -11,18 +11,29 @@
  */
 
 module.exports = {
-
   /***************************************************************************
    * Set the default database connection for models in the development       *
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
-
   models: {
     connection: 'mysql',
     migrate: 'alter'
   },
   log: {
-  	level: "verbose"
-  }
-
+    level: "verbose"
+  },
+  port: process.env.PORT,
+  session: {
+    secret: process.env.SECRET,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000 * 30
+    },
+    adapter: 'redis',
+    host: process.env.REDIS_PORT_6379_TCP_ADDR,
+    port: process.env.REDIS_PORT_6379_TCP_PORT,
+    ttl: 24 * 60 * 60 * 30,
+    db: 0,
+    // pass: <redis auth password>
+    prefix: 'sess:'
+  },  
 };
