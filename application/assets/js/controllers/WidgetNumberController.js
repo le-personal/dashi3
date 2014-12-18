@@ -11,22 +11,60 @@
 			var widget = $scope.widget;
 			var storageId = $scope.widget.storage;
 
-			$scope.data = 0;
+			$scope.data = {
+				value: 0,
+				definition: ""
+			};
 
-			// populate initial data value
-			io.socket.get("/api/v1/storage/" + storageId + "/data&sort=createdAt DESC&limit=1", function(data, res) {
-				console.log(data);
-				$scope.data = !angular.isUndefined(data[0]) ? data[0].valueNumber : 0;
+			$scope.indicator = "";
+			$scope.message = "";
+
+			// When opening the widget we need to get all the latest data
+			// this will also subscribe ourself to the data model so we
+			// can listen to changes
+			io.socket.get("/api/v1/storage/" + storageId + "/data", function(data) {
+				$scope.data = data[0];
+
+				// old data is the 1 in the 
+				var oldData = data[1];
+				var latest = data[0];
+				if(latest.value > oldData.value) {
+					$scope.indicator = "up";
+					$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+				}
+				if(latest.value < oldData.value) {
+					$scope.indicator = "down";
+					$scope.message = "Down from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+				}
+				if(latest.value == oldData.value) {
+					$scope.indicator = "same";
+					$scope.message = "No change since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+				}
 			});
 
 			// when there is a change on the server, update
 			// data is refering to the model Data
-			io.socket.on("data", function(data) {
-				console.log(data);
-				// only update if the storage of this widget is the same
-				// as the storage of the data updated
-				if(data.data.storage == storageId) {
-					$scope.data = data.data.valueNumber;
+			io.socket.on("datanumber", function(data) {
+				if(data.verb == "created") {
+					// only update if the storage of this widget is the same
+					// as the storage of the data updated
+					if(data.data.storage == storageId) {
+						var oldData = $scope.data;
+						$scope.data = data.data;
+
+						if(data.data.value > oldData.value) {
+							$scope.indicator = "up";
+							$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+						}
+						if(data.data.value < oldData.value) {
+							$scope.indicator = "down";
+							$scope.message = "Down from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+						}
+						if(data.data.value == oldData.value) {
+							$scope.indicator = "same";
+							$scope.message = "No change since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+						}
+					}
 				}
 			});
 				

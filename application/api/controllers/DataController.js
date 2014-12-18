@@ -18,6 +18,24 @@ module.exports = {
 
 			new DataRepository().getAllOfType(storage.type, storage.id, function(err, results) {
 				if(err) return res.notFound();
+
+				switch(storage.type) {
+					case "number":
+						Datanumber.subscribe(req.socket);
+						Datanumber.subscribe(req.socket, results);
+						break;
+
+					case "float":
+						Datafloat.subscribe(req.socket);
+						Datafloat.subscribe(req.socket, results);
+						break;
+
+					case "messages":
+						Datamessages.subscribe(req.socket);
+						Datamessages.subscribe(req.socket, results);
+						break;
+				}
+
 				return res.jsonp(200, results);
 			});	
 		});
@@ -48,14 +66,8 @@ module.exports = {
 
 			new DataRepository().create(data, function(err, result) {
 				if(err) return res.notFound();
-
-				console.log("emitting");
-				console.log(result);
-				req.socket.emit("data", result);
 				return res.jsonp(201, result);
 			});
 		});
 	}
 };
-
-//   'post /api/v1/sources/:source/data': 'DataController.post',

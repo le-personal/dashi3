@@ -5,11 +5,18 @@
     </div>
     <div class="dash-content">
       <div class="pull-left">
-        <h1>{{ data }}</h1>
-        <h2>{{ widget.textToAppend }}</h2>
+        <h1>{{ data.value }}</h1>
+        <h2>{{ data.definition }}</h2>
       </div>
       <div class="graph-status pull-right">
-        <img src="/vendor/dashboard/img/up.png" /> 
+        <img ng-if="indicator == 'up'" src="/vendor/dashboard/img/up.png" /> 
+        <img ng-if="indicator == 'down'" src="/vendor/dashboard/img/down.png" /> 
+        <img ng-if="indicator == 'same'" src="/vendor/dashboard/img/same.png" /> 
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-12">
+          <span class="help-block">{{ message }}</span>
+        </div>
       </div>
     </div>
     <div class="dash-footer">
