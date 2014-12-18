@@ -17,11 +17,25 @@ module.exports = {
    ***************************************************************************/
   models: {
     connection: 'mysql',
-    migrate: 'safe'
+    migrate: 'alter'
   },
   log: {
-    level: "silent"
+    level: "info"
   },
-  port: 3000
+  port: process.env.PORT,
+  session: {
+    secret: process.env.SECRET,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000 * 30
+    },
+    adapter: 'redis',
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+    ttl: 24 * 60 * 60 * 30,
+    db: 0,
+    // pass: <redis auth password>
+    prefix: 'sess:'
+  },  
+
 };
 
