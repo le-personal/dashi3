@@ -21,7 +21,6 @@
 			// can listen to changes
 			io.socket.get("/api/v1/storage/" + storageId + "/data", function(data) {
 				angular.forEach(data, function(item) {
-					console.log(item);
 					$scope.labels.push(moment(item.createdAt).format("MMM/D"));
 					chartData.push(item.value);
 				});

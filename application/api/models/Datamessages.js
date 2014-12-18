@@ -23,7 +23,7 @@ module.exports = {
   	type: {
   		type: "string",
   		required: true,
-      enum: ["danger", "info", "success"]
+      enum: ["error", "info", "success"]
   	}
   }
 };

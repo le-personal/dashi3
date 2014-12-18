@@ -33,7 +33,7 @@ DataRepository.prototype._validate = function(data, callback) {
  *                             - storage: the id of the storage
  *                             - message: for the case of messages we need to send the string with the message
  *                             - type: for the case of messages we need to specify a type
- *                             				only info, danger and success are allowed
+ *                             				only info, error and success are allowed
  * @param  {Function} callback The function to return when done
  * @return {Function}            The callback to execute when done
  */

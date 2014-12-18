@@ -1,11 +1,13 @@
-<div class="item w2" ng-controller="WidgetMessagesController">
+<div class="item" ng-controller="WidgetMessagesController">
   <div class="dash-unit">
     <div class="dash-title">
       {{ widget.title }}
     </div>
     <div class="dash-content">
-      <div style="color: {{ widget.textColor }};" ng-repeat="element in data">
-        <p>{{ element.valueText }}</p>
+      <div ng-repeat="element in data">
+        <div class="message message-{{element.type}}">
+          {{ element.message }}
+        </div>
       </div>
     </div>
     <div class="dash-footer">
