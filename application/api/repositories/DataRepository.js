@@ -63,27 +63,27 @@ DataRepository.prototype.create = function(data, callback) {
  * Get all records of a given type and a storage
  * @param  {string}   type     The storage type to get from, this is important because we are
  *                             getting all records and we need to determine in what table to search 
- * @param  {integer}   storage  The id of the storage to get from, it is not possible to get all data
+ * @param  {integer}   storageId  The id of the storage to get from, it is not possible to get all data
  *                              of a given type without the storage because there's no case when we'll need
  *                              to have mixed data from multiple storages into one query
  * @param  {Function} callback The function to return when done
  * @return {Function}            The callback to execute when done
  */
-DataRepository.prototype.getAllOfType = function(type, storage, callback) {
+DataRepository.prototype.getAllOfType = function(type, storageId, callback) {
 	var self = this;
 
 	if(_.first(["number", "float", "messages"], type)) {
 		switch(type) {
 			case "number":
-				return self.getAllNumbers(storage, callback);
+				return self.getAllNumbers(storageId, callback);
 			break;
 
 			case "float":
-				return self.getAllFloats(storage, callback);
+				return self.getAllFloats(storageId, callback);
 			break;
 
 			case "messages":
-				return self.getAllMessages(storage, callback);
+				return self.getAllMessages(storageId, callback);
 			break;
 		}
 	}
@@ -162,7 +162,7 @@ DataRepository.prototype.getNumber = function(id, callback) {
 DataRepository.prototype.getAllNumbers = function(storage, callback) {
 	Datanumber.find({storage: storage})
 	.limit(25)
-	.sort("createdAt", "DESC")
+	.sort("createdAt DESC")
 	.exec(function getRecord(err, result) {
 		if(err) return callback(err, false);
 		if(result) return callback(false, result);
@@ -212,7 +212,7 @@ DataRepository.prototype.getFloat = function(id, callback) {
 DataRepository.prototype.getAllFloats = function(storage, callback) {
 	Datafloat.find({storage: storage})
 	.limit(25)
-	.sort("createdAt", "DESC")
+	.sort("createdAt DESC")
 	.exec(function getRecord(err, result) {
 		if(err) return callback(err, false);
 		if(result) return callback(false, result);
@@ -262,7 +262,7 @@ DataRepository.prototype.getMessage = function(id, callback) {
 DataRepository.prototype.getAllMessages = function(storage, callback) {
 	Datamessages.find({storage: storage})
 	.limit(25)
-	.sort("createdAt", "DESC")
+	.sort("createdAt DESC")
 	.exec(function getRecord(err, result) {
 		if(err) return callback(err, false);
 		if(result) return callback(false, result);
