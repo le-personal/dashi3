@@ -2,6 +2,16 @@ FROM luis/sails
 
 MAINTAINER Luis Elizondo "lelizondo@gmail.com"
 
+ENV MYSQL_PORT_3306_TCP_ADDR mysql.example.com
+ENV MYSQL_ENV_MYSQL_USER admin
+ENV MYSQL_ENV_MYSQL_PASSWORD 123
+ENV MYSQL_ENV_MYSQL_DATABASE dashboard
+ENV MYSQL_PORT_3306_TCP_PORT 3306
+ENV PORT 3000
+ENV NODE_ENV production
+
 EXPOSE 3000
+
+ENV 
 
 ADD ./application /var/www
