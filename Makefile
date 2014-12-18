@@ -21,8 +21,7 @@ clean:
 	@fig stop
 
 install:
-	@fig up -d
-	@fig run --rm web npm install
+	cd $(CURRENT_DIRECTORY)/application ; npm install
 
 build:
 	@fig up -d
