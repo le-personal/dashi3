@@ -1,7 +1,18 @@
 CURRENT_DIRECTORY := $(shell pwd)
 
 test:
-	@docker run --rm -e NODE_ENV=test -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link dashi3_mysql_1:mysql --name mocka luis/sails npm test
+	@echo "Starting database"
+	@docker run -d --name testdb -e MYSQL_ROOT_PASSWORD=secretpass -e MYSQL_USER=tester -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=testdb mysql > ./.docker
+	
+	@echo "Waiting for MySQL to be ready"
+	@sleep 14
+
+	@echo "Testing"
+	@docker run --rm -e NODE_ENV=test -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mysql luis/sails npm test
+
+	echo "Cleaning up"
+	@docker rm -f $(shell cat ./.docker)
+	rm .docker
 
 start-all:
 	@fig start
