@@ -16,12 +16,14 @@
 			$scope.labels = [];
 			$scope.series = [widget.title];
 
-			// populate initial data value
-			io.socket.get("/api/v1/data?storage="+ storageId +"&sort=createdAt DESC&limit=10", function(data, res) {
-				// $scope.data = !angular.isUndefined(data[0]) ? data[0].valueNumber : 0;
+			// When opening the widget we need to get all the latest data
+			// this will also subscribe ourself to the data model so we
+			// can listen to changes
+			io.socket.get("/api/v1/storage/" + storageId + "/data", function(data) {
 				angular.forEach(data, function(item) {
+					console.log(item);
 					$scope.labels.push(moment(item.createdAt).format("MMM/D"));
-					chartData.push(item.valueNumber);
+					chartData.push(item.value);
 				});
 
 				$scope.data = [chartData.reverse()];
@@ -29,12 +31,14 @@
 
 			// when there is a change on the server, update
 			// data is refering to the model Data
-			io.socket.on("data", function(data) {
-				// only update if the storage of this widget is the same
-				// as the storage of the data updated
-				if(data.data.storage == storageId) {
-					$scope.data[0].push(data.data.valueNumber);
-					$scope.labels.push(data.data.createdAt);
+			io.socket.on("datanumber", function(data) {
+				if(data.verb == "created") {
+					// only update if the storage of this widget is the same
+					// as the storage of the data updated
+					if(data.data.storage == storageId) {
+						$scope.data[0].push(data.data.value);
+						$scope.labels.push(moment(data.data.createdAt).format("MMM/D"));
+					}
 				}
 			});
 				
