@@ -1,13 +1,11 @@
 <%- partial('header.ejs') %>
 
 <div id="page" class="container-fluid" ng-controller="DashboardController" ng-init="init(<%- dashboard.id %>)">
-  <div class="gridster">
+  <div gridster="gridsterOptions">
     <ul>
-	    <li ng-repeat="widget in widgets" >
-	    	<div data-row="{{ widget.row }}" data-col="{{ widget.col }}" data-sizex="200" data-sizey="50">
-	    		<div ng-include="'/widgets/' + widget.template" onload="widget = widget" ></div>
-	    	</div>
+	    <li gridster-item="widget" ng-repeat="widget in widgets">
+	    		<div ng-include="'/widgets/' + widget.template" onload="widget = widget"></div>
 	    </li>
     </ul>
-</div>
+  </div>
 </div>

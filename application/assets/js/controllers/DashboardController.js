@@ -16,9 +16,37 @@
 			$scope.init = function(dashboardId) {
 				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
 					$scope.dashboard = dashboard;
-					$scope.widgets = dashboard.widgets;
+
+					var widgets = [];
+					angular.forEach(dashboard.widgets, function(item) {
+						item.sizeX = item.size;
+						item.sizeY = item.size;
+
+						console.log(item);
+						widgets.push(item);
+					});
+
+					$scope.widgets = widgets;
 				});
 			}
+
+			$scope.gridsterOptions = {
+				margins: [5, 5],
+				columns: 6,
+				draggable: {
+					handle: 'header',
+					stop: function(event, $element, widget) {
+						$scope.$emit("widget:update", widget);
+					}
+				},
+				resizable: {
+          enabled: true,
+          handles: ['n', 'e', 's', 'w', 'ne', 'se', 'sw', 'nw'],
+          stop: function(event, $element, widget) {
+							$scope.$emit("widget:update", widget);
+					}
+        },
+			};
 
 			// add the widget to the dashboard when is created
 			$rootScope.$on("dashboard:widget:new", function(ev, widget) {
@@ -37,7 +65,20 @@
 						if(element.id == widget.id) delete $scope.widgets[key];
 					});
 				}
-			});			
+			});
+
+			$scope.$on("widget:update", function(ev, widget) {
+				var data = {
+					widgetId: widget.id,
+					id: widget.id,
+					size: widget.sizeX,
+					col: widget.col,
+					row: widget.row
+				}
+
+				Widgets.update(data);
+
+			});
 		}
 	]);
 })();

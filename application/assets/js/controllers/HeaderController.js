@@ -60,7 +60,8 @@
 					template: data.template,
 					weight: 0,
 					storage: data.storage,
-					dashboard: dashboard.id
+					dashboard: dashboard.id,
+					size: 1
 				}, function(widget) {
 					// emit an event
 					$rootScope.$emit("dashboard:widget:new", widget);

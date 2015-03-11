@@ -17,7 +17,7 @@
 var cssFilesToInject = [
   'vendor/bootstrap/dist/css/bootstrap.min.css',
   'vendor/angular-bootstrap-colorpicker/css/colorpicker.css',
-  'vendor/gridster/dist/jquery.gridster.min.css',
+  'vendor/angular-gridster/dist/angular-gridster.min.css',
   'styles/**/*.css'
 ];
 
@@ -25,7 +25,7 @@ var cssFilesToInject = [
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
 var jsFilesToInject = [
-  
+
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
 
@@ -33,7 +33,7 @@ var jsFilesToInject = [
   'vendor/jquery/dist/jquery.min.js',
   'vendor/angularjs/angular.js',
   'vendor/bootstrap/dist/js/bootstrap.min.js',
-  // 'vendor/dashboard/lib/holderjs/holder.js',  
+  // 'vendor/dashboard/lib/holderjs/holder.js',
   // 'vendor/dashboard/js/meta.js',
   'vendor/Chart.js/Chart.min.js',
   'vendor/angular-chart.js/angular-chart.js',
@@ -49,7 +49,8 @@ var jsFilesToInject = [
   // 'vendor/Sortable/ng-sortable.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'vendor/gridster/dist/jquery.gridster.min.js',
+  'vendor/angular-gridster/dist/angular-gridster.min.js',
+  'vendor/javascript-detect-element-resize/jquery.resize.js',
   'js/app.js',
   'js/**/*.js'
 ];

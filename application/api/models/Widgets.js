@@ -37,6 +37,12 @@ module.exports = {
 			type: "integer",
 			required: true,
 			defaultsTo: 1
+		},
+		size: {
+			type: "integer",
+			required: true,
+			defaultsTo: 1,
+			enum: [1, 2, 3]
 		}
 	}
 }

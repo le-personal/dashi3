@@ -2,8 +2,8 @@
 @medium: 50%;
 @large: 70%;
 
-body { 
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background: #000;
 }
 
@@ -11,11 +11,16 @@ body {
   margin-top: 4.75em;
 }
 
+.item {
+	display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
 .dash-unit {
     background: none repeat scroll 0 0 #222222;
     border: 2px solid #000;
     color: #fff;
-    margin-right: 1em;
 
     .dash-title {
     	padding: 0.5em 1em;
@@ -72,56 +77,3 @@ body {
 .well {
   background-color: #eee;
 }
-
-.gridster li header {
-  background: #999;
-  display: block;
-  font-size: 20px;
-  line-height: normal;
-  padding: 4px 0 6px ;
-  margin-bottom: 0px;
-  cursor: move;
-}
-
-/*/
-/* gridster
-/*/
-
-.gridster ul {
-  width: 100% !important;
-  background-color: #000;
-}
-
-.gridster li {
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  line-height: 100%;
-  list-style: none;
-}
-
-.gridster {
-  margin: 0 auto;
-  opacity: .8;
-  -webkit-transition: opacity .6s;
-  -moz-transition: opacity .6s;
-  -o-transition: opacity .6s;
-  -ms-transition: opacity .6s;
-  transition: opacity .6s;
-}
-
-.gridster .gs-w {
-  background: none;
-  cursor: pointer;
-}
-
-.gridster .player {
-  background: #000;
-}
-
-.gridster .preview-holder {
-  border: none!important;
-  background: red!important;
-}
-
-

@@ -3,7 +3,7 @@ CURRENT_DIRECTORY := $(shell pwd)
 test:
 	@echo "Starting database"
 	@docker run -d --name testdb -e MYSQL_ROOT_PASSWORD=secretpass -e MYSQL_USER=tester -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=testdb mysql > ./.docker
-	
+
 	@echo "Waiting for MySQL to be ready"
 	@sleep 14
 
@@ -21,15 +21,16 @@ install:
 	cd $(CURRENT_DIRECTORY)/application ; npm install
 
 build:
-	@fig up -d 
+	@fig up -d
 	@fig run --rm web npm install
 	@docker build --tag=dashi3 .
 
-up:
-	@fig up -d
+init:
+	@docker run --rm -v $(CURRENT_DIRECTORY)/application:/var/www luis/sails npm install
 
 start:
 	@fig up -d
+	@fig logs web
 	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
 
 stop:
@@ -45,8 +46,8 @@ cli:
 	@fig run --rm web bash
 
 restart:
-	@fig stop web 
+	@fig stop web
 	@fig start web
 	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
 
-.PHONY: test clean build start stop restart log status cli install up
+.PHONY: test clean build start stop restart log status cli install init
