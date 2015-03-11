@@ -2,9 +2,10 @@ web:
   image: luis/sails
   volumes:
     - application:/var/www
-    - /var/log/docker/dashi3:/var/log/supervisor
+    - logs:/var/log/supervisor
   links:
     - "mysql:mysql"
+    - "redis:redis"
   ports:
     - "80:1337"
   environment:
@@ -13,6 +14,7 @@ web:
     GOOGLE_OAUTH_CLIENTID: something.apps.googleusercontent.com
     GOOGLE_OAUTH_CLIENTSECRET: secret 
     GOOGLE_OAUTH_CALLBACKURL: http://localhost/auth/google/callback
+    SECRET: c205e344a308f4f93b9c9098922ef73a
 mysql:
   image: mysql
   expose:
@@ -22,3 +24,5 @@ mysql:
     MYSQL_DATABASE: dashi3
     MYSQL_USER: admin
     MYSQL_PASSWORD: admin123
+redis:
+  image: redis

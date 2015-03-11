@@ -11,25 +11,6 @@ body {
   margin-top: 4.75em;
 }
 
-.packery {
-  
-}
-
-/* clearfix */
-.packery:after {
-  content: ' ';
-  display: block;
-  clear: both;
-}
-
-.as-link {
-	cursor: pointer;
-}
-
-.graph-status {
-	margin-top: 1em;
-}
-
 .dash-unit {
     background: none repeat scroll 0 0 #222222;
     border: 2px solid #000;
@@ -68,24 +49,6 @@ body {
     }
 }
 
-.item,
-.grid-sizer {
-  width: @small;
-}
-
-.item {
-  min-height: 160px;
-  float: left;
-  overflow: hidden;
-  background: #000;
-}
-
-.item.w2 { width:  @medium; }
-.item.w4 { width:  @large; }
-
-.item.h2 { height: 160px; }
-.item.h4 { height: 320px; }
-
 .message {
     border-bottom: 1px solid #999;
     padding: 0.5em 1em;
@@ -109,3 +72,56 @@ body {
 .well {
   background-color: #eee;
 }
+
+.gridster li header {
+  background: #999;
+  display: block;
+  font-size: 20px;
+  line-height: normal;
+  padding: 4px 0 6px ;
+  margin-bottom: 0px;
+  cursor: move;
+}
+
+/*/
+/* gridster
+/*/
+
+.gridster ul {
+  width: 100% !important;
+  background-color: #000;
+}
+
+.gridster li {
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  line-height: 100%;
+  list-style: none;
+}
+
+.gridster {
+  margin: 0 auto;
+  opacity: .8;
+  -webkit-transition: opacity .6s;
+  -moz-transition: opacity .6s;
+  -o-transition: opacity .6s;
+  -ms-transition: opacity .6s;
+  transition: opacity .6s;
+}
+
+.gridster .gs-w {
+  background: none;
+  cursor: pointer;
+}
+
+.gridster .player {
+  background: #000;
+}
+
+.gridster .preview-holder {
+  border: none!important;
+  background: red!important;
+}
+
+

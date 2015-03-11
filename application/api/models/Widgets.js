@@ -27,6 +27,16 @@ module.exports = {
 		},
 		dashboard: {
 			model: "Dashboard"
+		},
+		row: {
+			type: "integer",
+			required: true,
+			defaultsTo: 1
+		},
+		col: {
+			type: "integer",
+			required: true,
+			defaultsTo: 1
 		}
 	}
 }

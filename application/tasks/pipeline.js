@@ -17,6 +17,7 @@
 var cssFilesToInject = [
   'vendor/bootstrap/dist/css/bootstrap.min.css',
   'vendor/angular-bootstrap-colorpicker/css/colorpicker.css',
+  'vendor/gridster/dist/jquery.gridster.min.css',
   'styles/**/*.css'
 ];
 
@@ -32,22 +33,23 @@ var jsFilesToInject = [
   'vendor/jquery/dist/jquery.min.js',
   'vendor/angularjs/angular.js',
   'vendor/bootstrap/dist/js/bootstrap.min.js',
-  'vendor/dashboard/lib/holderjs/holder.js',  
-  'vendor/dashboard/js/meta.js',
+  // 'vendor/dashboard/lib/holderjs/holder.js',  
+  // 'vendor/dashboard/js/meta.js',
   'vendor/Chart.js/Chart.min.js',
   'vendor/angular-chart.js/angular-chart.js',
   'vendor/angular-resource/angular-resource.js',
   // 'vendor/angular-bootstrap/ui-bootstrap.min.js',
   'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
-  'vendor/packery/dist/packery.pkgd.min.js',
+  // 'vendor/packery/dist/packery.pkgd.min.js',
   'vendor/angular-sails/dist/angular-sails.min.js',
   'vendor/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
   'vendor/moment/moment.js',
   'vendor/angular-moment/angular-moment.min.js',
-  'vendor/Sortable/Sortable.min.js',
-  'vendor/Sortable/ng-sortable.js',
+  // 'vendor/Sortable/Sortable.min.js',
+  // 'vendor/Sortable/ng-sortable.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
+  'vendor/gridster/dist/jquery.gridster.min.js',
   'js/app.js',
   'js/**/*.js'
 ];

@@ -116,5 +116,5 @@ application/.netbeans
 application/nbproject
 application/.idea
 application/.node_history
-
+logs/*
 fig.yml

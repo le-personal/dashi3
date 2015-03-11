@@ -14,17 +14,14 @@ test:
 	@docker rm -f $(shell cat ./.docker)
 	rm .docker
 
-start-all:
-	@fig start
-
 clean:
-	@fig stop
+	@fig rm --force web
 
 install:
 	cd $(CURRENT_DIRECTORY)/application ; npm install
 
 build:
-	@fig up -d
+	@fig up -d 
 	@fig run --rm web npm install
 	@docker build --tag=dashi3 .
 
@@ -32,17 +29,17 @@ up:
 	@fig up -d
 
 start:
-	@fig start web
-	@tail -f /var/log/docker/dashi3/nodejs.log
+	@fig up -d
+	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
 
 stop:
-	@fig stop web
+	@fig stop
 
 status:
 	@fig ps
 
 log:
-	@tail -f /var/log/docker/dashi3/nodejs.log
+	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
 
 cli:
 	@fig run --rm web bash
@@ -50,6 +47,6 @@ cli:
 restart:
 	@fig stop web 
 	@fig start web
-	@tail -f /var/log/docker/dashi3/nodejs.log
+	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
 
-.PHONY: test start-all clean build start stop restart log status cli install up
+.PHONY: test clean build start stop restart log status cli install up
