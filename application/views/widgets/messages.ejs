@@ -5,9 +5,12 @@
     </div>
     <div class="dash-content">
       <div ng-repeat="element in data">
-        <div class="message message-{{element.type}}">
-          {{ element.message }}
+        <div><strong>{{ element.value.title }}</strong></div>
+        <div>
+          {{ element.value.content }}
         </div>
+        <div class="help-block"><a class="btn btn-xs btn-primary" target="_blank" href="{{ element.value.link }}">View more</a></div>
+        <hr />
       </div>
     </div>
     <div class="dash-footer">
