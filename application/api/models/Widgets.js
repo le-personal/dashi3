@@ -13,20 +13,21 @@ module.exports = {
 			type: "text",
 			required: false
 		},
+		label: {
+			type: "string",
+			required: false
+		},
 		template: {
 			type: "string",
 			required: true
 		},
-		weight: {
-			type: "integer",
-			required: false,
-			defaultsTo: 0
-		},
 		storage: {
-			model: "Storage"
+			model: "Storage",
+			required: false,
 		},
 		dashboard: {
-			model: "Dashboard"
+			model: "Dashboard",
+			required: true
 		},
 		row: {
 			type: "integer",
@@ -38,11 +39,17 @@ module.exports = {
 			required: true,
 			defaultsTo: 1
 		},
-		size: {
+		sizeX: {
 			type: "integer",
 			required: true,
 			defaultsTo: 1,
-			enum: [1, 2, 3]
+			enum: [1, 2]
+		},
+		sizeY: {
+			type: "integer",
+			required: true,
+			defaultsTo: 1,
+			enum: [1, 2]
 		}
 	}
 }

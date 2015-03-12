@@ -6,15 +6,19 @@
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" name="name" class="form-control" ng-model="data.name" />
+      <div class="help-block">The name must be unique</div>
     </div>
     <div class="form-group">
       <label for="type">Type</label>
       <select class="form-control" ng-model="data.type" name="type">
-        <option value="number">Number</option>
-        <option value="messages">Messages</option>
-        <option value="float">Float</option>
+        <option value="counter">Counter</option>
+        <option value="graph">Graph</option>
+        <option value="completion">Completion</option>
+        <option value="status">Status</option>
+        <option value="message">Message</option>
+        <option value="map">Map</option>
       </select>
-      <div class="help-block">Choose from the select box what kind of data do you want to save in this source</div>
+      <div class="help-block">Choose from the select box what kind of data you want to save</div>
     </div>
     <div class="form-group">
       <label for="description">Description</label>

@@ -13,7 +13,7 @@ describe("StorageRepository", function() {
 	describe("Get", function() {
 
 		it("Should get a storage", function(done) {
-			Factory.create("storageNumber", function(storage) {
+			Factory.create("storageCounter", function(storage) {
 				new StorageRepository().get(storage.id, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;

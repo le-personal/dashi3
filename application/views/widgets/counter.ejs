@@ -1,4 +1,4 @@
-<div class="item" ng-controller="WidgetNumberController">
+<div class="item" ng-controller="WidgetCounterController">
   <div class="dash-unit">
     <header class="dash-title">
       {{ widget.title }}
@@ -6,7 +6,7 @@
     <div class="dash-content">
       <div class="pull-left">
         <h1>{{ data.value }}</h1>
-        <h2>{{ data.definition }}</h2>
+        <h2>{{ widget.label }}</h2>
       </div>
       <div class="graph-status pull-right">
         <img ng-if="indicator == 'up'" src="/vendor/dashboard/img/up.png" /> 
@@ -25,7 +25,7 @@
       </span>
       <div class="pull-right">
         <i class="as-link glyphicon glyphicon-th-list" ng-click="openDataList({})"></i>
-        <i class="as-link glyphicon glyphicon-plus" ng-click="openAddDataPoint({})"></i>
+        <i class="as-link glyphicon glyphicon-plus" ng-click="openAddDataPointCounter({})"></i>
         <i class="as-link glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
       </div>
     </div>

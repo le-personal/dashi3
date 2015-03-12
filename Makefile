@@ -1,18 +1,15 @@
 CURRENT_DIRECTORY := $(shell pwd)
 
-test:
+prepare-test:	
 	@echo "Starting database"
-	@docker run -d --name testdb -e MYSQL_ROOT_PASSWORD=secretpass -e MYSQL_USER=tester -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=testdb mysql > ./.docker
+	@docker run -d --name testdb -e MYSQL_ROOT_PASSWORD=secretpass -e MYSQL_USER=tester -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=testdb mysql
 
-	@echo "Waiting for MySQL to be ready"
-	@sleep 14
-
+test:
 	@echo "Testing"
 	@docker run --rm -e NODE_ENV=test -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mysql luis/sails npm test
 
-	echo "Cleaning up"
-	@docker rm -f $(shell cat ./.docker)
-	rm .docker
+clean-test:
+	@docker rm --force testdb
 
 clean:
 	@fig rm --force web
@@ -30,7 +27,6 @@ init:
 
 start:
 	@fig up -d
-	@fig logs web
 	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
 
 stop:
@@ -50,4 +46,4 @@ restart:
 	@fig start web
 	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
 
-.PHONY: test clean build start stop restart log status cli install init
+.PHONY: test clean build start stop restart log status cli install init clean-test

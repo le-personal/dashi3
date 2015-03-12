@@ -52,7 +52,7 @@ function clearDB(callback) {
  * disconnect and then try again
  */
 before(function(done) {
-  this.timeout(15000);
+  this.timeout(90000);
   Sails.lift({
     log: {
       level: "error"

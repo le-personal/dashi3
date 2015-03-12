@@ -24,8 +24,5 @@ module.exports = {
 			return res.jsonp(200, widgets);
 		});
 	}
-
-
-	
 };
 

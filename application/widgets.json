@@ -9,8 +9,8 @@
 			"template": "messages"
 		},
 		{
-			"name": "Number",
-			"template": "number"
+			"name": "Counter",
+			"template": "counter"
 		},
 		{
 			"name": "Pie Chart",

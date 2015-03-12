@@ -8,16 +8,27 @@
       <input type="text" class="form-control" ng-model="data.title" name="title" />
     </div>
     <div class="form-group">
-      <label for="title">Description</label>
+      <label for="description">Description</label>
       <textarea class="form-control" ng-model="data.description" name="description"></textarea>
     </div>
     <div class="form-group">
-      <label for="title">Template</label>
+      <label for="label">Label</label>
+      <input type="text" class="form-control" ng-model="data.label" name="label" />
+    </div>
+    <div class="form-group">
+      <label for="template">Template</label>
       <select class="form-control" ng-model="data.template" name="type" ng-options="template.template as template.name for template in templates">
       </select>
     </div>
     <div class="form-group">
-      <label for="title">Storage</label>
+      <label for="size">Size</label>
+      <select class="form-control" ng-model="data.size" name="type">
+        <option value="small">Small</option>
+        <option value="big">Big</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="storage">Storage</label>
       <select class="form-control" ng-model="data.storage" name="type" ng-options="source.id as source.name for source in storage">
       </select>
     </div>

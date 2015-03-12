@@ -1,4 +1,5 @@
 var _ = require("lodash");
+var StorageRepository = require("./StorageRepository");
 
 function DataRepository() {
 
@@ -16,13 +17,7 @@ function DataRepository() {
  * @param  {Function} callback The function to return when done
  * @return {Function}            The callback to execute when done
  */
-DataRepository.prototype._validate = function(data, callback) {
-	if(_.isEmpty(data.valuetype)) {
-		return callback("Please specify a type", false);
-	}
 
-	return callback(false);
-}
 
 /**
  * Create a new data record
@@ -37,58 +32,37 @@ DataRepository.prototype._validate = function(data, callback) {
  * @param  {Function} callback The function to return when done
  * @return {Function}            The callback to execute when done
  */
-DataRepository.prototype.create = function(data, callback) {
+DataRepository.prototype.save = function(data, callback) {
 	var self = this;
-	// check if the data.valuetype is defined
-	self._validate(data, function(err) {
+	new StorageRepository().get(data.storage, function(err, storage) {
 		if(err) return callback(err, false);
 
-		switch(data.valuetype) {
-			case "number":
-				return self.createNumber(data, callback);
+		switch(storage.type) {
+			case "counter":
+				return self.saveCounter(data, callback);
+			break;
+			
+			case "graph":
+				return self.saveGraph(data, callback);
 			break;
 
-			case "float":
-				return self.createFloat(data, callback);
+			case "status":
+				return self.saveStatus(data, callback);
 			break;
 
-			case "messages":
-				return self.createMessage(data, callback);
+			case "map":
+				return self.saveMap(data, callback);
+			break;
+
+			case "completion":
+				return self.saveCompletion(data, callback);
+			break;
+
+			case "message":
+				return self.saveMessage(data, callback);
 			break;
 		}
 	});
-}
-
-/**
- * Get all records of a given type and a storage
- * @param  {string}   type     The storage type to get from, this is important because we are
- *                             getting all records and we need to determine in what table to search 
- * @param  {integer}   storageId  The id of the storage to get from, it is not possible to get all data
- *                              of a given type without the storage because there's no case when we'll need
- *                              to have mixed data from multiple storages into one query
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
- */
-DataRepository.prototype.getAllOfType = function(type, storageId, callback) {
-	var self = this;
-
-	if(_.first(["number", "float", "messages"], type)) {
-		switch(type) {
-			case "number":
-				return self.getAllNumbers(storageId, callback);
-			break;
-
-			case "float":
-				return self.getAllFloats(storageId, callback);
-			break;
-
-			case "messages":
-				return self.getAllMessages(storageId, callback);
-			break;
-		}
-	}
-	
-	return callback("Please provide a valid type", false);
 }
 
 /**
@@ -98,177 +72,312 @@ DataRepository.prototype.getAllOfType = function(type, storageId, callback) {
  * @param  {Function} callback The function to return when done
  * @return {Function}            The callback to execute when done
  */
-DataRepository.prototype.get = function(type, id, callback) {
+DataRepository.prototype.get = function(id, callback) {
 	var self = this;
 
-	if(_.first(["number", "float", "messages"], type)) {
-		switch(type) {
-			case "number":
-				return self.getNumber(id, callback);
-			break;
+	Data.findOne({id: id})
+	.exec(function(err, result) {
+		if(err) return callback(err, false);
+		if(result) return callback(false, result);
+		return callback(true, false);
+	});
+}
 
-			case "float":
-				return self.getFloat(id, callback);
-			break;
+/**
+ * Get all data of a storage
+ * ordered by created DESC
+ */
+DataRepository.prototype.all = function(storageId, callback) {
+	Data.find({storage: storageId})
+	.limit(25)
+	.sort("createdAt DESC")
+	.exec(function(err, results) {
+		if(err) return callback(err, false);
+		if(results) return callback(false, results);
+		return callback(true, false);
+	});
+}
 
-			case "messages":
-				return self.getMessage(id, callback);
-			break;
+/**
+ * Saves a data point of type counter
+ */
+DataRepository.prototype.saveCounter = function(data, callback) {
+	function validate(data) {
+		var error = false;
+
+		if(!_.isNumber(data.value)) {
+			error = "A value is required";
 		}
+
+		if(!_.isNumber(data.storage)) {
+			error = "A storage is required";
+		}
+
+		return error;
 	}
-	
-	return callback("Please provide a valid type", false);
-}
 
-/**
- * Create a record in the datanumber table
- * @param  {object}   data     An object with the properties defined in the model
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
- */
-DataRepository.prototype.createNumber = function(data, callback) {
-	Datanumber.create(data)
-	.exec(function createRecord(err, result) {
-		if(err) return callback(err, false);
-		if(result) {
-			Datanumber.publishCreate(result);
-			return callback(false, result);
+	var error = validate(data)
+	if(error) {
+		return callback(error);
+	}
+	else {
+		var input = {
+			value: data.value,
+			storage: data.storage
 		}
-		return callback(true, false);
-	});
+
+		Data.create(input)
+		.exec(function createRecord(err, result) {
+			if(err) return callback(err, false);
+			if(result) {
+				Data.publishCreate(result);
+				return callback(false, result);
+			}
+			return callback(true, false);
+		});
+	}
 }
 
 /**
- * Get a record from the datanumber table
- * @param  {integer}   id       The id to get
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
+ * Saves a data point as a graph
  */
-DataRepository.prototype.getNumber = function(id, callback) {
-	Datanumber.findOne({id: id})
-	.exec(function getRecord(err, result) {
-		if(err) return callback(err, false);
-		if(result) return callback(false, result);
-		return callback(true, false);
-	});
-}
+DataRepository.prototype.saveGraph = function(data, callback) {
+	function validate(data) {
+		var error = false;
 
-/**
- * Get all data of a storage from the table datanumbers
- * @param 	{integer} storage	The id of the storage to get
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
- */
-DataRepository.prototype.getAllNumbers = function(storage, callback) {
-	Datanumber.find({storage: storage})
-	.limit(25)
-	.sort("createdAt DESC")
-	.exec(function getRecord(err, result) {
-		if(err) return callback(err, false);
-		if(result) return callback(false, result);
-		return callback(true, false);
-	});	
-}
-
-/**
- * Create a record in the datafloat table
- * @param  {object}   data     An object with the properties defined in the model
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
- */
-DataRepository.prototype.createFloat = function(data, callback) {
-	Datafloat.create(data)
-	.exec(function createRecord(err, result) {
-		if(err) return callback(err, false);
-		if(result) {
-			Datafloat.publishCreate(result);
-			return callback(false, result);
+		if(!_.isNumber(data.value)) {
+			error = "A value is required";
 		}
-		return callback(true, false);
-	});
-}
 
-/**
- * Get a record from the datafloat table
- * @param  {integer}   id       The id to get
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
- */
-DataRepository.prototype.getFloat = function(id, callback) {
-	Datafloat.findOne({id: id})
-	.exec(function getRecord(err, result) {
-		if(err) return callback(err, false);
-		if(result) return callback(false, result);
-		return callback(true, false);
-	});
-}
-
-/**
- * Get all data of a storage from the table datanumbers
- * @param 	{integer} storage	The id of the storage to get
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
- */
-DataRepository.prototype.getAllFloats = function(storage, callback) {
-	Datafloat.find({storage: storage})
-	.limit(25)
-	.sort("createdAt DESC")
-	.exec(function getRecord(err, result) {
-		if(err) return callback(err, false);
-		if(result) return callback(false, result);
-		return callback(true, false);
-	});	
-}
-
-/**
- * Create a record in the datamessages table
- * @param  {object}   data     An object with the properties defined in the model
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
- */
-DataRepository.prototype.createMessage = function(data, callback) {
-	Datamessages.create(data)
-	.exec(function createRecord(err, result) {
-		if(err) return callback(err, false);
-		if(result) {
-			Datamessages.publishCreate(result);
-			return callback(false, result);
+		if(!_.isNumber(data.storage)) {
+			error = "A storage is required";
 		}
-		return callback(true, false);
-	});
+
+		return error;
+	}
+
+	var error = validate(data)
+	if(error) {
+		return callback(error);
+	}
+	else {
+		var input = {
+			value: data.value,
+			storage: data.storage
+		}
+
+		Data.create(input)
+		.exec(function createRecord(err, result) {
+			if(err) return callback(err, false);
+			if(result) {
+				Data.publishCreate(result);
+				return callback(false, result);
+			}
+			return callback(true, false);
+		});
+	}
 }
 
 /**
- * Get a record from the datamessages table
- * @param  {integer}   id       The id to get
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
+ * Saves a data point as a status
  */
-DataRepository.prototype.getMessage = function(id, callback) {
-	Datamessages.findOne({id: id})
-	.exec(function getRecord(err, result) {
-		if(err) return callback(err, false);
-		if(result) return callback(false, result);
-		return callback(true, false);
-	});
+DataRepository.prototype.saveStatus = function(data, callback) {
+	function validate(data) {
+		var error = false;
+
+		if(!_.isNumber(data.storage)) {
+			error = "A storage is required";
+		}
+
+		if(!_.contains(["ok", "error", "warning"], data.value)) {
+			error = "The status is invalid";
+		}
+
+		return error;
+	}
+
+	var error = validate(data)
+	if(error) {
+		return callback(error);
+	}
+	else {
+		var input = {
+			value: data.value,
+			storage: data.storage
+		}
+
+		Data.create(input)
+		.exec(function createRecord(err, result) {
+			if(err) return callback(err, false);
+			if(result) {
+				Data.publishCreate(result);
+				return callback(false, result);
+			}
+			return callback(true, false);
+		});
+	}
 }
 
 /**
- * Get all data of a storage from the table datamessages
- * @param 	{integer} storage	The id of the storage to get
- * @param  {Function} callback The function to return when done
- * @return {Function}            The callback to execute when done
+ * Saves a data point as a status
  */
-DataRepository.prototype.getAllMessages = function(storage, callback) {
-	Datamessages.find({storage: storage})
-	.limit(25)
-	.sort("createdAt DESC")
-	.exec(function getRecord(err, result) {
-		if(err) return callback(err, false);
-		if(result) return callback(false, result);
-		return callback(true, false);
-	});	
+DataRepository.prototype.saveMap = function(data, callback) {
+	function validate(data) {
+		var error = false;
+
+		if(!_.isNumber(data.storage)) {
+			error = "A storage is required";
+		}
+
+		if(!_.isNumber(data.value.longitude)) {
+			error = "A longitude is required";
+		}
+
+		if(!_.isNumber(data.value.latitude)) {
+			error = "A latitude is required";
+		}
+
+		if(!_.isNumber(data.value.value)) {
+			error = "A value is required";
+		}
+
+		return error;
+	}
+
+	var error = validate(data)
+	if(error) {
+		return callback(error);
+	}
+	else {
+		var input = {
+			value: {
+				value: data.value.value,
+				longitude: data.value.longitude,
+				latitude: data.value.latitude
+			},
+			storage: data.storage
+		}
+
+		Data.create(input)
+		.exec(function createRecord(err, result) {
+			if(err) return callback(err, false);
+			if(result) {
+				Data.publishCreate(result);
+				return callback(false, result);
+			}
+			return callback(true, false);
+		});
+	}
 }
 
+
+/**
+ * Saves a data point as a status
+ */
+DataRepository.prototype.saveCompletion = function(data, callback) {
+	function validate(data) {
+		var error = false;
+
+		if(!_.isNumber(data.storage)) {
+			error = "A storage is required";
+		}
+
+		if(!_.isNumber(data.value.min)) {
+			error = "The minimum value is required";
+		}
+
+		if(!_.isNumber(data.value.max)) {
+			error = "The maximum value is required";
+		}
+
+		if(!_.isNumber(data.value.current)) {
+			error = "The current value is required";
+		}
+
+		if(data.value.max < data.value.min) {
+			error = "The maximum value must be bigger than the minimum value";
+		}
+
+		if(data.value.max == data.value.min) {
+			error = "The maximum value and minimum value cannot be equal";
+		}
+
+		return error;
+	}
+
+	var error = validate(data)
+	if(error) {
+		return callback(error);
+	}
+	else {
+		var input = {
+			value: {
+				current: data.value.current,
+				max: data.value.max,
+				min: data.value.min
+			},
+			storage: data.storage
+		}
+
+		Data.create(input)
+		.exec(function createRecord(err, result) {
+			if(err) return callback(err, false);
+			if(result) {
+				Data.publishCreate(result);
+				return callback(false, result);
+			}
+			return callback(true, false);
+		});
+	}
+}
+
+/**
+ * Saves a data point of type message
+ */
+DataRepository.prototype.saveMessage = function(data, callback) {
+	function validate(data) {
+		var error = false;
+
+		if(!_.isNumber(data.storage)) {
+			error = "A storage is required";
+		}
+
+		if(!_.isString(data.value.title)) {
+			error = "The title is required";
+		}
+
+		if(!_.isString(data.value.content)) {
+			error = "The content of the message is required";
+		}
+
+		return error;
+	}
+
+	var error = validate(data)
+	if(error) {
+		return callback(error);
+	}
+	else {
+		var input = {
+			value: {
+				title: data.value.title,
+				content: data.value.content,
+				image: data.value.image ? data.value.image : null,
+				link: data.value.link ? data.value.link : null
+			},
+			storage: data.storage
+		}
+
+		Data.create(input)
+		.exec(function createRecord(err, result) {
+			if(err) return callback(err, false);
+			if(result) {
+				Data.publishCreate(result);
+				return callback(false, result);
+			}
+			return callback(true, false);
+		});
+	}
+}
 
 module.exports = DataRepository;

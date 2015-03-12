@@ -13,61 +13,35 @@ module.exports = {
 	index: function index(req, res) {
 		// Get the storage first to determine the type
 		var storageId = req.param("storage");
-		new StorageRepository().get(storageId, function(err, storage) {
+		new DataRepository().all(storageId, function(err, results) {
 			if(err) return res.notFound();
-
-			new DataRepository().getAllOfType(storage.type, storage.id, function(err, results) {
-				if(err) return res.notFound();
-
-				switch(storage.type) {
-					case "number":
-						Datanumber.subscribe(req.socket);
-						Datanumber.subscribe(req.socket, results);
-						break;
-
-					case "float":
-						Datafloat.subscribe(req.socket);
-						Datafloat.subscribe(req.socket, results);
-						break;
-
-					case "messages":
-						Datamessages.subscribe(req.socket);
-						Datamessages.subscribe(req.socket, results);
-						break;
-				}
-
-				return res.jsonp(200, results);
-			});	
-		});
+			Data.subscribe(req.socket);
+			return res.jsonp(200, results);
+		});	
 	},
 
 	get: function get(req, res) {
 		var storageId = req.param("storage");
 		var dataId = req.param("dataid");
-		new StorageRepository().get(storageId, function(err, storage) {
+	
+		new DataRepository().get(dataId, function(err, result) {
 			if(err) return res.notFound();
-
-			new DataRepository().get(storage.type, dataId, function(err, result) {
-				if(err) return res.notFound();
-				return res.jsonp(200, result);
-			});
+			return res.jsonp(200, result);
 		});
 	},
 
 	post: function save(req, res) {
-		var storageId = req.param("storage");
+		var storageId = req.param("storage");		
+		var data = req.body;
+		data.storage = Number(storageId);
 
-		new StorageRepository().get(storageId, function(err, storage) {
-			if(err) return err.notFound();
+		console.log("Inserting data");
+		console.log(data);
 
-			var data = req.body;
-			data.storage = storageId;
-			data.valuetype = storage.type;
-
-			new DataRepository().create(data, function(err, result) {
-				if(err) return res.notFound();
-				return res.jsonp(201, result);
-			});
+		new DataRepository().save(data, function(err, result) {
+			if(err) console.log(err);
+			if(err) return res.notFound();
+			return res.jsonp(201, result);
 		});
 	}
 };

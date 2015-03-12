@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h3 class="modal-title">Add message</h3>
+</div>
+<div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="data-point">Title*</label>
+        <input type="text" name="title" class="form-control" ng-model="value.title" />
+      </div>
+      <div class="form-group">
+        <label for="data-point">Image URL</label>
+        <input type="text" name="image" class="form-control" ng-model="value.image" />
+      </div>
+      <div class="form-group">
+        <label for="data-point">Value</label>
+        <input type="text" name="link" class="form-control" ng-model="value.link" />
+      </div>
+      <div class="form-group">
+        <label for="data-point">Content*</label>
+        <textarea name="content" class="form-control" ng-model="value.content"></textarea>
+      </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

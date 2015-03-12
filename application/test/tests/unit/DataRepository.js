@@ -9,450 +9,669 @@ var Chance = require("chance");
 var DataRepository = include("api/repositories/DataRepository");
 
 describe("DataRepository", function() {
-	describe("Number", function() {
-		it("Should create a new data point of type number", function(done) {
-			Factory.create("storageNumber", function(storage) {
+
+	////////////////////////////
+	////// COUNTER
+	////////////////////////////
+	describe("DataCounter", function() {
+		it("Should create a new data point of type counter", function(done) {
+			Factory.create("storageCounter", function(storage) {
 				var data = {
 					storage: storage.id,
-					value: new Chance().natural(),
-					definition: "units"
+					value: new Chance().natural({min: 10, max: 100}),
 				}
 
-				new DataRepository().createNumber(data, function(err, result) {
+				new DataRepository().saveCounter(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
 					result.should.have.property("storage", data.storage);
 					result.should.have.property("value", data.value);
-					result.should.have.property("definition", data.definition);
 					done();
 				});
-			});
+			})
 		});
 
-		it("Should return an error when creating a data point and not providing the value", function(done) {
-			var storage = {
-				name: new Chance().word(),
-				type: "number",
-				description: new Chance().word()
-			}
-
-			Factory.create("storageNumber", storage, function(storageResult) {
-				var data = {
-					storage: storageResult.id,
-					definition: "units",
-					value: null
-				}
-
-				new DataRepository().createNumber(data, function(err, result) {
-					err.should.not.be.false;
-					result.should.be.false;
-					done();
-				});
-			});
-		});
-
-		it("Should create a new data point of type number and retrieve it", function(done) {
-			Factory.create("storageNumber", function(storage) {
-				Factory.create("datanumber", {storage: storage.id}, function(number) {
-					
-					new DataRepository().getNumber(number.id, function(err, result) {
-						err.should.be.false;
-						result.should.be.an.Object;
-						result.should.have.property("storage", number.storage);
-						result.should.have.property("value", number.value);
-						result.should.have.property("definition", number.definition);
-						done();
-					});
-				});
-			});
-		});
-
-		it("Should return an error when creating a data point and not providing the storage", function(done) {
-			var data = {
-				storage: null,
-				definition: "units",
-				value: 5
-			}
-
-			new DataRepository().createNumber(data, function(err, result) {
-				err.should.not.be.false;
-				result.should.be.false;
-				done();
-			});
-		});
-
-		it("Should return an error when creating a data point and sending a text instead of a number", function(done) {
-			Factory.create("storageNumber", function(storage) {
+		it("Should return an error when not providing the value", function(done) {
+			Factory.create("storageCounter", function(storage) {
 				var data = {
 					storage: storage.id,
-					definition: "units",
-					value: "text"
 				}
 
-				new DataRepository().createNumber(data, function(err, result) {
-					err.should.not.be.false;
-					result.should.be.false;
+				new DataRepository().saveCounter(data, function(err, result) {
+					err.should.be.equal("A value is required");
+					should.not.exist(result);
 					done();
 				});
-			});
+			})
 		});
 
+		it("Should return an error when not providing the storage", function(done) {
+			Factory.create("storageCounter", function(storage) {
+				var data = {
+					value: new Chance().natural({min: 10, max: 100}),
+				}
+
+				new DataRepository().saveCounter(data, function(err, result) {
+					err.should.be.equal("A storage is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
 	});
 
-	/************************************
-	 * ================================
-	 * ================================
-	 * ================================
-	 * DATAFLOAT
-	 * ================================
-	 * ================================
-	 * ================================
-	 */
-	describe("Float", function() {
-		it("Should create a new data point of type float", function(done) {
-			Factory.create("storageFloat", function(storage) {
+	////////////////////////////
+	////// GRAPH
+	////////////////////////////
+	describe("DataGraph", function() {
+		it("Should create a new data point of type graph", function(done) {
+			Factory.create("storageGraph", function(storage) {
 				var data = {
 					storage: storage.id,
-					value: new Chance().floating({fixed: 2, min: 0, max: 100}),
-					definition: "units"
+					value: new Chance().natural({min: 10, max: 100}),
 				}
 
-				new DataRepository().createFloat(data, function(err, result) {
+				new DataRepository().saveGraph(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
 					result.should.have.property("storage", data.storage);
 					result.should.have.property("value", data.value);
-					result.should.have.property("definition", data.definition);
 					done();
 				});
-			});
+			})
 		});
 
-		it("Should return an error when creating a data point and not providing the value", function(done) {
-			var storage = {
-				name: new Chance().word(),
-				type: "float",
-				description: new Chance().word()
-			}
-
-			Factory.create("storageFloat", storage, function(storageResult) {
-				var data = {
-					storage: storageResult.id,
-					definition: "units",
-					value: null
-				}
-
-				new DataRepository().createNumber(data, function(err, result) {
-					err.should.not.be.false;
-					result.should.be.false;
-					done();
-				});
-			});
-		});
-
-		it("Should create a new data point of type float and retrieve it", function(done) {
-			Factory.create("storageFloat", function(storage) {
-				Factory.create("datafloat", {storage: storage.id}, function(number) {
-					new DataRepository().getFloat(number.id, function(err, result) {
-						err.should.be.false;
-						result.should.be.an.Object;
-						result.should.have.property("storage", number.storage);
-						result.should.have.property("value", number.value);
-						result.should.have.property("definition", number.definition);
-						done();
-					});
-				});
-			});
-		});
-
-		it("Should return an error when creating a data point and not providing the storage", function(done) {
-			var data = {
-				storage: null,
-				definition: "units",
-				value: 5
-			}
-
-			new DataRepository().createFloat(data, function(err, result) {
-				err.should.not.be.false;
-				result.should.be.false;
-				done();
-			});
-		});
-
-		it("Should return an error when creating a data point and sending a text instead of a number", function(done) {
-			Factory.create("storageFloat", function(storage) {
+		it("Should return an error when not providing the value", function(done) {
+			Factory.create("storageGraph", function(storage) {
 				var data = {
 					storage: storage.id,
-					definition: "units",
-					value: "text"
 				}
 
-				new DataRepository().createFloat(data, function(err, result) {
-					err.should.not.be.false;
-					result.should.be.false;
+				new DataRepository().saveGraph(data, function(err, result) {
+					err.should.be.equal("A value is required");
+					should.not.exist(result);
 					done();
 				});
-			});
+			})
 		});
 
+		it("Should return an error when not providing the storage", function(done) {
+			Factory.create("storageGraph", function(storage) {
+				var data = {
+					value: new Chance().natural({min: 10, max: 100}),
+				}
+
+				new DataRepository().saveGraph(data, function(err, result) {
+					err.should.be.equal("A storage is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
 	});
 
-	/************************************
-	 * ================================
-	 * ================================
-	 * ================================
-	 * DATAMESSAGES
-	 * ================================
-	 * ================================
-	 * ================================
-	 */
-
-	describe("Messages", function() {
-
-		it("Should create a new data point of type messages", function(done) {
-			Factory.create("storageMessages", function(storage) {
+	////////////////////////////
+	////// STATUS
+	////////////////////////////
+	describe("DataStatus", function() {
+		it("Should create a new data point of type status", function(done) {
+			Factory.create("storageCounter", function(storage) {
 				var data = {
 					storage: storage.id,
-					message: new Chance().sentence({words: 5}),
-					type: "info"
+					value: "ok",
 				}
 
-				new DataRepository().createMessage(data, function(err, result) {
+				new DataRepository().saveStatus(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
 					result.should.have.property("storage", data.storage);
-					result.should.have.property("message", data.message);
-					result.should.have.property("type", data.type);
+					result.should.have.property("value", data.value);
 					done();
 				});
-			});
+			})
 		});
 
-		it("Should return an error when creating a data point and not providing the message", function(done) {
-			Factory.create("storageMessages", function(storage) {
+		it("Should return an error when not providing the value", function(done) {
+			Factory.create("storageCounter", function(storage) {
 				var data = {
 					storage: storage.id,
-					message: null,
-					type: "info"
 				}
 
-				new DataRepository().createMessage(data, function(err, result) {
-					err.should.not.be.false;
-					result.should.be.false;
+				new DataRepository().saveStatus(data, function(err, result) {
+					err.should.be.equal("The status is invalid");
+					should.not.exist(result);
 					done();
 				});
-			});
+			})
 		});
 
-		it("Should return an error when creating a data point and not providing the type", function(done) {
-			Factory.create("storageMessages", function(storage) {
+		it("Should return an error when not providing the storage", function(done) {
+			Factory.create("storageCounter", function(storage) {
+				var data = {
+					value: "error"
+				}
+
+				new DataRepository().saveStatus(data, function(err, result) {
+					err.should.be.equal("A storage is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when providing a non valid status", function(done) {
+			Factory.create("storageCounter", function(storage) {
 				var data = {
 					storage: storage.id,
-					message: new Chance().sentence({words: 5}),
-					type: null
+					value: "other"
 				}
 
-				new DataRepository().createMessage(data, function(err, result) {
-					err.should.not.be.false;
-					result.should.be.false;
+				new DataRepository().saveStatus(data, function(err, result) {
+					err.should.be.equal("The status is invalid");
+					should.not.exist(result);
 					done();
 				});
-			});
-		});
-
-		it("Should create a new data point of type message and retrieve it", function(done) {
-			Factory.create("storageMessages", function(storage) {
-				Factory.create("datamessages", {storage: storage.id}, function(message) {
-					new DataRepository().getMessage(message.id, function(err, result) {
-						err.should.be.false;
-						result.should.be.an.Object;
-						result.should.have.property("storage", message.storage);
-						result.should.have.property("message", message.message);
-						result.should.have.property("type", message.type);
-						done();
-					});
-				});
-			});
-		});
-
-		it("Should return an error when creating a data point and not providing the storage", function(done) {
-			var data = {
-				storage: null,
-				message: new Chance().sentence({words: 5}),
-				type: "info"
-			}
-
-			new DataRepository().createMessage(data, function(err, result) {
-				err.should.not.be.false;
-				result.should.be.false;
-				done();
-			});
+			})
 		});
 	});
 
-	/************************************
-	 * ================================
-	 * ================================
-	 * ================================
-	 * GENERAL METHODS
-	 * ================================
-	 * ================================
-	 * ================================
-	 */
+	////////////////////////////
+	////// MAP
+	////////////////////////////
+
+	describe("DataMap", function() {
+		it("Should create a new data point of type graph", function(done) {
+			Factory.create("storageMap", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						value: new Chance().natural({min: 10, max: 100}),
+						latitude: new Chance().latitude(),
+						longitude: new Chance().longitude()
+					}
+				}
+
+				new DataRepository().saveMap(data, function(err, result) {
+					err.should.be.false;
+					result.should.be.an.Object;
+					result.should.have.property("storage", data.storage);
+					result.value.should.be.an.Object;
+					result.should.have.property("value");
+					result.value.should.have.property("value", data.value.value);
+					result.value.should.have.property("latitude", data.value.latitude);
+					result.value.should.have.property("longitude", data.value.longitude);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the value", function(done) {
+			Factory.create("storageMap", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						latitude: new Chance().latitude(),
+						longitude: new Chance().longitude()
+					}
+				}
+
+				new DataRepository().saveMap(data, function(err, result) {
+					err.should.be.equal("A value is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the storage", function(done) {
+			Factory.create("storageMap", function(storage) {
+				var data = {
+					value: {
+						value: new Chance().natural({min: 10, max: 100}),
+						latitude: new Chance().latitude(),
+						longitude: new Chance().longitude()
+					}
+				}
+
+				new DataRepository().saveMap(data, function(err, result) {
+					err.should.be.equal("A storage is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the latitude", function(done) {
+			Factory.create("storageMap", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						value: new Chance().natural({min: 10, max: 100}),
+						longitude: new Chance().longitude()
+					}
+				}
+
+				new DataRepository().saveMap(data, function(err, result) {
+					err.should.be.equal("A latitude is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the longitude", function(done) {
+			Factory.create("storageMap", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						value: new Chance().natural({min: 10, max: 100}),
+						latitude: new Chance().latitude()
+					}
+				}
+
+				new DataRepository().saveMap(data, function(err, result) {
+					err.should.be.equal("A longitude is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+	});
+
+	////////////////////////////
+	////// COMPLETION
+	////////////////////////////
+	describe("DataCompletion", function() {
+		it("Should create a new data point of type completion", function(done) {
+			Factory.create("storageCompletion", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						current: new Chance().natural({min: 10, max: 100}),
+						min: 0,
+						max: 100
+					}
+				}
+
+				new DataRepository().saveCompletion(data, function(err, result) {
+					err.should.be.false;
+					result.should.be.an.Object;
+					result.should.have.property("storage", data.storage);
+					result.value.should.be.an.Object;
+					result.should.have.property("value");
+					result.value.should.have.property("current", data.value.current);
+					result.value.should.have.property("max", data.value.max);
+					result.value.should.have.property("min", data.value.min);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the current value", function(done) {
+			Factory.create("storageCompletion", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						min: 0,
+						max: 100
+					}
+				}
+
+				new DataRepository().saveCompletion(data, function(err, result) {
+					err.should.be.equal("The current value is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the storage", function(done) {
+			Factory.create("storageCompletion", function(storage) {
+				var data = {
+					value: {
+						current: new Chance().natural({min: 10, max: 100}),
+						min: 0,
+						max: 100
+					}
+				}
+
+				new DataRepository().saveCompletion(data, function(err, result) {
+					err.should.be.equal("A storage is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the maximum value", function(done) {
+			Factory.create("storageCompletion", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						current: new Chance().natural({min: 10, max: 100}),
+						min: 0,
+					}
+				}
+
+				new DataRepository().saveCompletion(data, function(err, result) {
+					err.should.be.equal("The maximum value is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the minium value", function(done) {
+			Factory.create("storageCompletion", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						current: new Chance().natural({min: 10, max: 100}),
+						max: 100
+					}
+				}
+
+				new DataRepository().saveCompletion(data, function(err, result) {
+					err.should.be.equal("The minimum value is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not the maximum value is smaller than the minimum", function(done) {
+			Factory.create("storageCompletion", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						current: new Chance().natural({min: 10, max: 100}),
+						max: 1,
+						min: 100
+					}
+				}
+
+				new DataRepository().saveCompletion(data, function(err, result) {
+					err.should.be.equal("The maximum value must be bigger than the minimum value");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not the maximum value is equal to the minimum", function(done) {
+			Factory.create("storageCompletion", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						current: new Chance().natural({min: 10, max: 100}),
+						max: 10,
+						min: 10
+					}
+				}
+
+				new DataRepository().saveCompletion(data, function(err, result) {
+					err.should.be.equal("The maximum value and minimum value cannot be equal");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+	});
+
+	describe("DataMessage", function() {
+		it("Should create a new data point of type message", function(done) {
+			Factory.create("storageMessage", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						title: new Chance().sentence({words: 5}),
+				  	image: "https://farm9.staticflickr.com/8245/8664397230_a6ed7abc86.jpg",
+				  	content: new Chance().paragraph({sentences: 2}),
+				  	link: new Chance().url({domain: "wikipedia.org"})
+					}
+				}
+
+				new DataRepository().saveMessage(data, function(err, result) {
+					err.should.be.false;
+					result.should.be.an.Object;
+					result.should.have.property("storage", data.storage);
+					result.value.should.be.an.Object;
+					result.should.have.property("value");
+					result.value.should.have.property("title", data.value.title);
+					result.value.should.have.property("image", data.value.image);
+					result.value.should.have.property("content", data.value.content);
+					result.value.should.have.property("link", data.value.link);
+					done();
+				});
+			});
+		});
+
+		it("Should return an error when not providing the storage", function(done) {
+			Factory.create("storageMessage", function(storage) {
+				var data = {
+					value: {
+						title: new Chance().sentence({words: 5}),
+				  	image: "https://farm9.staticflickr.com/8245/8664397230_a6ed7abc86.jpg",
+				  	content: new Chance().paragraph({sentences: 2}),
+				  	link: new Chance().url({domain: "wikipedia.org"})
+					}
+				}
+
+				new DataRepository().saveMessage(data, function(err, result) {
+					err.should.be.equal("A storage is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the title", function(done) {
+			Factory.create("storageMessage", function(storage) {
+				var data = {
+					value: {
+				  	image: "https://farm9.staticflickr.com/8245/8664397230_a6ed7abc86.jpg",
+				  	content: new Chance().paragraph({sentences: 2}),
+				  	link: new Chance().url({domain: "wikipedia.org"})
+					}
+				}
+
+				new DataRepository().saveMessage(data, function(err, result) {
+					err.should.be.equal("The title is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the content", function(done) {
+			Factory.create("storageMessage", function(storage) {
+				var data = {
+					value: {
+						title: new Chance().sentence({words: 5}),
+				  	image: "https://farm9.staticflickr.com/8245/8664397230_a6ed7abc86.jpg",
+				  	link: new Chance().url({domain: "wikipedia.org"})
+					}
+				}
+
+				new DataRepository().saveMessage(data, function(err, result) {
+					err.should.be.equal("The content of the message is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+	});
+
+
+	// /************************************
+	//  * ================================
+	//  * ================================
+	//  * ================================
+	//  * GENERAL METHODS
+	//  * ================================
+	//  * ================================
+	//  * ================================
+	//  */
+
+
 	describe("General methods", function() {
-
-		it("Should fail calling the create method when not sending the valuetype", function(done) {
-			Factory.create("storageNumber", function(storage) {
+		it("Should create a new data point of type counter by calling create method", function(done) {
+			Factory.create("storageCounter", function(storage) {
 				var data = {
 					storage: storage.id,
 					value: new Chance().natural(),
-					definition: "units",
 				}
 
-				new DataRepository().create(data, function(err, result) {
-					err.should.be.equal("Please specify a type");
-					result.should.be.false;
-					done();
-				});
-			});
-		});
-
-		it("Should create a new data number by calling create method", function(done) {
-			Factory.create("storageNumber", function(storage) {
-				var data = {
-					storage: storage.id,
-					value: new Chance().natural(),
-					definition: "units",
-					valuetype: "number"
-				}
-
-				new DataRepository().create(data, function(err, result) {
+				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
 					result.should.have.property("storage", data.storage);
 					result.should.have.property("value", data.value);
-					result.should.have.property("definition", data.definition);
 					done();
 				});
 			});
 		});
 
-		it("Should create a new data float by calling create method", function(done) {
-			Factory.create("storageFloat", function(storage) {
+		it("Should create a new data point of type status by calling create method", function(done) {
+			Factory.create("storageStatus", function(storage) {
 				var data = {
 					storage: storage.id,
-					value: new Chance().floating({fixed: 2, min: 0, max: 100}),
-					definition: "units",
-					valuetype: "float"
+					value: "ok",
 				}
 
-				new DataRepository().create(data, function(err, result) {
+				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
 					result.should.have.property("storage", data.storage);
 					result.should.have.property("value", data.value);
-					result.should.have.property("definition", data.definition);
 					done();
 				});
 			});
 		});
 
-		it("Should create a new data message by calling the create method", function(done) {
-			Factory.create("storageMessages", function(storage) {
+		it("Should create a new data point of type graph by calling create method", function(done) {
+			Factory.create("storageGraph", function(storage) {
 				var data = {
 					storage: storage.id,
-					message: new Chance().sentence({words: 5}),
-					type: "info",
-					valuetype: "messages"
+					value: new Chance().natural(),
 				}
 
-				new DataRepository().create(data, function(err, result) {
+				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
 					result.should.have.property("storage", data.storage);
-					result.should.have.property("message", data.message);
-					result.should.have.property("type", data.type);
+					result.should.have.property("value", data.value);
 					done();
 				});
 			});
 		});
 
-		it("Should create a new data number and then retrieve it by calling the get method", function(done) {
-			Factory.create("storageNumber", function(storage) {
-				Factory.create("datanumber", {storage: storage.id}, function(number) {
-					new DataRepository().get("number", number.id, function(err, result) {
-						err.should.be.false;
-						result.should.be.an.Object;
-						result.should.have.property("storage", number.storage);
-						result.should.have.property("value", number.value);
-						result.should.have.property("definition", number.definition);
-						done();
-					});
+		it("Should create a new data point of type map by calling create method", function(done) {
+			Factory.create("storageMap", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						value: new Chance().natural({min: 10, max: 100}),
+						latitude: new Chance().latitude(),
+						longitude: new Chance().longitude()
+					}
+				}
+
+				new DataRepository().save(data, function(err, result) {
+					err.should.be.false;
+					result.should.be.an.Object;
+					result.should.have.property("storage", data.storage);
+					result.should.have.property("value", data.value);
+					done();
 				});
 			});
 		});
 
-		it("Should create a new data float and then retrieve it by calling the get method", function(done) {
-			Factory.create("storageFloat", function(storage) {
-				Factory.create("datafloat", {storage: storage.id}, function(number) {
-					new DataRepository().get("float", number.id, function(err, result) {
-						err.should.be.false;
-						result.should.be.an.Object;
-						result.should.have.property("storage", number.storage);
-						result.should.have.property("value", number.value);
-						result.should.have.property("definition", number.definition);
-						done();
-					});
+		it("Should create a new data point of type completion by calling create method", function(done) {
+			Factory.create("storageCompletion", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						current: new Chance().natural({min: 10, max: 100}),
+						max: 100,
+						min: 1
+					}
+				}
+
+				new DataRepository().save(data, function(err, result) {
+					err.should.be.false;
+					result.should.be.an.Object;
+					result.should.have.property("storage", data.storage);
+					result.should.have.property("value", data.value);
+					done();
 				});
 			});
 		});
 
-		it("Should create a new data message and then retrieve it by calling the get method", function(done) {
-			Factory.create("storageMessages", function(storage) {
-				Factory.create("datamessages", {storage: storage.id}, function(message) {
-					new DataRepository().get("messages", message.id, function(err, result) {
-						err.should.be.false;
-						result.should.be.an.Object;
-						result.should.have.property("storage", message.storage);
-						result.should.have.property("message", message.message);
-						result.should.have.property("type", message.type);
-						done();
-					});
+		it("Should create a new data point of type message by calling create method", function(done) {
+			Factory.create("storageMessage", function(storage) {
+				var data = {
+					storage: storage.id,
+					value: {
+						title: new Chance().sentence({words: 5}),
+				  	image: "https://farm9.staticflickr.com/8245/8664397230_a6ed7abc86.jpg",
+				  	content: new Chance().paragraph({sentences: 2}),
+				  	link: new Chance().url({domain: "wikipedia.org"})
+					}
+				}
+
+				new DataRepository().save(data, function(err, result) {
+					err.should.be.false;
+					result.should.be.an.Object;
+					result.should.have.property("storage", data.storage);
+					result.should.have.property("value", data.value);
+					done();
 				});
 			});
 		});
 
+		it("Should get a data point", function(done) {
+			Factory.create("storageStatus", function(storage) {
+				Factory.create("dataStatus", {storage: storage.id}, function(data) {
+					new DataRepository().get(data.id, function(err, result) {
+						err.should.be.false;
+						result.should.be.an.Object,
+						result.should.have.property("storage", data.storage);
+						result.should.have.property("value", data.value);
+						done();
+					})
+				})
+			})
+		});
+		
 		it("Should try to get a non existing type when calling get", function(done) {
-			new DataRepository().get("abc", 1, function(err, result) {
-				err.should.be.equal("Please provide a valid type");
+			new DataRepository().get("abc", function(err, result) {
+				err.should.not.be.false;
 				result.should.be.false;
 				done();
 			})
 		});
 
-	
-
 	});
 
-	/************************************
-	 * ================================
-	 * ================================
-	 * ================================
-	 * GET ALL
-	 * ================================
-	 * ================================
-	 * ================================
-	 */
+	// /************************************
+	//  * ================================
+	//  * ================================
+	//  * ================================
+	//  * GET ALL
+	//  * ================================
+	//  * ================================
+	//  * ================================
+	//  */
 	describe("Get all", function() {
-
-		it("Should get all data of type number using getAllNumbers", function(done) {
-			Factory.create("storageNumber", function(storage) {
+		it("Should get all data of type status using the method all", function(done) {
+			Factory.create("storageStatus", function(storage) {
 				async.times(30, function(n, next) {
-					Factory.create("datanumber", {storage: storage.id}, function(dataNumber) {
-						return next(false, dataNumber);
+					Factory.create("dataStatus", {storage: storage.id}, function(data) {
+						return next(false, data);
 					});
 				}, function(err, data) {
-					new DataRepository().getAllNumbers(storage.id, function(err, results) {
+					new DataRepository().all(storage.id, function(err, results) {
 						err.should.be.false;
 						results.should.be.an.Array.with.lengthOf(25);
 						done();
@@ -460,108 +679,5 @@ describe("DataRepository", function() {
 				});
 			});
 		});
-
-		it("Should get all data of type float using getAllFloats", function(done) {
-			Factory.create("storageNumber", function(storage) {
-				async.times(30, function(n, next) {
-					Factory.create("datafloat", {storage: storage.id}, function(dataFloat) {
-						return next(false, dataFloat);
-					});
-				}, function(err, data) {
-					new DataRepository().getAllFloats(storage.id, function(err, results) {
-						err.should.be.false;
-						results.should.be.an.Array.with.lengthOf(25);
-						done();
-					});
-				});
-			});
-		});
-
-		it("Should get all data of type message using getAllMessages", function(done) {
-			Factory.create("storageMessages", function(storage) {
-				async.times(30, function(n, next) {
-					Factory.create("datamessages", {storage: storage.id}, function(dataMessage) {
-						return next(false, dataMessage);
-					});
-				}, function(err, data) {
-					new DataRepository().getAllMessages(storage.id, function(err, results) {
-						err.should.be.false;
-						results.should.be.an.Array.with.lengthOf(25);
-						done();
-					});
-				});
-			});
-		});
-
-
 	});
-
-	/************************************
-	 * ================================
-	 * ================================
-	 * ================================
-	 * GET ALL OF TYPE
-	 * ================================
-	 * ================================
-	 * ================================
-	 */
-	describe("getAllOfType", function() {
-		it("Shold call getAllOfType and get an error when sending a wrong type", function(done) {
-			new DataRepository().getAllOfType("abc", 1, function(err, results) {
-				err.should.be.equal("Please provide a valid type");
-				results.should.be.false;
-				done();
-			});
-		});
-
-		it("Should get all data of type number using getAllOfType", function(done) {
-			Factory.create("storageNumber", function(storage) {
-				async.times(26, function(n, next) {
-					Factory.create("datanumber", {storage: storage.id}, function(dataNumber) {
-						return next(false, dataNumber);
-					});
-				}, function(err, data) {
-					new DataRepository().getAllOfType("number", storage.id, function(err, results) {
-						err.should.be.false;
-						results.should.be.an.Array.with.lengthOf(25);
-						done();
-					});
-				});
-			});
-		});
-
-		it("Should get all data of type float using getAllOfType", function(done) {
-			Factory.create("storageFloat", function(storage) {
-				async.times(26, function(n, next) {
-					Factory.create("datafloat", {storage: storage.id}, function(dataFloat) {
-						return next(false, dataFloat);
-					});
-				}, function(err, data) {
-					new DataRepository().getAllOfType("float", storage.id, function(err, results) {
-						err.should.be.false;
-						results.should.be.an.Array.with.lengthOf(25);
-						done();
-					});
-				});
-			});
-		});
-
-		it("Should get all data of type message using getAllOfType", function(done) {
-			Factory.create("storageMessages", function(storage) {
-				async.times(26, function(n, next) {
-					Factory.create("datamessages", {storage: storage.id}, function(dataMessage) {
-						return next(false, dataMessage);
-					});
-				}, function(err, data) {
-					new DataRepository().getAllOfType("messages", storage.id, function(err, results) {
-						err.should.be.false;
-						results.should.be.an.Array.with.lengthOf(25);
-						done();
-					});
-				});
-			});
-		});
-
-	});
-
 });

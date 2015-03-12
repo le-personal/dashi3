@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module("dashi3")
-	.controller("WidgetNumberController", [
+	.controller("WidgetCounterController", [
 		"$scope",
 		"$rootScope",
 		"$modal",
@@ -23,28 +23,31 @@
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
 			io.socket.get("/api/v1/storage/" + storageId + "/data", function(data) {
+				console.log(data);
 				$scope.data = data[0];
 
-				// old data is the 1 in the 
-				var oldData = data[1];
-				var latest = data[0];
-				if(latest.value > oldData.value) {
-					$scope.indicator = "up";
-					$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
-				}
-				if(latest.value < oldData.value) {
-					$scope.indicator = "down";
-					$scope.message = "Down from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
-				}
-				if(latest.value == oldData.value) {
-					$scope.indicator = "same";
-					$scope.message = "No change since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+				if(data.length > 0) {
+					// old data is the 1 in the 
+					var oldData = data[1];
+					var latest = data[0];
+					if(latest.value > oldData.value) {
+						$scope.indicator = "up";
+						$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+					}
+					if(latest.value < oldData.value) {
+						$scope.indicator = "down";
+						$scope.message = "Down from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+					}
+					if(latest.value == oldData.value) {
+						$scope.indicator = "same";
+						$scope.message = "No change since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+					}
 				}
 			});
 
 			// when there is a change on the server, update
 			// data is refering to the model Data
-			io.socket.on("datanumber", function(data) {
+			io.socket.on("data", function(data) {
 				if(data.verb == "created") {
 					// only update if the storage of this widget is the same
 					// as the storage of the data updated
@@ -88,10 +91,10 @@
 			 * React to event "openAddDataPoint"
 			 * @type {[type]}
 			 */
-			$scope.openAddDataPoint = function(widget) {
+			$scope.openAddDataPointCounter = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openAddDataPoint",
-					controller: "OpenAddDataPoint",
+					templateUrl: "/templates/openAddDataPointCounter",
+					controller: "OpenAddDataPointCounter",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -121,7 +124,7 @@
 		}
 	])
 
-	.controller("OpenAddDataPoint", [
+	.controller("OpenAddDataPointCounter", [
 		"$scope",
 		"$modalInstance",
 		"widget",
@@ -131,8 +134,7 @@
 			$scope.ok = function () {
 				var data = {
 					storageId: storage,
-					value: $scope.value,
-					definition: $scope.definition
+					value: Number($scope.value),
 				}
 
 				// By using the API, we make sure that the event is received

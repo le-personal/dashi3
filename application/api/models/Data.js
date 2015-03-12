@@ -17,11 +17,7 @@ module.exports = {
       required: true
   	},
   	value: {
-  		type: "integer",
-  		required: true,
-  	},
-  	definition: {
-  		type: "string",
+  		type: "json",
   		required: true
   	}
   }

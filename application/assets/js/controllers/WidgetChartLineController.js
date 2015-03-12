@@ -30,7 +30,7 @@
 
 			// when there is a change on the server, update
 			// data is refering to the model Data
-			io.socket.on("datanumber", function(data) {
+			io.socket.on("data", function(data) {
 				if(data.verb == "created") {
 					// only update if the storage of this widget is the same
 					// as the storage of the data updated
@@ -61,10 +61,10 @@
 			 * React to event "openAddDataPoint"
 			 * @type {[type]}
 			 */
-			$scope.openAddDataPoint = function(widget) {
+			$scope.openAddDataPointGraph = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openAddDataPoint",
-					controller: "OpenAddDataPoint",
+					templateUrl: "/templates/openAddDataPointGraph",
+					controller: "OpenAddDataPointGraph",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -91,6 +91,33 @@
 					}
 				});
 			}
+		}
+	])
+
+	.controller("OpenAddDataPointGraph", [
+		"$scope",
+		"$modalInstance",
+		"widget",
+		"storage",
+		"Data",
+		function($scope, $modalInstance, widget, storage, Data) {
+			$scope.ok = function () {
+				var data = {
+					storageId: storage,
+					value: $scope.value,
+				}
+
+				// By using the API, we make sure that the event is received
+				// via sockets, if we use sockets to save the data, the event
+				// will not be received for some reason
+				Data.save(data, function(result) {
+		    	$modalInstance.close();
+				});
+		  };
+
+		  $scope.cancel = function () {
+		    $modalInstance.dismiss('cancel');
+		  }
 		}
 	]);
 

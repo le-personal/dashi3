@@ -16,17 +16,7 @@
 			$scope.init = function(dashboardId) {
 				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
 					$scope.dashboard = dashboard;
-
-					var widgets = [];
-					angular.forEach(dashboard.widgets, function(item) {
-						item.sizeX = item.size;
-						item.sizeY = item.size;
-
-						console.log(item);
-						widgets.push(item);
-					});
-
-					$scope.widgets = widgets;
+					$scope.widgets = dashboard.widgets;
 				});
 			}
 
@@ -71,7 +61,8 @@
 				var data = {
 					widgetId: widget.id,
 					id: widget.id,
-					size: widget.sizeX,
+					sizeX: widget.sizeX,
+					sizeY: widget.sizeY,
 					col: widget.col,
 					row: widget.row
 				}

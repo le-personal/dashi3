@@ -8,11 +8,19 @@ module.exports = {
 		name: {
 			type: "string",
 			required: true,
+			unique: true
 		},
 		type: {
 			type: "string",
 			required: true,
-			enum: ["number", "float", "messages"]
+			enum: [
+				"message",
+				"completion",
+				"counter",
+				"graph",
+				"status",
+				"map"
+			]
 		},
 		description: {
 			type: "string",

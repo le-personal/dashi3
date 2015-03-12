@@ -54,15 +54,26 @@
 
 			$scope.ok = function() {
 				var data = $scope.data;
-				Widgets.save({
+				var input = {
 					title: data.title,
 					description: data.description,
 					template: data.template,
-					weight: 0,
+					label: data.label,
 					storage: data.storage,
 					dashboard: dashboard.id,
-					size: 1
-				}, function(widget) {
+				};
+
+				if(data.size == "big") {
+					input.sizeX = 2;
+					input.sizeY = 2;
+				}
+				else {
+					input.sizeX = 1;
+					input.sizeY = 1;
+				}
+
+				console.log(input);
+				Widgets.save(input, function(widget) {
 					// emit an event
 					$rootScope.$emit("dashboard:widget:new", widget);
 					$modalInstance.close();
