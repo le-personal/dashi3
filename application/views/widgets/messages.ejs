@@ -5,11 +5,24 @@
     </div>
     <div class="dash-content">
       <div ng-repeat="element in data">
-        <div><strong>{{ element.value.title }}</strong></div>
-        <div>
-          {{ element.value.content }}
+        <div class="media">
+          <div class="media-left" ng-show="element.value.image != null">
+            <img src="{{ element.value.image }}" width="64"/>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">
+              {{ element.value.title }}
+            </h4>
+            <div>
+              {{ element.value.content }}
+            </div>
+            <div>
+              <a class="btn btn-xs btn-primary" target="_blank" href="{{ element.value.link }}">
+                More
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="help-block"><a class="btn btn-xs btn-primary" target="_blank" href="{{ element.value.link }}">View more</a></div>
         <hr />
       </div>
     </div>
