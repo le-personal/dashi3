@@ -23,7 +23,6 @@
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
 			io.socket.get("/api/v1/storage/" + storageId + "/data", function(data) {
-				console.log(data);
 				$scope.data = data[0];
 
 				if(data.length > 0) {

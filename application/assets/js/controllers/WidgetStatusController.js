@@ -2,41 +2,39 @@
 	'use strict';
 
 	angular.module("dashi3")
-	.controller("WidgetMessagesController", [
+	.controller("WidgetStatusController", [
 		"$scope",
 		"$rootScope",
-		"$sails",
 		"$modal",
-		function($scope, $rootScope, $sails, $modal) {
+		"$sails",
+		function($scope, $rootScope, $modal, $sails) {
+			var widget = $scope.widget;
 			var storageId = $scope.widget.storage;
-			$scope.data = [];
-			// populate initial data value
+
+			$scope.data = {
+				value: "ok",
+				message: null
+			};
+
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
 			io.socket.get("/api/v1/storage/" + storageId + "/data", function(data) {
-				angular.forEach(data, function(element, key) {
-					$scope.data.push(element);
-				});
+				$scope.data.value = data[0].value;
+				$scope.data.message = "Last change reported " + moment(data[0].createdAt).format("MMMM/D h:m a");
 			});
 
 			// when there is a change on the server, update
 			// data is refering to the model Data
 			io.socket.on("data", function(data) {
 				if(data.verb == "created") {
-					// only update if the storage of this widget is the same
-					// as the storage of the data updated
 					if(data.data.storage == storageId) {
-						$scope.data.unshift(data.data);
-
-						// if the array is bigger than 10, reduce it
-						if($scope.data.length > 10) {
-							$scope.data.pop();
-						}
+						$scope.data.value = data.data.value;
+						$scope.data.message = "Last change reported " + moment(data.data.createdAt).format("MMMM/D h:m a");
 					}
 				}
 			});
-
+				
 			/**
 			 * React to event "openDataList"
 			 * @type {[type]}
@@ -47,7 +45,7 @@
 					controller: "OpenDataList",
 					resolve: {
 						widget: function() {
-							return widget;
+							return $scope.widget;
 						}
 					}
 				});
@@ -57,10 +55,10 @@
 			 * React to event "openAddDataPoint"
 			 * @type {[type]}
 			 */
-			$scope.openAddDataPointMessage = function(widget) {
+			$scope.openAddDataPointStatus = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openAddDataPointMessage",
-					controller: "OpenAddDataPointMessage",
+					templateUrl: "/templates/openAddDataPointStatus",
+					controller: "OpenAddDataPointStatus",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -90,7 +88,7 @@
 		}
 	])
 
-	.controller("OpenAddDataPointMessage", [
+	.controller("OpenAddDataPointStatus", [
 		"$scope",
 		"$modalInstance",
 		"widget",
@@ -115,7 +113,7 @@
 		    $modalInstance.dismiss('cancel');
 		  }
 		}
-	])
+	]);
 
 	
 })();

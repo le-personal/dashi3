@@ -15,6 +15,10 @@
 		{
 			"name": "Pie Chart",
 			"template": "pie"
+ 		},
+ 		{
+ 			"name": "Status",
+ 			"template": "status"
  		}
  	]
  }
