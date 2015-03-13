@@ -637,7 +637,7 @@ describe("DataRepository", function() {
 					new DataRepository().get(data.id, function(err, result) {
 						err.should.be.false;
 						result.should.be.an.Object,
-						result.should.have.property("storage");
+						result.should.have.property("storage", storage.id);
 						result.should.have.property("value", data.value);
 						done();
 					})

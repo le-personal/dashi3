@@ -68,7 +68,6 @@ DataRepository.prototype.save = function(data, callback) {
 
 /**
  * Get one data record of the given type
- * @param  {string}   type     The type of record to get
  * @param  {integer}   id       The id of the record to get
  * @param  {Function} callback The function to return when done
  * @return {Function}            The callback to execute when done

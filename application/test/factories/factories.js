@@ -44,7 +44,6 @@ module.exports = function(Factory) {
 	  .attr("description", new Chance().word());
 
 	Factory.define('dataMessage', "Data")
-		.parent("storageMessage")
 	  .attr('value', {
 	  	value: {
 		  	title: new Chance().sentence({words: 5}),
@@ -55,7 +54,6 @@ module.exports = function(Factory) {
 	  });
 
 	Factory.define('dataCompletion', "Data")
-		.parent("storageCompletion")
 	  .attr('value', {
 	  	value: {
 		  	current: new Chance().natural({min: 0, max: 100}),
@@ -65,19 +63,16 @@ module.exports = function(Factory) {
 	  });
 
 	Factory.define('dataCounter', "Data")
-		.parent("storageCounter")
 	  .attr('value', {
 	  	value: new Chance().natural({min: 10, max: 100})
 	  });
 
 	Factory.define('dataGraph', "Data")
-		.parent("storageGraph")
 	  .attr('value', {
 	  	value: new Chance().natural({min: 10, max: 100})
 	  });
 
 	Factory.define('dataStatus', "Data")
-		.parent("storageStatus")
 	  .attr('value', {
 	  	status: "error"
 	  });
@@ -99,6 +94,5 @@ module.exports = function(Factory) {
 		.attr("weight", 0)
 		.attr("backgroundColor", "#fff")
 		.attr("textColor", "#000")
-		.parent("storageCounter")
 		.parent("dashboard");
 }
