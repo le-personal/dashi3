@@ -1,4 +1,5 @@
 var Chance = require("chance");
+var pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 module.exports = function(Factory) {
 	Factory.define("dashboard", "Dashboard")
@@ -9,31 +10,37 @@ module.exports = function(Factory) {
 	Factory.define('storageMessage', "Storage")
 	  .attr('name', new Chance().word())
 	  .attr('type', 'message')
+		.attr("id", new Chance().string({length: 32, pool: pool}))
 	  .attr("description", new Chance().word());
 
 	Factory.define('storageCompletion', "Storage")
 	  .attr('name', new Chance().word())
 	  .attr('type', 'completion')
+		.attr("id", new Chance().string({length: 32, pool: pool}))
 	  .attr("description", new Chance().word());
 
 	Factory.define('storageCounter', "Storage")
 	  .attr('name', new Chance().word())
 	  .attr('type', 'counter')
+		.attr("id", new Chance().string({length: 32, pool: pool}))
 	  .attr("description", new Chance().word());
 
 	Factory.define('storageGraph', "Storage")
 	  .attr('name', new Chance().word())
 	  .attr('type', 'graph')
+		.attr("id", new Chance().string({length: 32, pool: pool}))
 	  .attr("description", new Chance().word());
 
 	Factory.define('storageStatus', "Storage")
 	  .attr('name', new Chance().word())
 	  .attr('type', 'status')
+		.attr("id", new Chance().string({length: 32, pool: pool}))
 	  .attr("description", new Chance().word());
 
 	Factory.define('storageMap', "Storage")
 	  .attr('name', new Chance().word())
 	  .attr('type', 'map')
+		.attr("id", new Chance().string({length: 32, pool: pool}))
 	  .attr("description", new Chance().word());
 
 	Factory.define('dataMessage', "Data")
@@ -67,7 +74,7 @@ module.exports = function(Factory) {
 		.parent("storageGraph")
 	  .attr('value', {
 	  	value: new Chance().natural({min: 10, max: 100})
-	  });	
+	  });
 
 	Factory.define('dataStatus', "Data")
 		.parent("storageStatus")

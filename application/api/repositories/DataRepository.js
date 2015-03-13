@@ -34,6 +34,7 @@ function DataRepository() {
  */
 DataRepository.prototype.save = function(data, callback) {
 	var self = this;
+
 	new StorageRepository().get(data.storage, function(err, storage) {
 		if(err) return callback(err, false);
 
@@ -41,7 +42,7 @@ DataRepository.prototype.save = function(data, callback) {
 			case "counter":
 				return self.saveCounter(data, callback);
 			break;
-			
+
 			case "graph":
 				return self.saveGraph(data, callback);
 			break;
@@ -109,7 +110,7 @@ DataRepository.prototype.saveCounter = function(data, callback) {
 			error = "A value is required";
 		}
 
-		if(!_.isNumber(data.storage)) {
+		if(!_.isString(data.storage)) {
 			error = "A storage is required";
 		}
 
@@ -149,7 +150,7 @@ DataRepository.prototype.saveGraph = function(data, callback) {
 			error = "A value is required";
 		}
 
-		if(!_.isNumber(data.storage)) {
+		if(!_.isString(data.storage)) {
 			error = "A storage is required";
 		}
 
@@ -185,7 +186,7 @@ DataRepository.prototype.saveStatus = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isNumber(data.storage)) {
+		if(!_.isString(data.storage)) {
 			error = "A storage is required";
 		}
 
@@ -225,7 +226,7 @@ DataRepository.prototype.saveMap = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isNumber(data.storage)) {
+		if(!_.isString(data.storage)) {
 			error = "A storage is required";
 		}
 
@@ -278,7 +279,7 @@ DataRepository.prototype.saveCompletion = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isNumber(data.storage)) {
+		if(!_.isString(data.storage)) {
 			error = "A storage is required";
 		}
 
@@ -338,7 +339,7 @@ DataRepository.prototype.saveMessage = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isNumber(data.storage)) {
+		if(!_.isString(data.storage)) {
 			error = "A storage is required";
 		}
 

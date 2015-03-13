@@ -18,7 +18,9 @@ describe("StorageRepository", function() {
 					err.should.be.false;
 					result.should.be.an.Object;
 
+					// result.should.have.property("id", storage.id);
 					result.should.have.property("id", storage.id);
+					// result.should.have.property("access_token");
 					result.should.have.property("type", storage.type);
 					result.should.have.property("name", storage.name);
 					result.should.have.property("description", storage.description);

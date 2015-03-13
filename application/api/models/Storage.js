@@ -1,14 +1,17 @@
+var randtoken = require('rand-token');
+
 module.exports = {
 	attributes: {
 		id: {
-			type: "integer",
-			autoIncrement: true,
+			type: "string",
+			required: true,
+			unique: true,
+			alphanumericdashed: true,
 			primaryKey: true
 		},
 		name: {
 			type: "string",
-			required: true,
-			unique: true
+			required: true
 		},
 		type: {
 			type: "string",
@@ -25,6 +28,18 @@ module.exports = {
 		description: {
 			type: "string",
 			required: true,
+		},
+		access_token: {
+			type: "string",
+			required: false
 		}
+	},
+
+	beforeCreate: function(values, done) {
+		// set the token
+
+		// var token = randtoken.generate(32);
+		// values.access_token = token;
+		done();
 	}
 }

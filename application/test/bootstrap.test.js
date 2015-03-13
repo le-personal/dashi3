@@ -50,7 +50,7 @@ function clearDB(callback) {
  * disconnect and then try again
  */
 before(function(done) {
-  this.timeout(90000);
+  this.timeout(120000);
   Sails.lift({
     log: {
       level: "error"
@@ -62,8 +62,8 @@ before(function(done) {
     if(err) {
       console.log("Error bootstraping");
       console.log(err);
-    }  
-    
+    }
+
     done(err, sails);
   });
 });
@@ -85,4 +85,3 @@ beforeEach(function (done) {
 after(function (done) {
   (typeof sails != "undefined") ? sails.lower(done) : done();
 });
-

@@ -13,17 +13,17 @@ module.exports = {
 	index: function index(req, res) {
 		// Get the storage first to determine the type
 		var storageId = req.param("storage");
+
 		new DataRepository().all(storageId, function(err, results) {
 			if(err) return res.notFound();
-			Data.subscribe(req.socket);
+			Data.subscribe(req.socket, results);
 			return res.jsonp(200, results);
-		});	
+		});
 	},
 
 	get: function get(req, res) {
-		var storageId = req.param("storage");
 		var dataId = req.param("dataid");
-	
+
 		new DataRepository().get(dataId, function(err, result) {
 			if(err) return res.notFound();
 			return res.jsonp(200, result);
@@ -31,17 +31,16 @@ module.exports = {
 	},
 
 	post: function save(req, res) {
-		var storageId = req.param("storage");		
 		var data = req.body;
-		data.storage = Number(storageId);
+		var storageId = req.param("storage");
 
-		console.log("Inserting data");
-		console.log(data);
+		data.storage = storageId;
 
 		new DataRepository().save(data, function(err, result) {
 			if(err) console.log(err);
 			if(err) return res.notFound();
 			return res.jsonp(201, result);
 		});
+
 	}
 };

@@ -515,7 +515,7 @@ describe("DataRepository", function() {
 
 
 	describe("General methods", function() {
-		it("Should create a new data point of type counter by calling create method", function(done) {
+		it("Should create a new data point of type counter by calling save method", function(done) {
 			Factory.create("storageCounter", function(storage) {
 				var data = {
 					storage: storage.id,
@@ -525,14 +525,15 @@ describe("DataRepository", function() {
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+
+					result.should.have.property("storage");
 					result.should.have.property("value", data.value);
 					done();
 				});
 			});
 		});
 
-		it("Should create a new data point of type status by calling create method", function(done) {
+		it("Should create a new data point of type status by calling save method", function(done) {
 			Factory.create("storageStatus", function(storage) {
 				var data = {
 					storage: storage.id,
@@ -542,14 +543,14 @@ describe("DataRepository", function() {
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("storage");
 					result.should.have.property("value", data.value);
 					done();
 				});
 			});
 		});
 
-		it("Should create a new data point of type graph by calling create method", function(done) {
+		it("Should create a new data point of type graph by calling save method", function(done) {
 			Factory.create("storageGraph", function(storage) {
 				var data = {
 					storage: storage.id,
@@ -559,14 +560,14 @@ describe("DataRepository", function() {
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("storage");
 					result.should.have.property("value", data.value);
 					done();
 				});
 			});
 		});
 
-		it("Should create a new data point of type map by calling create method", function(done) {
+		it("Should create a new data point of type map by calling save method", function(done) {
 			Factory.create("storageMap", function(storage) {
 				var data = {
 					storage: storage.id,
@@ -580,14 +581,14 @@ describe("DataRepository", function() {
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("storage");
 					result.should.have.property("value", data.value);
 					done();
 				});
 			});
 		});
 
-		it("Should create a new data point of type completion by calling create method", function(done) {
+		it("Should create a new data point of type completion by calling save method", function(done) {
 			Factory.create("storageCompletion", function(storage) {
 				var data = {
 					storage: storage.id,
@@ -601,14 +602,14 @@ describe("DataRepository", function() {
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("storage");
 					result.should.have.property("value", data.value);
 					done();
 				});
 			});
 		});
 
-		it("Should create a new data point of type message by calling create method", function(done) {
+		it("Should create a new data point of type message by calling save method", function(done) {
 			Factory.create("storageMessage", function(storage) {
 				var data = {
 					storage: storage.id,
@@ -623,7 +624,7 @@ describe("DataRepository", function() {
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("storage");
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -636,14 +637,14 @@ describe("DataRepository", function() {
 					new DataRepository().get(data.id, function(err, result) {
 						err.should.be.false;
 						result.should.be.an.Object,
-						result.should.have.property("storage", data.storage);
+						result.should.have.property("storage");
 						result.should.have.property("value", data.value);
 						done();
 					})
 				})
 			})
 		});
-		
+
 		it("Should try to get a non existing type when calling get", function(done) {
 			new DataRepository().get("abc", function(err, result) {
 				err.should.not.be.false;

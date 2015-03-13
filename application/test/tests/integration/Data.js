@@ -14,6 +14,9 @@ describe("Data Controller", function() {
 	describe("Get", function() {
 		it("Should get all data from a storage using the route /api/v1/storage/:storage/data", function(done) {
 			Factory.create("storageCounter", function(storage) {
+
+				console.log(storage);
+
 				async.times(30, function(n, next) {
 					Factory.create("dataCounter", {storage: storage.id}, function(data) {
 						next(false, data);
@@ -68,7 +71,7 @@ describe("Data Controller", function() {
 					res.body.should.have.property("storage", storage.id);
 					res.body.should.have.property("value", data.value);
 					done();
-				}); 
+				});
 			});
 		});
 
