@@ -35,6 +35,11 @@ module.exports = {
     db: 0,
     // pass: <redis auth password>
     prefix: 'sess:'
-  },  
+  },
+  sockets: {
+    adapter: 'redis',
+    host: process.env.REDIS_PORT_6379_TCP_ADDR,
+    port: process.env.REDIS_PORT_6379_TCP_PORT,
+  }
 };
 
