@@ -48,12 +48,13 @@ module.exports.sockets = {
   * flashsockets by adding 'flashsocket' to this list:                       *
   *                                                                          *
   ***************************************************************************/
-  // transports: [
-  //   'websocket',
-  //   'htmlfile',
-  //   'xhr-polling',
-  //   'jsonp-polling'
-  // ],
+  transports: [
+    'websocket',
+    'flashsocket',
+    'htmlfile',
+    'xhr-polling',
+    'jsonp-polling'
+  ],
 
   /***************************************************************************
   *                                                                          *
@@ -90,7 +91,9 @@ module.exports.sockets = {
   *                                                                          *
   ***************************************************************************/
 
-  // adapter: 'redis',
+  adapter: 'redis',
+  host: process.env.REDIS_PORT_6379_TCP_ADDR,
+  port: process.env.REDIS_PORT_6379_TCP_PORT,
   // host: '127.0.0.1',
   // port: 6379,
   // db: 'sails',
