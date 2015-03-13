@@ -23,3 +23,11 @@ To help with development please install Fig and then clone the project. Then run
 
 		make install
 		make up
+
+## Roadmap
+
+1. Storage paths should use a string, not an id
+2. Authentication
+3. Public and private dashboards
+4. More widgets
+5. ...

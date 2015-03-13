@@ -22,9 +22,7 @@ var connection = mysql.createConnection({
 // Tables to remove
 var tables = [
   "dashboard",
-  "datafloat",
-  "datamessages",
-  "datanumber",
+  "data",
   "storage",
   "widgets"
 ];
