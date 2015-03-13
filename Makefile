@@ -2,7 +2,7 @@ CURRENT_DIRECTORY := $(shell pwd)
 
 prepare-test:	
 	@echo "Starting database"
-	@docker run -d --name testdb -e MYSQL_ROOT_PASSWORD=secretpass -e MYSQL_USER=tester -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=testdb mysql
+	@docker run -d --name testdb -e MYSQL_ROOT_PASSWORD=secretpass -e MYSQL_USER=tester -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=testdb mysql > .docker
 
 test:
 	@echo "Testing"
@@ -10,6 +10,7 @@ test:
 
 clean-test:
 	@docker rm --force testdb
+	@rm .docker
 
 clean:
 	@fig rm --force web
