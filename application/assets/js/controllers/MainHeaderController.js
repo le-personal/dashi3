@@ -83,12 +83,42 @@
 	.controller("CreateStorageFormModal", [
 		"$scope",
 		"$modalInstance",
+		"$filter",
 		"Storage",
-		function($scope, $modalInstance, Storage) {
+		function($scope, $modalInstance, $filter, Storage) {
+
 			$scope.data = {};
+			$scope.name = "";
+			$scope.id = "";
+			$scope.idInputIsVisible = false;
+			$scope.idButtonLabel = "Edit";
+
+			$scope.$watch("name", function() {
+				$scope.id = $scope.name.toLowerCase().replace(/ /g, '');
+			});
+			
+			$scope.toggleIdInput = function() {
+				var status = $scope.idInputIsVisible;
+
+				if(status) {
+					// status is shown
+					$scope.idInputIsVisible = false;
+					$scope.idButtonLabel = "Edit";
+				}
+				else {
+					$scope.idInputIsVisible = true;
+					$scope.idButtonLabel = "Hide";
+				}
+			}
 
 			$scope.ok = function() {
-				var storage = Storage.save($scope.data);
+				var storage = Storage.save({
+					id: $scope.id,
+					name: $scope.name,
+					type: $scope.type,
+					description: $scope.description
+				});
+
 				$modalInstance.close();
 			}
 
