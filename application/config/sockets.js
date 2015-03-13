@@ -91,9 +91,9 @@ module.exports.sockets = {
   *                                                                          *
   ***************************************************************************/
 
-  adapter: 'redis',
-  host: process.env.REDIS_PORT_6379_TCP_ADDR,
-  port: process.env.REDIS_PORT_6379_TCP_PORT,
+  // adapter: 'redis',
+  // host: process.env.REDIS_PORT_6379_TCP_ADDR,
+  // port: process.env.REDIS_PORT_6379_TCP_PORT,
   // host: '127.0.0.1',
   // port: 6379,
   // db: 'sails',
