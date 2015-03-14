@@ -37,9 +37,8 @@ module.exports = {
 
 	beforeCreate: function(values, done) {
 		// set the token
-
-		// var token = randtoken.generate(32);
-		// values.access_token = token;
+		var token = randtoken.generate(32);
+		values.access_token = token;
 		done();
 	}
 }

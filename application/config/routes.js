@@ -33,16 +33,18 @@ module.exports.routes = {
   ***************************************************************************/
 
   'get /': 'DashboardController.main',
-  
+
   'get /dashboard/:path': 'DashboardController.getDashboard',
   'get /api/v1/dashboard/:id': 'DashboardController.getDashboardAPI',
-  
+
   'get /api/v1/dashboard/:id/widgets': 'WidgetsController.getWidgets',
   'get /api/v1/widgets/available': 'WidgetsController.available',
-  
+
   'get /api/v1/storage/:storage/data': 'DataController.index',
   'get /api/v1/storage/:storage/data/:dataid': 'DataController.get',
   'post /api/v1/storage/:storage/data': 'DataController.post',
+
+  'post /api/v1/storage': 'StorageController.post',
 
   // allows us to get templates with a request.
   // the layout will be defined to an empty string so it doesn't
@@ -50,14 +52,14 @@ module.exports.routes = {
   // all files must end with .ejs extension
   "/templates/:name": function(req, res) {
     res.locals.layout = "";
-    
+
     var name = req.param("name");
     return res.view("templates/" + name);
   },
 
   "/widgets/:name": function(req, res) {
     res.locals.layout = "";
-    
+
     var name = req.param("name");
     return res.view("widgets/" + name);
   },

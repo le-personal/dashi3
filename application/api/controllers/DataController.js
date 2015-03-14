@@ -37,7 +37,6 @@ module.exports = {
 		data.storage = storageId;
 
 		new DataRepository().save(data, function(err, result) {
-			if(err) console.log(err);
 			if(err) return res.notFound();
 			return res.jsonp(201, result);
 		});
