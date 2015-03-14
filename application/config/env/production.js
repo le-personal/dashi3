@@ -17,7 +17,7 @@ module.exports = {
    ***************************************************************************/
   models: {
     connection: 'mysql',
-    migrate: 'alter'
+    migrate: 'safe'
   },
   log: {
     level: "info"
@@ -42,4 +42,3 @@ module.exports = {
     port: process.env.REDIS_PORT_6379_TCP_PORT,
   }
 };
-

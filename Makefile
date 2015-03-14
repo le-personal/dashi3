@@ -1,6 +1,6 @@
 CURRENT_DIRECTORY := $(shell pwd)
 
-prepare-test:	
+prepare-test:
 	@echo "Starting database"
 	@docker run -d --name testdb -e MYSQL_ROOT_PASSWORD=secretpass -e MYSQL_USER=tester -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=testdb mysql > .docker
 
@@ -31,7 +31,7 @@ init:
 
 start:
 	@fig up -d
-	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
+	@fig logs web
 
 stop:
 	@fig stop
@@ -40,7 +40,7 @@ status:
 	@fig ps
 
 log:
-	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
+	@fig logs web
 
 cli:
 	@fig run --rm web bash
@@ -48,6 +48,6 @@ cli:
 restart:
 	@fig stop web
 	@fig start web
-	@tail -f $(CURRENT_DIRECTORY)/logs/nodejs.log
+	@fig logs web
 
 .PHONY: test clean build start stop restart log status cli install init clean-test
