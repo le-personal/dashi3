@@ -34,7 +34,7 @@
 					}
 				}
 			});
-				
+
 			/**
 			 * React to event "openDataList"
 			 * @type {[type]}
@@ -99,6 +99,7 @@
 				var data = {
 					storageId: storage,
 					value: $scope.value,
+					access_token: "MyAccessToken"
 				}
 
 				// By using the API, we make sure that the event is received
@@ -115,5 +116,5 @@
 		}
 	]);
 
-	
+
 })();

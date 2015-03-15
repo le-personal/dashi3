@@ -9,8 +9,20 @@
         storageId: "@storageId",
         dataId: "@dataId"
       }, {
-        get: {method: "GET", isArray: true},
-        save: {method: "POST", isArray: false}
+        get: {
+          method: "GET",
+          isArray: true,
+          params: {
+            access_token: "@access_token"
+          }
+        },
+        save: {
+          method: "POST",
+          isArray: false,
+          params: {
+            access_token: "@access_token"
+          }
+        }
       })
     }
   ]);

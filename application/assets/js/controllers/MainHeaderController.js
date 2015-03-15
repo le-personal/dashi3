@@ -55,8 +55,8 @@
 
 	/**
 	 * Instance of the modal, this is the controller that will control the
-	 * modal CreateDashbaordFormModal	 
-	 * @return {void}   
+	 * modal CreateDashbaordFormModal
+	 * @return {void}
 	 */
 	.controller("CreateDashboardFormModal", [
 		'$scope',
@@ -85,7 +85,8 @@
 		"$modalInstance",
 		"$filter",
 		"Storage",
-		function($scope, $modalInstance, $filter, Storage) {
+		"storage",
+		function($scope, $modalInstance, $filter, Storage, storage) {
 
 			$scope.data = {};
 			$scope.name = "";
@@ -96,7 +97,7 @@
 			$scope.$watch("name", function() {
 				$scope.id = $scope.name.toLowerCase().replace(/ /g, '');
 			});
-			
+
 			$scope.toggleIdInput = function() {
 				var status = $scope.idInputIsVisible;
 
@@ -112,11 +113,15 @@
 			}
 
 			$scope.ok = function() {
-				var storage = Storage.save({
+				Storage.save({
 					id: $scope.id,
 					name: $scope.name,
 					type: $scope.type,
 					description: $scope.description
+				}, function(err, result) {
+					console.log(result);
+
+					// storage.setToken(result.id, result.access_token);
 				});
 
 				$modalInstance.close();
@@ -135,7 +140,7 @@
 		function($scope, $modalInstance, storage) {
 
 			$scope.storage = storage;
-			
+
 			$scope.ok = function() {
 				$modalInstance.close();
 			}

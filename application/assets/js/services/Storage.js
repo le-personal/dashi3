@@ -14,6 +14,26 @@
 					'remove': {method: "DELETE"}
 				});
 		}
-	]);
+	])
+
+	.factory("storage", [
+		"$window",
+		function(window) {
+			var tokenService = {
+        _hasToken: null,
+      };
+
+			tokenService.set = function(storageId, access_token) {
+				$window.localStorage.setItem('accessToken:'+storageId, accessToken);
+        this._hasToken = true;
+			}
+
+			tokenService.getToken = function () {
+        return $window.localStorage.getItem('accessToken:'+storageId);
+      };
+
+			return tokenService;+
+		}
+	])
 
 })();
