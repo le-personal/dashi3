@@ -15,16 +15,16 @@ describe("DataRepository", function() {
 	////////////////////////////
 	describe("DataCounter", function() {
 		it("Should create a new data point of type counter", function(done) {
-			Factory.create("storageCounter", function(storage) {
+			Factory.create("widgetCounter", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: new Chance().natural({min: 10, max: 100}),
 				}
 
 				new DataRepository().saveCounter(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("widget", data.widget);
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -32,9 +32,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the value", function(done) {
-			Factory.create("storageCounter", function(storage) {
+			Factory.create("widgetCounter", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 				}
 
 				new DataRepository().saveCounter(data, function(err, result) {
@@ -45,14 +45,14 @@ describe("DataRepository", function() {
 			})
 		});
 
-		it("Should return an error when not providing the storage", function(done) {
-			Factory.create("storageCounter", function(storage) {
+		it("Should return an error when not providing the widget", function(done) {
+			Factory.create("widgetCounter", function(widget) {
 				var data = {
 					value: new Chance().natural({min: 10, max: 100}),
 				}
 
 				new DataRepository().saveCounter(data, function(err, result) {
-					err.should.be.equal("A storage is required");
+					err.should.be.equal("A widget is required");
 					should.not.exist(result);
 					done();
 				});
@@ -63,18 +63,18 @@ describe("DataRepository", function() {
 	////////////////////////////
 	////// GRAPH
 	////////////////////////////
-	describe("DataGraph", function() {
-		it("Should create a new data point of type graph", function(done) {
-			Factory.create("storageGraph", function(storage) {
+	describe("DataSingleLineGraph", function() {
+		it("Should create a new data point of type single line graph", function(done) {
+			Factory.create("widgetSingleLineGraph", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: new Chance().natural({min: 10, max: 100}),
 				}
 
-				new DataRepository().saveGraph(data, function(err, result) {
+				new DataRepository().saveSingleLineGraph(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("widget", data.widget);
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -82,12 +82,12 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the value", function(done) {
-			Factory.create("storageGraph", function(storage) {
+			Factory.create("widgetSingleLineGraph", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 				}
 
-				new DataRepository().saveGraph(data, function(err, result) {
+				new DataRepository().saveSingleLineGraph(data, function(err, result) {
 					err.should.be.equal("A value is required");
 					should.not.exist(result);
 					done();
@@ -95,14 +95,14 @@ describe("DataRepository", function() {
 			})
 		});
 
-		it("Should return an error when not providing the storage", function(done) {
-			Factory.create("storageGraph", function(storage) {
+		it("Should return an error when not providing the widget", function(done) {
+			Factory.create("widgetSingleLineGraph", function(widget) {
 				var data = {
 					value: new Chance().natural({min: 10, max: 100}),
 				}
 
-				new DataRepository().saveGraph(data, function(err, result) {
-					err.should.be.equal("A storage is required");
+				new DataRepository().saveSingleLineGraph(data, function(err, result) {
+					err.should.be.equal("A widget is required");
 					should.not.exist(result);
 					done();
 				});
@@ -115,16 +115,16 @@ describe("DataRepository", function() {
 	////////////////////////////
 	describe("DataStatus", function() {
 		it("Should create a new data point of type status", function(done) {
-			Factory.create("storageCounter", function(storage) {
+			Factory.create("widgetCounter", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: "ok",
 				}
 
 				new DataRepository().saveStatus(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("widget", data.widget);
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -132,9 +132,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the value", function(done) {
-			Factory.create("storageCounter", function(storage) {
+			Factory.create("widgetCounter", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 				}
 
 				new DataRepository().saveStatus(data, function(err, result) {
@@ -145,14 +145,14 @@ describe("DataRepository", function() {
 			})
 		});
 
-		it("Should return an error when not providing the storage", function(done) {
-			Factory.create("storageCounter", function(storage) {
+		it("Should return an error when not providing the widget", function(done) {
+			Factory.create("widgetCounter", function(widget) {
 				var data = {
 					value: "error"
 				}
 
 				new DataRepository().saveStatus(data, function(err, result) {
-					err.should.be.equal("A storage is required");
+					err.should.be.equal("A widget is required");
 					should.not.exist(result);
 					done();
 				});
@@ -160,9 +160,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when providing a non valid status", function(done) {
-			Factory.create("storageCounter", function(storage) {
+			Factory.create("widgetCounter", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: "other"
 				}
 
@@ -181,9 +181,9 @@ describe("DataRepository", function() {
 
 	describe("DataMap", function() {
 		it("Should create a new data point of type graph", function(done) {
-			Factory.create("storageMap", function(storage) {
+			Factory.create("widgetMap", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						value: new Chance().natural({min: 10, max: 100}),
 						latitude: new Chance().latitude(),
@@ -194,7 +194,7 @@ describe("DataRepository", function() {
 				new DataRepository().saveMap(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("widget", data.widget);
 					result.value.should.be.an.Object;
 					result.should.have.property("value");
 					result.value.should.have.property("value", data.value.value);
@@ -206,9 +206,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the value", function(done) {
-			Factory.create("storageMap", function(storage) {
+			Factory.create("widgetMap", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						latitude: new Chance().latitude(),
 						longitude: new Chance().longitude()
@@ -223,8 +223,8 @@ describe("DataRepository", function() {
 			})
 		});
 
-		it("Should return an error when not providing the storage", function(done) {
-			Factory.create("storageMap", function(storage) {
+		it("Should return an error when not providing the widget", function(done) {
+			Factory.create("widgetMap", function(widget) {
 				var data = {
 					value: {
 						value: new Chance().natural({min: 10, max: 100}),
@@ -234,7 +234,7 @@ describe("DataRepository", function() {
 				}
 
 				new DataRepository().saveMap(data, function(err, result) {
-					err.should.be.equal("A storage is required");
+					err.should.be.equal("A widget is required");
 					should.not.exist(result);
 					done();
 				});
@@ -242,9 +242,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the latitude", function(done) {
-			Factory.create("storageMap", function(storage) {
+			Factory.create("widgetMap", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						value: new Chance().natural({min: 10, max: 100}),
 						longitude: new Chance().longitude()
@@ -260,9 +260,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the longitude", function(done) {
-			Factory.create("storageMap", function(storage) {
+			Factory.create("widgetMap", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						value: new Chance().natural({min: 10, max: 100}),
 						latitude: new Chance().latitude()
@@ -283,9 +283,9 @@ describe("DataRepository", function() {
 	////////////////////////////
 	describe("DataCompletion", function() {
 		it("Should create a new data point of type completion", function(done) {
-			Factory.create("storageCompletion", function(storage) {
+			Factory.create("widgetCompletion", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						current: new Chance().natural({min: 10, max: 100}),
 						min: 0,
@@ -296,7 +296,7 @@ describe("DataRepository", function() {
 				new DataRepository().saveCompletion(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("widget", data.widget);
 					result.value.should.be.an.Object;
 					result.should.have.property("value");
 					result.value.should.have.property("current", data.value.current);
@@ -308,9 +308,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the current value", function(done) {
-			Factory.create("storageCompletion", function(storage) {
+			Factory.create("widgetCompletion", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						min: 0,
 						max: 100
@@ -325,8 +325,8 @@ describe("DataRepository", function() {
 			})
 		});
 
-		it("Should return an error when not providing the storage", function(done) {
-			Factory.create("storageCompletion", function(storage) {
+		it("Should return an error when not providing the widget", function(done) {
+			Factory.create("widgetCompletion", function(widget) {
 				var data = {
 					value: {
 						current: new Chance().natural({min: 10, max: 100}),
@@ -336,7 +336,7 @@ describe("DataRepository", function() {
 				}
 
 				new DataRepository().saveCompletion(data, function(err, result) {
-					err.should.be.equal("A storage is required");
+					err.should.be.equal("A widget is required");
 					should.not.exist(result);
 					done();
 				});
@@ -344,9 +344,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the maximum value", function(done) {
-			Factory.create("storageCompletion", function(storage) {
+			Factory.create("widgetCompletion", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						current: new Chance().natural({min: 10, max: 100}),
 						min: 0,
@@ -362,9 +362,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the minium value", function(done) {
-			Factory.create("storageCompletion", function(storage) {
+			Factory.create("widgetCompletion", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						current: new Chance().natural({min: 10, max: 100}),
 						max: 100
@@ -380,9 +380,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not the maximum value is smaller than the minimum", function(done) {
-			Factory.create("storageCompletion", function(storage) {
+			Factory.create("widgetCompletion", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						current: new Chance().natural({min: 10, max: 100}),
 						max: 1,
@@ -399,9 +399,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not the maximum value is equal to the minimum", function(done) {
-			Factory.create("storageCompletion", function(storage) {
+			Factory.create("widgetCompletion", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						current: new Chance().natural({min: 10, max: 100}),
 						max: 10,
@@ -420,9 +420,9 @@ describe("DataRepository", function() {
 
 	describe("DataMessage", function() {
 		it("Should create a new data point of type message", function(done) {
-			Factory.create("storageMessage", function(storage) {
+			Factory.create("widgetMessage", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						title: new Chance().sentence({words: 5}),
 				  	image: "https://farm9.staticflickr.com/8245/8664397230_a6ed7abc86.jpg",
@@ -434,7 +434,7 @@ describe("DataRepository", function() {
 				new DataRepository().saveMessage(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage", data.storage);
+					result.should.have.property("widget", data.widget);
 					result.value.should.be.an.Object;
 					result.should.have.property("value");
 					result.value.should.have.property("title", data.value.title);
@@ -446,8 +446,8 @@ describe("DataRepository", function() {
 			});
 		});
 
-		it("Should return an error when not providing the storage", function(done) {
-			Factory.create("storageMessage", function(storage) {
+		it("Should return an error when not providing the widget", function(done) {
+			Factory.create("widgetMessage", function(widget) {
 				var data = {
 					value: {
 						title: new Chance().sentence({words: 5}),
@@ -458,7 +458,7 @@ describe("DataRepository", function() {
 				}
 
 				new DataRepository().saveMessage(data, function(err, result) {
-					err.should.be.equal("A storage is required");
+					err.should.be.equal("A widget is required");
 					should.not.exist(result);
 					done();
 				});
@@ -466,7 +466,7 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the title", function(done) {
-			Factory.create("storageMessage", function(storage) {
+			Factory.create("widgetMessage", function(widget) {
 				var data = {
 					value: {
 				  	image: "https://farm9.staticflickr.com/8245/8664397230_a6ed7abc86.jpg",
@@ -484,7 +484,7 @@ describe("DataRepository", function() {
 		});
 
 		it("Should return an error when not providing the content", function(done) {
-			Factory.create("storageMessage", function(storage) {
+			Factory.create("widgetMessage", function(widget) {
 				var data = {
 					value: {
 						title: new Chance().sentence({words: 5}),
@@ -516,9 +516,9 @@ describe("DataRepository", function() {
 
 	describe("General methods", function() {
 		it("Should create a new data point of type counter by calling save method", function(done) {
-			Factory.create("storageCounter", function(storage) {
+			Factory.create("widgetCounter", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: new Chance().natural(),
 				}
 
@@ -526,7 +526,7 @@ describe("DataRepository", function() {
 					err.should.be.false;
 					result.should.be.an.Object;
 
-					result.should.have.property("storage");
+					result.should.have.property("widget");
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -534,16 +534,16 @@ describe("DataRepository", function() {
 		});
 
 		it("Should create a new data point of type status by calling save method", function(done) {
-			Factory.create("storageStatus", function(storage) {
+			Factory.create("widgetStatus", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: "ok",
 				}
 
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage");
+					result.should.have.property("widget");
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -551,16 +551,16 @@ describe("DataRepository", function() {
 		});
 
 		it("Should create a new data point of type graph by calling save method", function(done) {
-			Factory.create("storageGraph", function(storage) {
+			Factory.create("widgetSingleLineGraph", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: new Chance().natural(),
 				}
 
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage");
+					result.should.have.property("widget");
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -568,9 +568,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should create a new data point of type map by calling save method", function(done) {
-			Factory.create("storageMap", function(storage) {
+			Factory.create("widgetMap", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						value: new Chance().natural({min: 10, max: 100}),
 						latitude: new Chance().latitude(),
@@ -581,7 +581,7 @@ describe("DataRepository", function() {
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage");
+					result.should.have.property("widget");
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -589,9 +589,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should create a new data point of type completion by calling save method", function(done) {
-			Factory.create("storageCompletion", function(storage) {
+			Factory.create("widgetCompletion", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						current: new Chance().natural({min: 10, max: 100}),
 						max: 100,
@@ -602,7 +602,7 @@ describe("DataRepository", function() {
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage");
+					result.should.have.property("widget");
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -610,9 +610,9 @@ describe("DataRepository", function() {
 		});
 
 		it("Should create a new data point of type message by calling save method", function(done) {
-			Factory.create("storageMessage", function(storage) {
+			Factory.create("widgetMessage", function(widget) {
 				var data = {
-					storage: storage.id,
+					widget: widget.id,
 					value: {
 						title: new Chance().sentence({words: 5}),
 				  	image: "https://farm9.staticflickr.com/8245/8664397230_a6ed7abc86.jpg",
@@ -624,7 +624,7 @@ describe("DataRepository", function() {
 				new DataRepository().save(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
-					result.should.have.property("storage");
+					result.should.have.property("widget");
 					result.should.have.property("value", data.value);
 					done();
 				});
@@ -632,12 +632,12 @@ describe("DataRepository", function() {
 		});
 
 		it("Should get a data point", function(done) {
-			Factory.create("storageStatus", function(storage) {
-				Factory.create("dataStatus", {storage: storage.id}, function(data) {
+			Factory.create("widgetStatus", function(widget) {
+				Factory.create("dataStatus", {widget: widget.id}, function(data) {
 					new DataRepository().get(data.id, function(err, result) {
 						err.should.be.false;
 						result.should.be.an.Object,
-						result.should.have.property("storage", storage.id);
+						result.should.have.property("widget", widget.id);
 						result.should.have.property("value", data.value);
 						done();
 					})
@@ -666,13 +666,13 @@ describe("DataRepository", function() {
 	//  */
 	describe("Get all", function() {
 		it("Should get all data of type status using the method all", function(done) {
-			Factory.create("storageStatus", function(storage) {
+			Factory.create("widgetStatus", function(widget) {
 				async.times(30, function(n, next) {
-					Factory.create("dataStatus", {storage: storage.id}, function(data) {
+					Factory.create("dataStatus", {widget: widget.id}, function(data) {
 						return next(false, data);
 					});
 				}, function(err, data) {
-					new DataRepository().all(storage.id, function(err, results) {
+					new DataRepository().all(widget.id, function(err, results) {
 						err.should.be.false;
 						results.should.be.an.Array.with.lengthOf(25);
 						done();

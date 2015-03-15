@@ -1,5 +1,6 @@
 var _ = require("lodash");
-var StorageRepository = require("./StorageRepository");
+
+var WidgetsRepository = require("./WidgetsRepository");
 
 function DataRepository() {
 
@@ -25,7 +26,7 @@ function DataRepository() {
  *                             - valuetype: {string} the type of data we're creating
  *                             - value: for the cases of number and float
  *                             - definition: for the cases of number and float
- *                             - storage: the id of the storage
+ *                             - widget: the id of the widget
  *                             - message: for the case of messages we need to send the string with the message
  *                             - type: for the case of messages we need to specify a type
  *                             				only info, error and success are allowed
@@ -35,16 +36,16 @@ function DataRepository() {
 DataRepository.prototype.save = function(data, callback) {
 	var self = this;
 
-	new StorageRepository().get(data.storage, function(err, storage) {
+	new WidgetsRepository().get(data.widget, function(err, widget) {
 		if(err) return callback(err, false);
 
-		switch(storage.type) {
+		switch(widget.type) {
 			case "counter":
 				return self.saveCounter(data, callback);
 			break;
 
-			case "graph":
-				return self.saveGraph(data, callback);
+			case "singlelinegraph":
+				return self.saveSingleLineGraph(data, callback);
 			break;
 
 			case "status":
@@ -59,7 +60,7 @@ DataRepository.prototype.save = function(data, callback) {
 				return self.saveCompletion(data, callback);
 			break;
 
-			case "message":
+			case "messages":
 				return self.saveMessage(data, callback);
 			break;
 		}
@@ -84,11 +85,11 @@ DataRepository.prototype.get = function(id, callback) {
 }
 
 /**
- * Get all data of a storage
+ * Get all data of a widget
  * ordered by created DESC
  */
-DataRepository.prototype.all = function(storageId, callback) {
-	Data.find({storage: storageId})
+DataRepository.prototype.all = function(widgetId, callback) {
+	Data.find({widget: widgetId})
 	.limit(25)
 	.sort("createdAt DESC")
 	.exec(function(err, results) {
@@ -109,8 +110,8 @@ DataRepository.prototype.saveCounter = function(data, callback) {
 			error = "A value is required";
 		}
 
-		if(!_.isString(data.storage)) {
-			error = "A storage is required";
+		if(!_.isString(data.widget)) {
+			error = "A widget is required";
 		}
 
 		return error;
@@ -123,7 +124,7 @@ DataRepository.prototype.saveCounter = function(data, callback) {
 	else {
 		var input = {
 			value: data.value,
-			storage: data.storage
+			widget: data.widget
 		}
 
 		Data.create(input)
@@ -141,7 +142,7 @@ DataRepository.prototype.saveCounter = function(data, callback) {
 /**
  * Saves a data point as a graph
  */
-DataRepository.prototype.saveGraph = function(data, callback) {
+DataRepository.prototype.saveSingleLineGraph = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
@@ -149,8 +150,8 @@ DataRepository.prototype.saveGraph = function(data, callback) {
 			error = "A value is required";
 		}
 
-		if(!_.isString(data.storage)) {
-			error = "A storage is required";
+		if(!_.isString(data.widget)) {
+			error = "A widget is required";
 		}
 
 		return error;
@@ -163,7 +164,7 @@ DataRepository.prototype.saveGraph = function(data, callback) {
 	else {
 		var input = {
 			value: data.value,
-			storage: data.storage
+			widget: data.widget
 		}
 
 		Data.create(input)
@@ -185,8 +186,8 @@ DataRepository.prototype.saveStatus = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isString(data.storage)) {
-			error = "A storage is required";
+		if(!_.isString(data.widget)) {
+			error = "A widget is required";
 		}
 
 		if(!_.contains(["ok", "error", "warning"], data.value)) {
@@ -203,7 +204,7 @@ DataRepository.prototype.saveStatus = function(data, callback) {
 	else {
 		var input = {
 			value: data.value,
-			storage: data.storage
+			widget: data.widget
 		}
 
 		Data.create(input)
@@ -225,8 +226,8 @@ DataRepository.prototype.saveMap = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isString(data.storage)) {
-			error = "A storage is required";
+		if(!_.isString(data.widget)) {
+			error = "A widget is required";
 		}
 
 		if(!_.isNumber(data.value.longitude)) {
@@ -255,7 +256,7 @@ DataRepository.prototype.saveMap = function(data, callback) {
 				longitude: data.value.longitude,
 				latitude: data.value.latitude
 			},
-			storage: data.storage
+			widget: data.widget
 		}
 
 		Data.create(input)
@@ -278,8 +279,8 @@ DataRepository.prototype.saveCompletion = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isString(data.storage)) {
-			error = "A storage is required";
+		if(!_.isString(data.widget)) {
+			error = "A widget is required";
 		}
 
 		if(!_.isNumber(data.value.min)) {
@@ -316,7 +317,7 @@ DataRepository.prototype.saveCompletion = function(data, callback) {
 				max: data.value.max,
 				min: data.value.min
 			},
-			storage: data.storage
+			widget: data.widget
 		}
 
 		Data.create(input)
@@ -338,8 +339,8 @@ DataRepository.prototype.saveMessage = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isString(data.storage)) {
-			error = "A storage is required";
+		if(!_.isString(data.widget)) {
+			error = "A widget is required";
 		}
 
 		if(!_.isString(data.value.title)) {
@@ -365,7 +366,7 @@ DataRepository.prototype.saveMessage = function(data, callback) {
 				image: data.value.image ? data.value.image : null,
 				link: data.value.link ? data.value.link : null
 			},
-			storage: data.storage
+			widget: data.widget
 		}
 
 		Data.create(input)

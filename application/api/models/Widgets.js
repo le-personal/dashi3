@@ -1,8 +1,10 @@
 module.exports = {
 	attributes: {
 		id: {
-			type: "integer",
-			autoIncrement: true,
+			type: "string",
+			required: true,
+			unique: true,
+			alphanumericdashed: true,
 			primaryKey: true
 		},
 		title: {
@@ -17,17 +19,21 @@ module.exports = {
 			type: "string",
 			required: false
 		},
-		template: {
+		type: {
 			type: "string",
-			required: true
-		},
-		storage: {
-			model: "Storage",
-			required: false,
+			required: true,
+			enum: [
+				"messages",
+				"completion",
+				"counter",
+				"singlelinegraph",
+				"status",
+				"map"
+			]
 		},
 		dashboard: {
 			model: "Dashboard",
-			required: true
+			required: false
 		},
 		row: {
 			type: "integer",

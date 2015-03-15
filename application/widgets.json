@@ -1,8 +1,8 @@
 {
  	"widgets": [
  		{
-			"name": "Line Chart",
-			"template": "line"
+			"name": "Single Line Graph",
+			"template": "singlelinegraph"
  		},
  		{
 			"name": "Messages",

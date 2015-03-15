@@ -50,6 +50,6 @@ module.exports.policies = {
 	// }
 
   DataController: {
-    '*': "dataStorageHasValidTokenAccess"
+    '*': "dataWidgetHasValidTokenAccess"
   }
 };

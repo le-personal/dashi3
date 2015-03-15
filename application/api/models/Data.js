@@ -12,8 +12,8 @@ module.exports = {
   		autoIncrement: true,
   		primaryKey: true
   	},
-  	storage: {
-  		model: "Storage",
+  	widget: {
+  		model: "Widgets",
       required: true
   	},
   	value: {
@@ -22,4 +22,3 @@ module.exports = {
   	}
   }
 };
-

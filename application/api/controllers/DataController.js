@@ -7,14 +7,13 @@
 
 var include = require("include");
 var DataRepository = include("/api/repositories/DataRepository");
-var StorageRepository = include("/api/repositories/StorageRepository");
 
 module.exports = {
 	index: function index(req, res) {
 		// Get the storage first to determine the type
-		var storageId = req.param("storage");
+		var widgetId = req.param("widget");
 
-		new DataRepository().all(storageId, function(err, results) {
+		new DataRepository().all(widgetId, function(err, results) {
 			if(err) return res.notFound();
 			Data.subscribe(req.socket, results);
 			return res.jsonp(200, results);
@@ -32,9 +31,9 @@ module.exports = {
 
 	post: function save(req, res) {
 		var data = req.body;
-		var storageId = req.param("storage");
+		var widgetId = req.param("widget");
 
-		data.storage = storageId;
+		data.widget = widgetId;
 
 		new DataRepository().save(data, function(err, result) {
 			if(err) return res.notFound();
