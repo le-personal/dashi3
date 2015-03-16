@@ -47,9 +47,27 @@
 					if(data.data.widget == widget.id) {
 						$scope.labels.push(data.data.value.labels);
 
+						// if($scope.labels.length > 15) {
+						// 	// remove the first element
+						// 	$scope.labels.shift();
+						// }
+
 						angular.forEach(data.data.value.data, function(item, index) {
 							$scope.data[index].push(item);
-						})
+
+							// if($scope.labels.length > 15) {
+							// 	// remove the first
+							// 	angular.forEach($scope.data, function(elements, i) {
+							// 		angular.foreach(elements, function(e) {
+							// 			e.pop();
+							// 		})
+							//
+							// 	})
+							// 	// $scope.data.shift();
+							// }
+						});
+
+
 					}
 				}
 			});

@@ -24,7 +24,9 @@
 
 			$scope.gridsterOptions = {
 				margins: [5, 5],
-				columns: 6,
+				columns: 7,
+				isMobile: true,
+				rowHeight: 'auto',
 				draggable: {
 					handle: 'header',
 					stop: function(event, $element, widget) {
