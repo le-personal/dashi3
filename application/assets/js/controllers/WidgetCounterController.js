@@ -131,8 +131,6 @@
 					value: Number($scope.value),
 				}
 
-				console.log(data);
-
 				// By using the API, we make sure that the event is received
 				// via sockets, if we use sockets to save the data, the event
 				// will not be received for some reason

@@ -35,7 +35,8 @@
           enabled: true,
           handles: ['n', 'e', 's', 'w', 'ne', 'se', 'sw', 'nw'],
           stop: function(event, $element, widget) {
-							$scope.$emit("widget:update", widget);
+						console.log(widget);
+						$scope.$emit("widget:update", widget);
 					}
         },
 			};
@@ -69,6 +70,7 @@
 					row: widget.row
 				}
 
+				console.log(data);
 				Widgets.update(data);
 
 			});

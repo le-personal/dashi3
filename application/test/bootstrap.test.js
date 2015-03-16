@@ -23,7 +23,6 @@ var connection = mysql.createConnection({
 var tables = [
   "dashboard",
   "data",
-  "storage",
   "widgets"
 ];
 

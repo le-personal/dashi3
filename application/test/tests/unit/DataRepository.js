@@ -119,20 +119,27 @@ describe("DataRepository", function() {
 				var data = {
 					widget: widget.id,
 				  value: {
-				    labels: ["January", "February", "March", "April", "May", "June", "July"],
-				    series: ['Series A', 'Series B'],
-				    data: [
-				      [65, 59, 80, 81, 56, 55, 40],
-				      [28, 48, 40, 19, 86, 27, 90]
-				    ],
+				    labels: ["January"],
+						data: [
+							{
+								serie: "Serie A",
+								value: 65
+							},
+							{
+								serie: "Serie B",
+								value: 70
+							}
+						]
 					}
 				}
 
 				new DataRepository().saveSeriesGraph(data, function(err, result) {
 					err.should.be.false;
 					result.should.be.an.Object;
+
 					result.should.have.property("widget", data.widget);
-					result.should.have.property("value", data.value);
+					result.should.have.property("value");
+					result.should.have.property("id");
 					done();
 				});
 			})
@@ -156,12 +163,17 @@ describe("DataRepository", function() {
 			Factory.create("widgetSeriesGraph", function(widget) {
 				var data = {
 					value: {
-				    labels: ["January", "February", "March", "April", "May", "June", "July"],
-				    series: ['Series A', 'Series B'],
-				    data: [
-				      [65, 59, 80, 81, 56, 55, 40],
-				      [28, 48, 40, 19, 86, 27, 90]
-				    ],
+				    labels: ["January"],
+						data: [
+							{
+								serie: "Serie A",
+								value: 65
+							},
+							{
+								serie: "Serie B",
+								value: 70
+							}
+						]
 					}
 				}
 

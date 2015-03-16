@@ -82,14 +82,13 @@
 
 				if(data.size == "big") {
 					input.sizeX = 2;
-					input.sizeY = 2;
+					input.sizeY = 1;
 				}
 				else {
 					input.sizeX = 1;
 					input.sizeY = 1;
 				}
 
-				console.log(input);
 				Widgets.save(input, function(widget) {
 					// emit an event
 					$rootScope.$emit("dashboard:widget:new", widget);

@@ -1,5 +1,5 @@
 var _ = require("lodash");
-
+var async = require("async");
 var WidgetsRepository = require("./WidgetsRepository");
 
 function DataRepository() {
@@ -185,6 +185,21 @@ DataRepository.prototype.saveSingleLineGraph = function(data, callback) {
 
 /**
  * Saves a data point as a graph
+// 		{
+//   "value": {
+//     "labels": ["January"],
+//     "data": [
+//         {
+//             "serie": "Serie A",
+//             "value": 65
+//         },
+//         {
+//             "serie": "Serie B",
+//             "value": 70
+//         }
+//     ]
+//   }
+// }
  */
 DataRepository.prototype.saveSeriesGraph = function(data, callback) {
 	function validate(data) {
@@ -194,10 +209,6 @@ DataRepository.prototype.saveSeriesGraph = function(data, callback) {
 
 		if(!_.isString(data.widget)) {
 			return "A widget is required";
-		}
-
-		if(!data.value.series) {
-			return "The series is required";
 		}
 
 		if(!data.value.labels) {
@@ -217,13 +228,18 @@ DataRepository.prototype.saveSeriesGraph = function(data, callback) {
 	}
 	else {
 		var input = {
-			value: data.value,
-			widget: data.widget
+			widget: data.widget,
+			value: {
+				labels: data.value.labels,
+				series: [],
+				data: []
+			}
 		}
 
-		// Play with delta here
-
-		console.log(input);
+		_.each(data.value.data, function(element) {
+			input.value.series.push(element.serie);
+			input.value.data.push([element.value]);
+		});
 
 		Data.create(input)
 		.exec(function createRecord(err, result) {
@@ -321,8 +337,6 @@ DataRepository.prototype.saveMap = function(data, callback) {
 		.exec(function createRecord(err, result) {
 			if(err) return callback(err, false);
 			if(result) {
-				console.log("Data saved");
-				console.log(result);
 				Data.publishCreate(result);
 				return callback(false, result);
 			}

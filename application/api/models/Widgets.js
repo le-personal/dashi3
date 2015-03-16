@@ -50,13 +50,13 @@ module.exports = {
 			type: "integer",
 			required: true,
 			defaultsTo: 1,
-			enum: [1, 2]
+			enum: [1, 2, 3, 4, 5, 6]
 		},
 		sizeY: {
 			type: "integer",
 			required: true,
 			defaultsTo: 1,
-			enum: [1, 2]
+			enum: [1, 2, 3, 4, 5, 6]
 		}
 	}
 }

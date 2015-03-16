@@ -11,23 +11,31 @@
 			var widget = $scope.widget;
 
 			$scope.data = [];
-			var chartData = [];
 			$scope.labels = [];
 			$scope.series = [];
+			var chartData = [];
 
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
 			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function getWidget(data) {
-				// angular.forEach(data.value.data, function(item) {
-				// 	$scope.data.push(moment(item.createdAt).format("MMM/D"));
-				// 	chartData.push(item.data);
-				// });
-
-				$scope.data = data[0].value.data;
-				$scope.labels = data[0].value.labels;
+				// Series and labels are taken from the first element of the array
+				var labels = [];
 				$scope.series = data[0].value.series;
-				console.log(data);
+
+				angular.forEach(data, function(row, i) {
+					labels.push(row.value.labels[0]);
+
+					angular.forEach(row.value.data, function(item, index) {
+						if(typeof chartData[index] === "undefined") {
+							chartData[index] = [];
+						}
+						chartData[index].unshift(item);
+					});
+				});
+
+				$scope.labels = labels.reverse();
+				$scope.data = chartData;
 			});
 
 			// when there is a change on the server, update
@@ -37,16 +45,11 @@
 					// only update if the storage of this widget is the same
 					// as the storage of the data updated
 					if(data.data.widget == widget.id) {
-						// $scope.data[0].push(data.data.value);
-						// $scope.labels.push(moment(data.data.createdAt).format("MMM/D"));
+						$scope.labels.push(data.data.value.labels);
 
-						$scope.data = [];
-
-						console.log(data.data);
-
-						$scope.data = data.data.value.data;
-						$scope.labels = data.data.value.labels;
-						$scope.series = data.data.value.series;
+						angular.forEach(data.data.value.data, function(item, index) {
+							$scope.data[index].push(item);
+						})
 					}
 				}
 			});
@@ -87,17 +90,17 @@
 			 * React to event "openWidgetSettings"
 			 * @type {[type]}
 			 */
-			// $scope.openWidgetSettings = function(widget) {
-			// 	$modal.open({
-			// 		templateUrl: "/templates/openWidgetSettings",
-			// 		controller: "OpenWidgetSettings",
-			// 		resolve: {
-			// 			widget: function() {
-			// 				return $scope.widget;
-			// 			}
-			// 		}
-			// 	});
-			// }
+			$scope.openWidgetSettings = function(widget) {
+				$modal.open({
+					templateUrl: "/templates/openWidgetSettings",
+					controller: "OpenWidgetSettings",
+					resolve: {
+						widget: function() {
+							return $scope.widget;
+						}
+					}
+				});
+			}
 		}
 	])
 
