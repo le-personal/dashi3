@@ -8,13 +8,12 @@
 		"$sails",
 		"$modal",
 		function($scope, $rootScope, $sails, $modal) {
-			var storageId = $scope.widget.storage;
 			$scope.data = [];
 			// populate initial data value
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
-			io.socket.get("/api/v1/storage/" + storageId + "/data", function(data) {
+			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function(data) {
 				angular.forEach(data, function(element, key) {
 					$scope.data.push(element);
 				});
@@ -26,7 +25,7 @@
 				if(data.verb == "created") {
 					// only update if the storage of this widget is the same
 					// as the storage of the data updated
-					if(data.data.storage == storageId) {
+					if(data.data.widget == widget.id) {
 						$scope.data.unshift(data.data);
 
 						// if the array is bigger than 10, reduce it
@@ -64,9 +63,6 @@
 					resolve: {
 						widget: function() {
 							return $scope.widget;
-						},
-						storage: function() {
-							return $scope.widget.storage;
 						}
 					}
 				});
@@ -94,12 +90,11 @@
 		"$scope",
 		"$modalInstance",
 		"widget",
-		"storage",
 		"Data",
-		function($scope, $modalInstance, widget, storage, Data) {
+		function($scope, $modalInstance, widget, Data) {
 			$scope.ok = function () {
 				var data = {
-					storageId: storage,
+					widgetId: widget.id,
 					value: $scope.value,
 				}
 
@@ -117,5 +112,5 @@
 		}
 	])
 
-	
+
 })();

@@ -23,5 +23,5 @@ module.exports = function dataWidgetHasValidTokenAccess (req, res, next) {
   //   }
   // });
 
-  next()
+  return next()
 };

@@ -13,10 +13,12 @@
 		function($scope, $rootScope, $modal, $sails, Dashboard, Widgets, Globals) {
 			$scope.dashboard = {};
 			$scope.widgets = [];
-			$scope.init = function(dashboardId) {
+			$scope.init = function dashboardInit(dashboardId) {
 				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
 					$scope.dashboard = dashboard;
 					$scope.widgets = dashboard.widgets;
+
+					console.log(dashboard);
 				});
 			}
 

@@ -1,4 +1,4 @@
-<div class="item w2" ng-controller="WidgetChartLineController">
+<div class="item w2" ng-controller="WidgetSingleLineGraphController">
   <div class="dash-unit">
     <header class="dash-title">
       {{ widget.title }}
@@ -7,7 +7,7 @@
   		<canvas id="line" class="chart chart-line" data="data"
 			  labels="labels" legend="true" series="series"
 			  click="onClick">
-			</canvas> 
+			</canvas>
     </div>
     <div class="dash-footer">
       <span class="dash-description">
@@ -15,7 +15,7 @@
       </span>
       <div class="pull-right">
         <i class="as-link glyphicon glyphicon-th-list" ng-click="openDataList({})"></i>
-        <i class="as-link glyphicon glyphicon-plus" ng-click="openAddDataPointGraph({})"></i>
+        <i class="as-link glyphicon glyphicon-plus" ng-click="openAddDataPointSingleLineGraph({})"></i>
         <i class="as-link glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
       </div>
     </div>

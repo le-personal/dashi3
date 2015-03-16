@@ -50,7 +50,6 @@ module.exports.sockets = {
   ***************************************************************************/
   transports: [
     'websocket',
-    'flashsocket',
     'htmlfile',
     'xhr-polling',
     'jsonp-polling'

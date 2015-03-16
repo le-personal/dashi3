@@ -263,6 +263,8 @@ DataRepository.prototype.saveMap = function(data, callback) {
 		.exec(function createRecord(err, result) {
 			if(err) return callback(err, false);
 			if(result) {
+				console.log("Data saved");
+				console.log(result);
 				Data.publishCreate(result);
 				return callback(false, result);
 			}

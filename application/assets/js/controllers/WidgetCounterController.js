@@ -9,7 +9,6 @@
 		"$sails",
 		function($scope, $rootScope, $modal, $sails) {
 			var widget = $scope.widget;
-			var storageId = $scope.widget.storage;
 
 			$scope.data = {
 				value: 0,
@@ -22,11 +21,11 @@
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
-			io.socket.get("/api/v1/storage/" + storageId + "/data", function(data) {
+			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function(data) {
 				$scope.data = data[0];
 
 				if(data.length > 0) {
-					// old data is the 1 in the 
+					// old data is the 1 in the
 					var oldData = data[1];
 					var latest = data[0];
 					if(latest.value > oldData.value) {
@@ -48,9 +47,9 @@
 			// data is refering to the model Data
 			io.socket.on("data", function(data) {
 				if(data.verb == "created") {
-					// only update if the storage of this widget is the same
-					// as the storage of the data updated
-					if(data.data.storage == storageId) {
+					// only update if the widget of this widget is the same
+					// as the widget of the data updated
+					if(data.data.widget == widget.id) {
 						var oldData = $scope.data;
 						$scope.data = data.data;
 
@@ -69,7 +68,7 @@
 					}
 				}
 			});
-				
+
 			/**
 			 * React to event "openDataList"
 			 * @type {[type]}
@@ -97,9 +96,6 @@
 					resolve: {
 						widget: function() {
 							return $scope.widget;
-						},
-						storage: function() {
-							return $scope.widget.storage;
 						}
 					}
 				});
@@ -127,14 +123,15 @@
 		"$scope",
 		"$modalInstance",
 		"widget",
-		"storage",
 		"Data",
-		function($scope, $modalInstance, widget, storage, Data) {
+		function($scope, $modalInstance, widget, Data) {
 			$scope.ok = function () {
 				var data = {
-					storageId: storage,
+					widgetId: widget.id,
 					value: Number($scope.value),
 				}
+
+				console.log(data);
 
 				// By using the API, we make sure that the event is received
 				// via sockets, if we use sockets to save the data, the event
@@ -155,9 +152,8 @@
 		"$modalInstance",
 		"widget",
 		function($scope, $modalInstance, widget) {
-			var storageId = widget.storage;
 			$scope.data = [];
-			io.socket.get("/api/v1/data?storage="+ storageId +"&sort=createdAt DESC&limit=25", function(data) {
+			io.socket.get("/api/v1/data?widget="+ widget.id +"&sort=createdAt DESC&limit=25", function(data) {
 				$scope.data = data;
 			});
 
@@ -191,7 +187,7 @@
 					description: $scope.data.description,
 					weight: 0
 				}, function(result) {
-					
+
 				});
 
 		    $modalInstance.close();

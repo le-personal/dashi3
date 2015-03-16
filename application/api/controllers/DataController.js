@@ -15,8 +15,10 @@ module.exports = {
 
 		new DataRepository().all(widgetId, function(err, results) {
 			if(err) return res.notFound();
-			Data.subscribe(req.socket, results);
-			return res.jsonp(200, results);
+			if(results) {
+				Data.subscribe(req.socket);
+				return res.jsonp(200, results);
+			}
 		});
 	},
 

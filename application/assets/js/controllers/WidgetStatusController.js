@@ -9,7 +9,6 @@
 		"$sails",
 		function($scope, $rootScope, $modal, $sails) {
 			var widget = $scope.widget;
-			var storageId = $scope.widget.storage;
 
 			$scope.data = {
 				value: "ok",
@@ -19,7 +18,7 @@
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
-			io.socket.get("/api/v1/storage/" + storageId + "/data", function(data) {
+			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function(data) {
 				$scope.data.value = data[0].value;
 				$scope.data.message = "Last change reported " + moment(data[0].createdAt).format("MMMM/D h:m a");
 			});
@@ -28,7 +27,7 @@
 			// data is refering to the model Data
 			io.socket.on("data", function(data) {
 				if(data.verb == "created") {
-					if(data.data.storage == storageId) {
+					if(data.data.widget == widget.id) {
 						$scope.data.value = data.data.value;
 						$scope.data.message = "Last change reported " + moment(data.data.createdAt).format("MMMM/D h:m a");
 					}
@@ -62,9 +61,6 @@
 					resolve: {
 						widget: function() {
 							return $scope.widget;
-						},
-						storage: function() {
-							return $scope.widget.storage;
 						}
 					}
 				});
@@ -92,20 +88,19 @@
 		"$scope",
 		"$modalInstance",
 		"widget",
-		"storage",
 		"Data",
-		function($scope, $modalInstance, widget, storage, Data) {
+		function($scope, $modalInstance, widget, Data) {
 			$scope.ok = function () {
 				var data = {
-					storageId: storage,
-					value: $scope.value,
-					access_token: "MyAccessToken"
+					widgetId: widget.id,
+					value: $scope.value
 				}
 
 				// By using the API, we make sure that the event is received
 				// via sockets, if we use sockets to save the data, the event
 				// will not be received for some reason
 				Data.save(data, function(result) {
+					console.log(result);
 		    	$modalInstance.close();
 				});
 		  };
