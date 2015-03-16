@@ -59,8 +59,11 @@ describe("Widgets Controller", function() {
 				res.body[3].should.have.property("name", "Pie Chart");
 				res.body[3].should.have.property("template", "pie");
 
-				res.body[4].should.have.property("name", "Series Graph");
-				res.body[4].should.have.property("template", "seriesgraph");
+				res.body[4].should.have.property("name", "Status");
+				res.body[4].should.have.property("template", "status");
+
+				res.body[5].should.have.property("name", "Series Graph");
+				res.body[5].should.have.property("template", "seriesgraph");
 
 				done();
 			});
