@@ -38,7 +38,8 @@ module.exports = {
 		data.widget = widgetId;
 
 		new DataRepository().save(data, function(err, result) {
-			if(err) return res.notFound();
+			if(err) console.log(err);
+			if(err) return res.badRequest(err);
 			return res.jsonp(201, result);
 		});
 

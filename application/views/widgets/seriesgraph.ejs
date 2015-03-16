@@ -1,0 +1,23 @@
+<div class="item w2" ng-controller="WidgetSeriesGraphController">
+  <div class="dash-unit">
+    <header class="dash-title">
+      {{ widget.title }}
+    </header>
+    <div class="dash-content">
+  		<canvas id="line" class="chart chart-line" data="data"
+			  labels="labels" legend="true" series="series"
+			  click="onClick">
+			</canvas>
+    </div>
+    <div class="dash-footer">
+      <span class="dash-description">
+        {{ widget.description }}
+      </span>
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-th-list" ng-click="openDataList({})"></i>
+        <i class="as-link glyphicon glyphicon-plus" ng-click="openAddDataPointSingleLineGraph({})"></i>
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
+      </div>
+    </div>
+  </div>
+</div>

@@ -111,6 +111,70 @@ describe("DataRepository", function() {
 	});
 
 	////////////////////////////
+	////// GRAPH
+	////////////////////////////
+	describe("DataSeriesGraph", function() {
+		it("Should create a new data point of type series graph", function(done) {
+			Factory.create("widgetSeriesGraph", function(widget) {
+				var data = {
+					widget: widget.id,
+				  value: {
+				    labels: ["January", "February", "March", "April", "May", "June", "July"],
+				    series: ['Series A', 'Series B'],
+				    data: [
+				      [65, 59, 80, 81, 56, 55, 40],
+				      [28, 48, 40, 19, 86, 27, 90]
+				    ],
+					}
+				}
+
+				new DataRepository().saveSeriesGraph(data, function(err, result) {
+					err.should.be.false;
+					result.should.be.an.Object;
+					result.should.have.property("widget", data.widget);
+					result.should.have.property("value", data.value);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the value", function(done) {
+			Factory.create("widgetSeriesGraph", function(widget) {
+				var data = {
+					widget: widget.id,
+				}
+
+				new DataRepository().saveSeriesGraph(data, function(err, result) {
+					err.should.be.equal("A value is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+
+		it("Should return an error when not providing the widget", function(done) {
+			Factory.create("widgetSeriesGraph", function(widget) {
+				var data = {
+					value: {
+				    labels: ["January", "February", "March", "April", "May", "June", "July"],
+				    series: ['Series A', 'Series B'],
+				    data: [
+				      [65, 59, 80, 81, 56, 55, 40],
+				      [28, 48, 40, 19, 86, 27, 90]
+				    ],
+					}
+				}
+
+				new DataRepository().saveSeriesGraph(data, function(err, result) {
+					err.should.be.equal("A widget is required");
+					should.not.exist(result);
+					done();
+				});
+			})
+		});
+	});
+
+	////////////////////////////
 	////// STATUS
 	////////////////////////////
 	describe("DataStatus", function() {

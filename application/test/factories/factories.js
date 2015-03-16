@@ -47,6 +47,16 @@ module.exports = function(Factory) {
 		.attr('type', 'singlelinegraph')
 		.attr("id", new Chance().string({length: 32, pool: pool}));
 
+	Factory.define('widgetSeriesGraph', "Widgets")
+		.attr("title", new Chance().sentence({words: 5}))
+		.attr("description", new Chance().sentence({words: 10}))
+		.attr("weight", 0)
+		.attr("backgroundColor", "#fff")
+		.attr("textColor", "#000")
+		.parent("dashboard")
+		.attr('type', 'seriesgraph')
+		.attr("id", new Chance().string({length: 32, pool: pool}));
+
 	Factory.define('widgetStatus', "Widgets")
 		.attr("title", new Chance().sentence({words: 5}))
 		.attr("description", new Chance().sentence({words: 10}))

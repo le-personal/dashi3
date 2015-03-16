@@ -27,6 +27,7 @@ module.exports = {
 				"completion",
 				"counter",
 				"singlelinegraph",
+				"seriesgraph",
 				"status",
 				"map"
 			]

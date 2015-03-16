@@ -48,6 +48,10 @@ DataRepository.prototype.save = function(data, callback) {
 				return self.saveSingleLineGraph(data, callback);
 			break;
 
+			case "seriesgraph":
+				return self.saveSeriesGraph(data, callback);
+			break;
+
 			case "status":
 				return self.saveStatus(data, callback);
 			break;
@@ -166,6 +170,60 @@ DataRepository.prototype.saveSingleLineGraph = function(data, callback) {
 			value: data.value,
 			widget: data.widget
 		}
+
+		Data.create(input)
+		.exec(function createRecord(err, result) {
+			if(err) return callback(err, false);
+			if(result) {
+				Data.publishCreate(result);
+				return callback(false, result);
+			}
+			return callback(true, false);
+		});
+	}
+}
+
+/**
+ * Saves a data point as a graph
+ */
+DataRepository.prototype.saveSeriesGraph = function(data, callback) {
+	function validate(data) {
+		if(!data.value) {
+			return "A value is required";
+		}
+
+		if(!_.isString(data.widget)) {
+			return "A widget is required";
+		}
+
+		if(!data.value.series) {
+			return "The series is required";
+		}
+
+		if(!data.value.labels) {
+			return "Labels are required";
+		}
+
+		if(!data.value.data) {
+			return "Data is required";
+		}
+
+		return;
+	}
+
+	var error = validate(data)
+	if(error) {
+		return callback(error);
+	}
+	else {
+		var input = {
+			value: data.value,
+			widget: data.widget
+		}
+
+		// Play with delta here
+
+		console.log(input);
 
 		Data.create(input)
 		.exec(function createRecord(err, result) {
