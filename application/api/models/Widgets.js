@@ -58,6 +58,10 @@ module.exports = {
 			required: true,
 			defaultsTo: 1,
 			enum: [1, 2, 3, 4, 5, 6]
+		},
+		settings: {
+			type: "json",
+			required: false
 		}
 	}
 }
