@@ -1,0 +1,24 @@
+<div class="item" ng-controller="WidgetTimeController">
+  <div class="dash-unit">
+    <header class="dash-title">
+      {{ widget.title }}
+    </header>
+    <div class="dash-content">
+      <h2>
+        {{ data.time }}
+      </h2>
+      <h5>
+        {{ data.date }}
+      </h5>
+      <p></p>
+    </div>
+    <div class="dash-footer">
+      <span class="dash-description">
+        {{ widget.description }}
+      </span>
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openWidgetSettings({})"></i>
+      </div>
+    </div>
+  </div>
+</div>

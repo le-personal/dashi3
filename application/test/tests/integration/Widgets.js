@@ -65,6 +65,9 @@ describe("Widgets Controller", function() {
 				res.body[5].should.have.property("name", "Series Graph");
 				res.body[5].should.have.property("template", "seriesgraph");
 
+				res.body[6].should.have.property("name", "Time");
+				res.body[6].should.have.property("template", "time");
+
 				done();
 			});
 		});
