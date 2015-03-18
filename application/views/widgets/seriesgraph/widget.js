@@ -66,52 +66,18 @@
 							// 	// $scope.data.shift();
 							// }
 						});
-
-
 					}
 				}
 			});
 
 			/**
-			 * React to event "openDataList"
-			 * @type {[type]}
-			 */
-			// $scope.openDataList = function(widget) {
-			// 	$modal.open({
-			// 		templateUrl: "/templates/openDataList",
-			// 		controller: "OpenDataList",
-			// 		resolve: {
-			// 			widget: function() {
-			// 				return $scope.widget;
-			// 			}
-			// 		}
-			// 	});
-			// }
-
-			/**
-			 * React to event "openAddDataPoint"
-			 * @type {[type]}
-			 */
-			// $scope.openAddDataPointSingleLineGraph = function(widget) {
-			// 	$modal.open({
-			// 		templateUrl: "/templates/openAddDataPointGraph",
-			// 		controller: "OpenAddDataPointSingleLineGraph",
-			// 		resolve: {
-			// 			widget: function() {
-			// 				return $scope.widget;
-			// 			}
-			// 		}
-			// 	});
-			// }
-
-			/**
 			 * React to event "openWidgetSettings"
 			 * @type {[type]}
 			 */
-			$scope.openWidgetSettings = function(widget) {
+			$scope.openSettings = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openWidgetSettings",
-					controller: "OpenWidgetSettings",
+					templateUrl: "/widgets/seriesgraph/settings",
+					controller: "WidgetSeriesGraphSettingsController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -122,24 +88,29 @@
 		}
 	])
 
-	.controller("OpenAddDataPointSingleLineGraph", [
+	.controller("WidgetSeriesGraphSettingsController", [
 		"$scope",
+		"$rootScope",
 		"$modalInstance",
 		"widget",
-		"Data",
-		function($scope, $modalInstance, widget, Data) {
-			$scope.ok = function () {
-				var data = {
-					widgetId: widget.id,
-					value: $scope.value,
-				}
+		"Widgets",
+		function($scope, $rootScope, $modalInstance, widget, Widgets) {
+			$scope.data = widget;
+			$scope.remove = function() {
+				Widgets.remove({widgetId: widget.id});
+				$rootScope.$broadcast("dashboard:widget:remove", widget);
+				$modalInstance.close();
+			}
 
-				// By using the API, we make sure that the event is received
-				// via sockets, if we use sockets to save the data, the event
-				// will not be received for some reason
-				Data.save(data, function(result) {
-		    	$modalInstance.close();
+			$scope.update = function () {
+				Widgets.update({widgetId: widget.id}, {
+					title: $scope.data.title,
+					description: $scope.data.description
+				}, function(result) {
+
 				});
+
+		    $modalInstance.close();
 		  };
 
 		  $scope.cancel = function () {
