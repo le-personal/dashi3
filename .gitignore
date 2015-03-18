@@ -120,3 +120,4 @@ application/.node_history
 logs/*
 fig.yml
 docker-compose.yml
+.DS_Store

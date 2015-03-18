@@ -48,6 +48,7 @@ module.exports.routes = {
   // the layout will be defined to an empty string so it doesn't
   // return the default layout.ejs
   // all files must end with .ejs extension
+  // Legacy
   "/templates/:name": function(req, res) {
     res.locals.layout = "";
 
@@ -59,7 +60,14 @@ module.exports.routes = {
     res.locals.layout = "";
 
     var name = req.param("name");
-    return res.view("widgets/" + name);
+    return res.view("widgets/" + name + "/widget");
+  },
+
+  "/widgets/:name/settings": function(req, res) {
+    res.locals.layout = "";
+
+    var name = req.param("name");
+    return res.view("widgets/" + name + "/settings");
   },
 
 

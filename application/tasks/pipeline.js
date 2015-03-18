@@ -18,6 +18,8 @@ var cssFilesToInject = [
   'vendor/bootstrap/dist/css/bootstrap.min.css',
   'vendor/angular-bootstrap-colorpicker/css/colorpicker.css',
   'vendor/angular-gridster/dist/angular-gridster.min.css',
+  'vendor/angular-toggle-switch/angular-toggle-switch.css',
+  'vendor/angular-toggle-switch/angular-toggle-switch-bootstrap.css',
   'styles/**/*.css'
 ];
 
@@ -51,6 +53,7 @@ var jsFilesToInject = [
   // will be injected here in no particular order.
   'vendor/angular-gridster/dist/angular-gridster.min.js',
   'vendor/javascript-detect-element-resize/jquery.resize.js',
+  'vendor/angular-toggle-switch/angular-toggle-switch.min.js',
   'js/app.js',
   'js/**/*.js'
 ];

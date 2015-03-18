@@ -8,7 +8,8 @@
 		'ui.bootstrap',
 		'ngSails',
 		'colorpicker.module',
-		"gridster"
+		"gridster",
+		"toggle-switch"
 	])
 
 	// Use it to exports a Globals variable object
