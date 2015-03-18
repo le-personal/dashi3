@@ -17,8 +17,6 @@
 				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
 					$scope.dashboard = dashboard;
 					$scope.widgets = dashboard.widgets;
-
-					console.log(dashboard);
 				});
 			}
 

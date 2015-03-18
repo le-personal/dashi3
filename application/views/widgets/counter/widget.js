@@ -106,6 +106,7 @@
 			 * @type {[type]}
 			 */
 			$scope.openWidgetSettings = function(widget) {
+				console.log("Opening from the counter");
 				$modal.open({
 					templateUrl: "/templates/openWidgetSettings",
 					controller: "OpenWidgetSettings",
@@ -180,6 +181,7 @@
 			}
 
 			$scope.update = function () {
+				console.log("updating the widget.js from the counter");
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
 					description: $scope.data.description,

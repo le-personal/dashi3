@@ -15,17 +15,24 @@
       <label for="title">Description</label>
       <textarea class="form-control" ng-model="data.description" name="description"></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-horizontal">
       <h4>Settings</h4>
       <hr />
-      <div class="row">
-        <div class="col-lg-6">
-          <strong>Show date: </strong>
-        </div>
-        <div class="col-lg-6">
-          <toggle-switch model="data.settings.showDate"><toggle-switch>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="showDate">Show date</label>
+        <div class="col-sm-10">
+          <toggle-switch ng-model="data.settings.showDate"><toggle-switch>
         </div>
       </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="format">Date format</label>
+        <div class="col-sm-10">
+          <input type="text" name="format" class="form-control" ng-model="data.settings.format" />
+        </div>
+      </div>
+
     </div>
   </form>
 </div>

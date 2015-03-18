@@ -15,13 +15,13 @@
 				time: moment().format("h:mm:ss a")
 			}
 
-			// if(widget.settings.showDate) {
-			// 	$scope.data.date = moment().format("D/MMMM/YYYY");
-			// }
+			if(widget.settings.showDate) {
+				$scope.data.date = moment().format($scope.widget.settings.format);
+			}
 
 			var time = $interval(function() {
 				$scope.data.time = moment().format("h:mm:ss a");
-				$scope.data.date = moment().format("D/MMMM/YYYY");
+				$scope.data.date = moment().format($scope.widget.settings.format);
 			}, 1000);
 
 			/**
@@ -29,6 +29,7 @@
 			 * @type {[type]}
 			 */
 			$scope.openSettings = function(widget) {
+				console.log("Opening settings");
 				$modal.open({
 					templateUrl: "/widgets/time/settings",
 					controller: "WidgetTimeSettingsController",
@@ -56,17 +57,20 @@
 				$modalInstance.close();
 			}
 
-			var settings = {
-				showDate: true
+			if(!$scope.data.settings.format) {
+				$scope.data.settings.format = "D/MMMM/YYYY";
 			}
 
 			$scope.update = function () {
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
 					description: $scope.data.description,
-					settings: settings
+					settings: {
+						showDate: $scope.data.settings.showDate,
+						format: $scope.data.settings.format
+					}
 				}, function(result) {
-
+					console.log(result);
 				});
 
 		    $modalInstance.close();
