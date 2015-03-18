@@ -40,30 +40,30 @@
 				}
 			});
 
-			/**
-			 * React to event "openDataList"
-			 * @type {[type]}
-			 */
-			$scope.openDataList = function(widget) {
-				$modal.open({
-					templateUrl: "/templates/openDataList",
-					controller: "OpenDataList",
-					resolve: {
-						widget: function() {
-							return $scope.widget;
-						}
-					}
-				});
-			}
+			// /**
+			//  * React to event "openDataList"
+			//  * @type {[type]}
+			//  */
+			// $scope.openDataList = function(widget) {
+			// 	$modal.open({
+			// 		templateUrl: "/templates/openDataList",
+			// 		controller: "OpenDataList",
+			// 		resolve: {
+			// 			widget: function() {
+			// 				return $scope.widget;
+			// 			}
+			// 		}
+			// 	});
+			// }
 
 			/**
 			 * React to event "openAddDataPoint"
 			 * @type {[type]}
 			 */
-			$scope.openAddDataPointSingleLineGraph = function(widget) {
+			$scope.openForm = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openAddDataPointGraph",
-					controller: "OpenAddDataPointSingleLineGraph",
+					templateUrl: "/widgets/singlelinegraph/form",
+					controller: "WidgetSingleLingGraphFormController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -78,8 +78,8 @@
 			 */
 			$scope.openWidgetSettings = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openWidgetSettings",
-					controller: "OpenWidgetSettings",
+					templateUrl: "/widgets/simplelinegraph/settings",
+					controller: "WidgetSingleLingGraphSettingsController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -90,7 +90,7 @@
 		}
 	])
 
-	.controller("OpenAddDataPointSingleLineGraph", [
+	.controller("WidgetSingleLingGraphFormController", [
 		"$scope",
 		"$modalInstance",
 		"widget",
@@ -108,6 +108,37 @@
 				Data.save(data, function(result) {
 		    	$modalInstance.close();
 				});
+		  };
+
+		  $scope.cancel = function () {
+		    $modalInstance.dismiss('cancel');
+		  }
+		}
+	])
+
+	.controller("WidgetSingleLingGraphSettingsController", [
+		"$scope",
+		"$rootScope",
+		"$modalInstance",
+		"widget",
+		"Widgets",
+		function($scope, $rootScope, $modalInstance, widget, Widgets) {
+			$scope.data = widget;
+			$scope.remove = function() {
+				Widgets.remove({widgetId: widget.id});
+				$rootScope.$broadcast("dashboard:widget:remove", widget);
+				$modalInstance.close();
+			}
+
+			$scope.update = function () {
+				Widgets.update({widgetId: widget.id}, {
+					title: $scope.data.title,
+					description: $scope.data.description
+				}, function(result) {
+
+				});
+
+		    $modalInstance.close();
 		  };
 
 		  $scope.cancel = function () {
