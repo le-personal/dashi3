@@ -26,7 +26,7 @@
 				margins: [5, 5],
 				columns: 7,
 				isMobile: true,
-				rowHeight: 'auto',
+				rowHeight: 300,
 				draggable: {
 					handle: 'header',
 					stop: function(event, $element, widget) {
