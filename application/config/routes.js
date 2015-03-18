@@ -44,6 +44,8 @@ module.exports.routes = {
   'get /api/v1/widgets/:widget/data/:dataid': 'DataController.get',
   'post /api/v1/widgets/:widget/data': 'DataController.post',
 
+  'get /api/v1/marketplace': 'MarketPlaceController.index',
+
   // allows us to get templates with a request.
   // the layout will be defined to an empty string so it doesn't
   // return the default layout.ejs

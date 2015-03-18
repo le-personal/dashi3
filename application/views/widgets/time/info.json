@@ -1,0 +1,7 @@
+{
+	"name": "Time",
+	"description": "A widget that shows the time and date",
+	"category": "General",
+	"template": "time",
+	"image": "time.png"
+}

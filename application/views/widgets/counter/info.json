@@ -1,0 +1,7 @@
+{
+	"name": "Counter",
+	"description": "A widget that shows a counter",
+	"category": "General",
+	"template": "counter",
+	"image": "counter.png"
+}

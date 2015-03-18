@@ -1,0 +1,7 @@
+{
+	"name": "Single Line Graph",
+	"description": "A widget that shows a graph with a single line of data",
+	"category": "General",
+	"template": "singlelinegraph",
+	"image": "singlelinegraph.png"
+}

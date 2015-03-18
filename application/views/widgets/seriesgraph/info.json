@@ -1,0 +1,7 @@
+{
+	"name": "Series Graph",
+	"description": "A widget that shows a graph with a multiple line of data",
+	"category": "General",
+	"template": "seriesgraph",
+	"image": "seriesgraph.png"
+}
