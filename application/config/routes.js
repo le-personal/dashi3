@@ -70,6 +70,12 @@ module.exports.routes = {
     return res.view("widgets/" + name + "/settings");
   },
 
+  "/widgets/:name/form": function(req, res) {
+    res.locals.layout = "";
+
+    var name = req.param("name");
+    return res.view("widgets/" + name + "/form");
+  },
 
   /***************************************************************************
   *                                                                          *

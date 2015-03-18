@@ -35,29 +35,13 @@
 			});
 
 			/**
-			 * React to event "openDataList"
-			 * @type {[type]}
-			 */
-			$scope.openDataList = function(widget) {
-				$modal.open({
-					templateUrl: "/templates/openDataList",
-					controller: "OpenDataList",
-					resolve: {
-						widget: function() {
-							return $scope.widget;
-						}
-					}
-				});
-			}
-
-			/**
 			 * React to event "openAddDataPoint"
 			 * @type {[type]}
 			 */
-			$scope.openAddDataPointStatus = function(widget) {
+			$scope.openForm = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openAddDataPointStatus",
-					controller: "OpenAddDataPointStatus",
+					templateUrl: "/widgets/status/form",
+					controller: "WidgetStatusFormController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -70,10 +54,10 @@
 			 * React to event "openWidgetSettings"
 			 * @type {[type]}
 			 */
-			$scope.openWidgetSettings = function(widget) {
+			$scope.openSettings = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openWidgetSettings",
-					controller: "OpenWidgetSettings",
+					templateUrl: "/widgets/status/settings",
+					controller: "WidgetStatusSettingsController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -84,7 +68,41 @@
 		}
 	])
 
-	.controller("OpenAddDataPointStatus", [
+	.controller("WidgetStatusSettingsController", [
+		"$scope",
+		"$rootScope",
+		"$modalInstance",
+		"widget",
+		"Widgets",
+		function($scope, $rootScope, $modalInstance, widget, Widgets) {
+			$scope.data = widget;
+			$scope.remove = function() {
+				Widgets.remove({widgetId: widget.id});
+				$rootScope.$broadcast("dashboard:widget:remove", widget);
+				$modalInstance.close();
+			}
+
+			$scope.update = function () {
+				Widgets.update({widgetId: widget.id}, {
+					title: $scope.data.title,
+					description: $scope.data.description,
+					settings: {
+						
+					}
+				}, function(result) {
+					console.log(result);
+				});
+
+		    $modalInstance.close();
+		  };
+
+		  $scope.cancel = function () {
+		    $modalInstance.dismiss('cancel');
+		  }
+		}
+	])
+
+	.controller("WidgetStatusFormController", [
 		"$scope",
 		"$modalInstance",
 		"widget",
