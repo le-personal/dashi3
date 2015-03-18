@@ -73,26 +73,26 @@
 			 * React to event "openDataList"
 			 * @type {[type]}
 			 */
-			$scope.openDataList = function(widget) {
-				$modal.open({
-					templateUrl: "/templates/openDataList",
-					controller: "OpenDataList",
-					resolve: {
-						widget: function() {
-							return $scope.widget;
-						}
-					}
-				});
-			}
+			// $scope.openDataList = function(widget) {
+			// 	$modal.open({
+			// 		templateUrl: "/templates/openDataList",
+			// 		controller: "OpenDataList",
+			// 		resolve: {
+			// 			widget: function() {
+			// 				return $scope.widget;
+			// 			}
+			// 		}
+			// 	});
+			// }
 
 			/**
 			 * React to event "openAddDataPoint"
 			 * @type {[type]}
 			 */
-			$scope.openAddDataPointCounter = function(widget) {
+			$scope.openForm = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openAddDataPointCounter",
-					controller: "OpenAddDataPointCounter",
+					templateUrl: "/widgets/counter/form",
+					controller: "WidgetCounterFormController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -105,11 +105,10 @@
 			 * React to event "openWidgetSettings"
 			 * @type {[type]}
 			 */
-			$scope.openWidgetSettings = function(widget) {
-				console.log("Opening from the counter");
+			$scope.openSettings = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openWidgetSettings",
-					controller: "OpenWidgetSettings",
+					templateUrl: "/widgets/counter/settings",
+					controller: "WidgetCounterSettingsController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -120,7 +119,7 @@
 		}
 	])
 
-	.controller("OpenAddDataPointCounter", [
+	.controller("WidgetCounterFormController", [
 		"$scope",
 		"$modalInstance",
 		"widget",
@@ -146,27 +145,27 @@
 		}
 	])
 
-	.controller("OpenDataList", [
-		"$scope",
-		"$modalInstance",
-		"widget",
-		function($scope, $modalInstance, widget) {
-			$scope.data = [];
-			io.socket.get("/api/v1/data?widget="+ widget.id +"&sort=createdAt DESC&limit=25", function(data) {
-				$scope.data = data;
-			});
+	// .controller("OpenDataList", [
+	// 	"$scope",
+	// 	"$modalInstance",
+	// 	"widget",
+	// 	function($scope, $modalInstance, widget) {
+	// 		$scope.data = [];
+	// 		io.socket.get("/api/v1/data?widget="+ widget.id +"&sort=createdAt DESC&limit=25", function(data) {
+	// 			$scope.data = data;
+	// 		});
 
-			$scope.ok = function () {
-		    $modalInstance.close($scope.selected.item);
-		  };
+	// 		$scope.ok = function () {
+	// 	    $modalInstance.close($scope.selected.item);
+	// 	  };
 
-		  $scope.cancel = function () {
-		    $modalInstance.dismiss('cancel');
-		  }
-		}
-	])
+	// 	  $scope.cancel = function () {
+	// 	    $modalInstance.dismiss('cancel');
+	// 	  }
+	// 	}
+	// ])
 
-	.controller("OpenWidgetSettings", [
+	.controller("WidgetCounterSettingsController", [
 		"$scope",
 		"$rootScope",
 		"$modalInstance",
@@ -181,11 +180,10 @@
 			}
 
 			$scope.update = function () {
-				console.log("updating the widget.js from the counter");
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
 					description: $scope.data.description,
-					weight: 0
+					label: $scope.data.label,
 				}, function(result) {
 
 				});
