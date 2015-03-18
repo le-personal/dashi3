@@ -8,6 +8,7 @@
 		"$sails",
 		"$modal",
 		function($scope, $rootScope, $sails, $modal) {
+			var widget = $scope.widget;
 			$scope.data = [];
 			// populate initial data value
 			// When opening the widget we need to get all the latest data
@@ -37,29 +38,13 @@
 			});
 
 			/**
-			 * React to event "openDataList"
-			 * @type {[type]}
-			 */
-			$scope.openDataList = function(widget) {
-				$modal.open({
-					templateUrl: "/templates/openDataList",
-					controller: "OpenDataList",
-					resolve: {
-						widget: function() {
-							return widget;
-						}
-					}
-				});
-			}
-
-			/**
 			 * React to event "openAddDataPoint"
 			 * @type {[type]}
 			 */
-			$scope.openAddDataPointMessage = function(widget) {
+			$scope.openForm = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openAddDataPointMessage",
-					controller: "OpenAddDataPointMessage",
+					templateUrl: "/widgets/messages/form",
+					controller: "WidgetMessagesFormController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -72,10 +57,10 @@
 			 * React to event "openWidgetSettings"
 			 * @type {[type]}
 			 */
-			$scope.openWidgetSettings = function(widget) {
+			$scope.openSettings = function(widget) {
 				$modal.open({
-					templateUrl: "/templates/openWidgetSettings",
-					controller: "OpenWidgetSettings",
+					templateUrl: "/widgets/messages/settings",
+					controller: "WidgetMessagesSettingsController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -86,7 +71,41 @@
 		}
 	])
 
-	.controller("OpenAddDataPointMessage", [
+	.controller("WidgetMessagesSettingsController", [
+		"$scope",
+		"$rootScope",
+		"$modalInstance",
+		"widget",
+		"Widgets",
+		function($scope, $rootScope, $modalInstance, widget, Widgets) {
+			$scope.data = widget;
+			$scope.remove = function() {
+				Widgets.remove({widgetId: widget.id});
+				$rootScope.$broadcast("dashboard:widget:remove", widget);
+				$modalInstance.close();
+			}
+
+			$scope.update = function () {
+				Widgets.update({widgetId: widget.id}, {
+					title: $scope.data.title,
+					description: $scope.data.description,
+					settings: {
+						
+					}
+				}, function(result) {
+					console.log(result);
+				});
+
+		    $modalInstance.close();
+		  };
+
+		  $scope.cancel = function () {
+		    $modalInstance.dismiss('cancel');
+		  }
+		}
+	])
+
+	.controller("WidgetMessagesFormController", [
 		"$scope",
 		"$modalInstance",
 		"widget",
@@ -95,7 +114,12 @@
 			$scope.ok = function () {
 				var data = {
 					widgetId: widget.id,
-					value: $scope.value,
+					value: {
+						title: $scope.data.title,
+						content: $scope.data.content,
+						image: $scope.data.image,
+						link: $scope.data.link
+					},
 				}
 
 				// By using the API, we make sure that the event is received
