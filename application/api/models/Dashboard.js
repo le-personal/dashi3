@@ -24,7 +24,11 @@ module.exports = {
   		type: "string",
   		required: true,
   		unique: true
-  	}
+  	},
+    public: {
+      type: "boolean",
+      required: false,
+      defaultsTo: false
+    }
   }
 };
-
