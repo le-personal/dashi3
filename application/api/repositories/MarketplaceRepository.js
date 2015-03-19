@@ -17,34 +17,38 @@ MarketplaceRepository.prototype.all = function(done) {
 
 	fs.readdir(directory, function(err, list) {
 		if(err) return done(err);
-
 		function walk(element, next) {
 			fs.stat(directory + "/" + element, function(err, stats) {
-				if(err) return next(err);
+				if(err) return next();
 				if(stats.isDirectory()) {
 					var infoFile = directory + "/" + element + "/info.json";
 
 					fs.exists(infoFile, function(exists) {
 						if(exists) {
 							fs.readFile(infoFile, "utf8", function(err, file) {
-								if(err) next(err);
+								if(err) next(null);
 								if(file) {
 									var json = JSON.parse(file);
 									files[json.template] = json;
-									return next();
+									return next(null, json);
 								}
 							});
 						}
 						else {
-							return next();
+							return next(null);
 						}
 					});
+				}
+				else {
+					return next(null);
 				}
 			});
 		}
 
-		async.eachSeries(list, walk, function(err, results) {
-			return done(err, files);
+		async.concat(list, walk, function(err, results) {
+			console.log(results);
+			if(err) console.log(err);
+			return done(err, results);
 		});
 
 	});

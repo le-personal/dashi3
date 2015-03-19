@@ -14,6 +14,8 @@ web:
     GOOGLE_OAUTH_CLIENTID: something.apps.googleusercontent.com
     GOOGLE_OAUTH_CLIENTSECRET: secret
     GOOGLE_OAUTH_CALLBACKURL: http://localhost/auth/google/callback
+    TWITTER_APIKEY: somekey
+    TWITTER_APISECRET: somesecretkey
     SECRET: c205e344a308f4f93b9c9098922ef73a
 mysql:
   image: mysql:latest
