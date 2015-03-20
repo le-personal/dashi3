@@ -9,7 +9,7 @@ test:
 	@docker run --rm -e NODE_ENV=test -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mongodb luis/sails npm test
 
 clean-test:
-	@if [ -a $(CURRENT_DIRECTORY)/.docker ]; \
+	@if [ -f $(CURRENT_DIRECTORY)/.docker ]; \
 	then \
   		docker rm --force testdb ; \
 		rm .docker; \
