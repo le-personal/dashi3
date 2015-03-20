@@ -40,6 +40,7 @@ var jsFilesToInject = [
   'vendor/Chart.js/Chart.min.js',
   'vendor/angular-chart.js/angular-chart.js',
   'vendor/angular-resource/angular-resource.js',
+  'vendor/angular-route/angular-route.min.js',
   // 'vendor/angular-bootstrap/ui-bootstrap.min.js',
   'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
   // 'vendor/packery/dist/packery.pkgd.min.js',

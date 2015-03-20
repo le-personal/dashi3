@@ -4,6 +4,7 @@
 
 	angular.module("dashi3", [
 		'ngResource',
+		'ngRoute',
 		'chart.js',
 		'ui.bootstrap',
 		'ngSails',

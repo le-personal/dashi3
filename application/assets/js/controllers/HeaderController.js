@@ -2,34 +2,108 @@
 	'use strict';
 
 	angular.module("dashi3")
+	.config([
+		'$routeProvider',
+		'$locationProvider',
+	  function($routeProvider, $locationProvider) {
+	    $routeProvider.
+	      when('/marketplace', {
+	        templateUrl: '/templates/marketplace',
+	        controller: 'MarketplaceController'
+	      });
+	      // when('/phones/:phoneId', {
+	      //   templateUrl: 'partials/phone-detail.html',
+	      //   controller: 'PhoneDetailCtrl'
+	      // }).
+
+	  }
+	])
+
+	.controller("OpenMarketplaceController", [
+		"$scope",
+		"$rootScope",
+		"$modalInstance",
+		"$route",
+		"$routeParams",
+		"$location",
+		function($scope, $rootScope, $modalInstance, $route, $routeParams, $location) {
+			$rootScope.modalInstance = $modalInstance;
+			$scope.$route = $route;
+			$scope.$location = $location;
+			$scope.$routeParams = $routeParams;
+
+			// Al abrir el modal, redirigir hacia el path /marketplace
+			$location.path("/marketplace");
+
+			$scope.ok = function () {
+		    $modalInstance.close();
+		  };
+
+		  $scope.cancel = function () {
+		    $modalInstance.dismiss('cancel');
+		  };
+
+		  $rootScope.$on("closeModal", function() {
+		  	$modalInstance.close();
+		  })
+		}
+	])
+
 	.controller("HeaderController", [
 		'$scope',
+		'$rootScope',
 		'$sails',
 		'$modal',
 		'Widgets',
 		'Dashboard',
-		function($scope, $sails, $modal, Widgets, Dashboard) {
+		'Marketplace',
+		function($scope, $rootScope, $sails, $modal, Widgets, Dashboard, Marketplace) {
 			var dashboard = {};
 			$scope.init = function(dashboardId) {
 				dashboard = Dashboard.get({dashboardId: dashboardId});
+				$rootScope.dashboard = dashboard;
 			}
 
-			$scope.openNewWidgetFormModal = function() {
-				var templates = Widgets.query({widgetId: "available"});
-
+			// this will have to go and we'll rely on the path
+			$scope.openMarketplace = function() {
+				console.log("opening modal");
 				$modal.open({
-					templateUrl: "/templates/openNewWidgetFormModal",
-					controller: "OpenNewWidgetFormModal",
-					resolve: {
-						templates: function() {
-							return templates;
-						},
-						dashboard: function() {
-							return dashboard;
-						}
-					}
+					templateUrl: "/templates/modal",
+					controller: "OpenMarketplaceController"
 				});
 			}
+
+			// This is temporary, until the Marketplace is ready
+			// $scope.openNewWidgetFormModal = function() {
+			// 	var templates = Widgets.query({widgetId: "available"});
+			//
+			// 	$modal.open({
+			// 		templateUrl: "/templates/openNewWidgetFormModal",
+			// 		controller: "OpenNewWidgetFormModal",
+			// 		resolve: {
+			// 			templates: function() {
+			// 				return templates;
+			// 			},
+			// 			dashboard: function() {
+			// 				return dashboard;
+			// 			}
+			// 		}
+			// 	});
+			// }
+
+		}
+	])
+
+	.controller("MarketplaceController", [
+		"$scope",
+		"$rootScope",
+		"$location",
+		"$routeParams",
+		"Marketplace",
+		function($scope, $rootScope, $location, $routeParams, Marketplace) {
+			$scope.params = $routeParams;
+			console.log($rootScope.dashboard);
+			$scope.widgets = Marketplace.index();
 		}
 	])
 
