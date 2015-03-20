@@ -81,10 +81,8 @@
 			// a new event, this is safer than changing just the changed widget because
 			// it might affected others
 			io.socket.on("widgets", function(data) {
-				if(data.verb == "updated") {
-					// UPdate the dashboard if a widget changed
-					$rootScope.$emit("dashboard:update", $scope.dashboard);
-				}
+				// UPdate the dashboard if a widget changed
+				$rootScope.$emit("dashboard:update", $scope.dashboard);
 			});
 		}
 	]);
