@@ -15,6 +15,7 @@
 			$scope.widgets = [];
 			$scope.init = function dashboardInit(dashboardId) {
 				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
+					console.log(dashboard);
 					$scope.dashboard = dashboard;
 					$scope.widgets = dashboard.widgets;
 				});

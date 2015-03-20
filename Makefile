@@ -2,11 +2,11 @@ CURRENT_DIRECTORY := $(shell pwd)
 
 prepare-test:
 	@echo "Starting database"
-	@docker run -d --name testdb -e MYSQL_ROOT_PASSWORD=secretpass -e MYSQL_USER=tester -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=testdb mysql > .docker
+	@docker run -d --name testdb -e MONGODB_DATATABASE=testdb mongo:2.6 > .docker
 
 test:
 	@echo "Testing"
-	@docker run --rm -e NODE_ENV=test -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mysql luis/sails npm test
+	@docker run --rm -e NODE_ENV=test -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mongodb luis/sails npm test
 
 clean-test:
 	@if [ -a $(CURRENT_DIRECTORY)/.docker ]; \

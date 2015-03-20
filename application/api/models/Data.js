@@ -7,11 +7,6 @@
 
 module.exports = {
   attributes: {
-  	id: {
-  		type: "integer",
-  		autoIncrement: true,
-  		primaryKey: true
-  	},
   	widget: {
   		model: "Widgets",
       required: true

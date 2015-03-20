@@ -9,38 +9,47 @@
 
 var Sails = require("sails");
 var async = require("async");
-var mysql = require("mysql");
 
-var connection = mysql.createConnection({
-    host: process.env.MYSQL_PORT_3306_TCP_ADDR,
-    user: process.env.MYSQL_ENV_MYSQL_USER,
-    password: process.env.MYSQL_ENV_MYSQL_PASSWORD,
-    database: process.env.MYSQL_ENV_MYSQL_DATABASE,
-    port: process.env.MYSQL_PORT_3306_TCP_PORT,
-});
+// Define all methods, there should be a way of do this automatically
+var models = ["dashboard", "data", "passport", "user", "widgets"];
 
-// Tables to remove
-var tables = [
-  "dashboard",
-  "data",
-  "widgets"
-];
+/**
+ * Find all records of a model and remove them
+ * @param  {string}   model The model to reference in sails.models, it's not an object
+ *                          just a string, we'll find the model with that name on sails.models
+ */
+function findAndRemove(model, next) {
+  // sails.models have all models, we take the model being called
+  // and find it in sails models.
+  var Model = sails.models[model];
+  Model.find().exec(function(err, results) {
+    if(err) {
+      console.log(err);
+      return next(err);
+    }
+    
+    // For each of the results, we run a calblack to destroy the result found
+    async.each(results, function(result, next) {
+      result.destroy(function(err, status) {
+        return next();
+      })
+    }, function(err) {
+      if(err) console.log(err);
+      return next();
+    })
+  });
+}
 
 /**
  * Util function to clear the database
  * @param  {Function} callback A callback to return when done
  */
 function clearDB(callback) {
-  connection.connect(function(err) {
-    async.each(tables, function(table, next) {
-      connection.query("TRUNCATE TABLE " + table, function(err, rows2) {
-        return next(err);
-      });
-    }, function(err) {
-      if(err) console.log(err);
-      return callback(false);
-    });
-  });
+  // For each model in models, run findAndRemove
+  async.concat(models, findAndRemove, function(err, results) {
+    if(err) console.log(err);
+    return callback(false);
+  })
 }
 
 /**
