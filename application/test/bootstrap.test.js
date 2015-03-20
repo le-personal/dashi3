@@ -86,6 +86,15 @@ beforeEach(function (done) {
 });
 
 /**
+ * Before each test is run, we clear the DB
+ */
+afterEach(function (done) {
+  clearDB(function() {
+    done();
+  });
+});
+
+/**
  * After all tests are done, disconnect
  * @param  {Function} done [description]
  * @return {[type]}        [description]
