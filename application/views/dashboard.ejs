@@ -1,6 +1,6 @@
 <%- partial('header.ejs') %>
 
-<div id="page" class="container-fluid" ng-controller="DashboardController" ng-init="init(<%- dashboard.id %>)">
+<div id="page" class="container-fluid" ng-controller="DashboardController">
   <div gridster="gridsterOptions">
     <ul>
 	    <li gridster-item="widget" ng-repeat="widget in widgets">

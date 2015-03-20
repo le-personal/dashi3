@@ -1,0 +1,7 @@
+{
+	"name": "Status",
+	"description": "A widget that shows some status",
+	"category": "General",
+	"template": "status",
+	"image": "status.png"
+}

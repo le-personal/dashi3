@@ -1,0 +1,25 @@
+  <div class="modal-header">
+    <h3 class="modal-title"> <i class="glyphicon glyphicon-th"></i> Marketplace</h3>
+  </div>
+  <div class="modal-body">
+  	<div class="row" ng-repeat="row in rows">
+  		<div class="col-sm-4" ng-repeat="widget in row">
+  			<div class="panel panel-info">
+		    	<div class="panel-heading">
+				    <h4 class="panel-title">{{ widget.name }}</h4>
+				  </div>
+				  <div class="panel-body">
+				  	<div><img width="200" height="250" src="/images/widgets/{{ widget.template }}/{{ widget.image }}" /></div>
+				    <p></p>
+				    <div>{{ widget.description }}</div>
+				    <p></p>
+				    <button class="btn btn-block btn-success" ng-click="addWidget(widget)">Add</button>
+				  </div>
+		  	</div>
+  		</div>
+  	</div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+

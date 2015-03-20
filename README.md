@@ -1,7 +1,10 @@
 # Dashi3
 
 Dashi3 is a dashboard application written in Node.js / Sails / MySQL / Angular.js to store data and present it as widgets in realtime.
-It has a storage system so you can save numbers or messages.
+It has a storage system so you can save any kind of data.
+
+### Status
+Currently under development, not production ready, use it at your own risk.
 
 ### Run
 You can run the application using Docker:
@@ -21,13 +24,13 @@ You can run the application using Docker:
 ### Development
 To help with development please install Fig and then clone the project. Then run:
 
-		make install
-		make up
+		make init
+		make start
 
 ## Roadmap
 
-1. Storage paths should use a string, not an id
-2. Authentication
-3. Public and private dashboards
-4. More widgets
-5. ...
+- Authentication
+- Public and private dashboards
+- More widgets
+-- Twitter feed, Facebook data, Google Analytics, etc...
+- Marketplace

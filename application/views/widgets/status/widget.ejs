@@ -1,0 +1,32 @@
+<div class="item" ng-controller="WidgetStatusController">
+  <div class="dash-unit">
+    <header class="dash-title">
+      {{ widget.title }}
+    </header>
+    <div class="dash-content">
+      <h2>
+        {{ widget.title }}
+      </h2>
+      <p></p>
+      <div class="row">
+        <div class="col-lg-7">
+          <span class="help-block">{{ data.message }}</span>
+        </div>
+        <div class="col-lg-5">
+          <img src="/images/status-ok.png" ng-show="data.value === 'ok'" />
+          <img src="/images/status-danger.png" ng-show="data.value === 'error'" />
+          <img src="/images/status-warning.png" ng-show="data.value === 'warning'" />
+        </div>
+      </div>
+    </div>
+    <div class="dash-footer">
+      <span class="dash-description">
+        {{ widget.description }}
+      </span>
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-plus" ng-click="openForm({})"></i>
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
+      </div>
+    </div>
+  </div>
+</div>

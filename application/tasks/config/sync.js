@@ -19,6 +19,10 @@ module.exports = function(grunt) {
 				cwd: './assets',
 				src: ['**/*.!(coffee)'],
 				dest: '.tmp/public'
+			}, {
+				cwd: './views/widgets',
+				src: ['**/*.js'],
+				dest: '.tmp/public/js/widgets'
 			}]
 		}
 	});

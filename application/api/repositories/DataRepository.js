@@ -114,7 +114,7 @@ DataRepository.prototype.saveCounter = function(data, callback) {
 			error = "A value is required";
 		}
 
-		if(!_.isString(data.widget)) {
+		if(!data.widget) {
 			error = "A widget is required";
 		}
 
@@ -154,7 +154,7 @@ DataRepository.prototype.saveSingleLineGraph = function(data, callback) {
 			error = "A value is required";
 		}
 
-		if(!_.isString(data.widget)) {
+		if(!data.widget) {
 			error = "A widget is required";
 		}
 
@@ -207,7 +207,7 @@ DataRepository.prototype.saveSeriesGraph = function(data, callback) {
 			return "A value is required";
 		}
 
-		if(!_.isString(data.widget)) {
+		if(!data.widget) {
 			return "A widget is required";
 		}
 
@@ -260,7 +260,7 @@ DataRepository.prototype.saveStatus = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isString(data.widget)) {
+		if(!data.widget) {
 			error = "A widget is required";
 		}
 
@@ -300,7 +300,7 @@ DataRepository.prototype.saveMap = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isString(data.widget)) {
+		if(!data.widget) {
 			error = "A widget is required";
 		}
 
@@ -353,7 +353,7 @@ DataRepository.prototype.saveCompletion = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isString(data.widget)) {
+		if(!data.widget) {
 			error = "A widget is required";
 		}
 
@@ -413,7 +413,7 @@ DataRepository.prototype.saveMessage = function(data, callback) {
 	function validate(data) {
 		var error = false;
 
-		if(!_.isString(data.widget)) {
+		if(!data.widget) {
 			error = "A widget is required";
 		}
 

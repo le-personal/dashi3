@@ -4,7 +4,7 @@ web:
     - application:/var/www
     - logs:/var/log/supervisor
   links:
-    - "mysql:mysql"
+    - "mongodb:mongodb"
     - "redis:redis"
   ports:
     - "80:1337"
@@ -15,14 +15,13 @@ web:
     GOOGLE_OAUTH_CLIENTSECRET: secret
     GOOGLE_OAUTH_CALLBACKURL: http://localhost/auth/google/callback
     SECRET: c205e344a308f4f93b9c9098922ef73a
-mysql:
-  image: mysql:latest
+mongodb:
+  image: mongo:2.6
   expose:
-    - "3306"
+    - "27017"
+  ports:
+    - "27017:27017"
   environment:
-    MYSQL_ROOT_PASSWORD: root123
-    MYSQL_DATABASE: dashi3
-    MYSQL_USER: admin
-    MYSQL_PASSWORD: admin123
+    MONGODB_DATABASE: dashi
 redis:
   image: redis:latest

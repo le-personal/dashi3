@@ -38,16 +38,18 @@ module.exports.routes = {
   'get /api/v1/dashboard/:id': 'DashboardController.getDashboardAPI',
 
   'get /api/v1/dashboard/:id/widgets': 'WidgetsController.getWidgets',
-  'get /api/v1/widgets/available': 'WidgetsController.available',
 
   'get /api/v1/widgets/:widget/data': 'DataController.index',
   'get /api/v1/widgets/:widget/data/:dataid': 'DataController.get',
   'post /api/v1/widgets/:widget/data': 'DataController.post',
 
+  'get /api/v1/marketplace': 'MarketPlaceController.index',
+
   // allows us to get templates with a request.
   // the layout will be defined to an empty string so it doesn't
   // return the default layout.ejs
   // all files must end with .ejs extension
+  // Legacy
   "/templates/:name": function(req, res) {
     res.locals.layout = "";
 
@@ -59,18 +61,32 @@ module.exports.routes = {
     res.locals.layout = "";
 
     var name = req.param("name");
-    return res.view("widgets/" + name);
+    return res.view("widgets/" + name + "/widget");
   },
 
+  "/widgets/:name/settings": function(req, res) {
+    res.locals.layout = "";
 
-  /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  *  If a request to a URL doesn't match any of the custom routes above, it  *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
+    var name = req.param("name");
+    return res.view("widgets/" + name + "/settings");
+  },
+
+  "/widgets/:name/form": function(req, res) {
+    res.locals.layout = "";
+
+    var name = req.param("name");
+    return res.view("widgets/" + name + "/form");
+  },
+
+  'get /login': 'AuthController.login',
+  'get /logout': 'AuthController.logout',
+  'get /register': 'AuthController.register',
+
+  'post /auth/local': 'AuthController.callback',
+  'post /auth/local/:action': 'AuthController.callback',
+
+  'get /auth/:provider': 'AuthController.provider',
+  'get /auth/:provider/callback': 'AuthController.callback',
+  'get /auth/:provider/:action': 'AuthController.callback'
 
 };

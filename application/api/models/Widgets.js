@@ -1,12 +1,5 @@
 module.exports = {
 	attributes: {
-		id: {
-			type: "string",
-			required: true,
-			unique: true,
-			alphanumericdashed: true,
-			primaryKey: true
-		},
 		title: {
 			type: "string",
 			required: true

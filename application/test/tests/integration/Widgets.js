@@ -39,39 +39,6 @@ describe("Widgets Controller", function() {
   // });
 
 	describe("Get Widgets", function() {
-		it("Should get all widgets available", function(done) {
-			request.agent(sails.hooks.http.app)
-			.get("/api/v1/widgets/available")
-			.expect(200)
-			.end(function(err, res) {
-				assert.equal(err, null);
-				res.body.should.be.an.Array;
-
-				res.body[0].should.have.property("name", "Single Line Graph");
-				res.body[0].should.have.property("template", "singlelinegraph");
-
-				res.body[1].should.have.property("name", "Messages");
-				res.body[1].should.have.property("template", "messages");
-
-				res.body[2].should.have.property("name", "Counter");
-				res.body[2].should.have.property("template", "counter");
-
-				res.body[3].should.have.property("name", "Pie Chart");
-				res.body[3].should.have.property("template", "pie");
-
-				res.body[4].should.have.property("name", "Status");
-				res.body[4].should.have.property("template", "status");
-
-				res.body[5].should.have.property("name", "Series Graph");
-				res.body[5].should.have.property("template", "seriesgraph");
-
-				res.body[6].should.have.property("name", "Time");
-				res.body[6].should.have.property("template", "time");
-
-				done();
-			});
-		});
-
 		it("Should get the widgets of a dashboard", function(done) {
 			Factory.create("dashboard", function(dashboard) {
 				Factory.create("widgetCounter", {dashboard: dashboard.id}, function(widget) {

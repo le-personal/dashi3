@@ -4,11 +4,13 @@
 
 	angular.module("dashi3", [
 		'ngResource',
+		'ngRoute',
 		'chart.js',
 		'ui.bootstrap',
 		'ngSails',
 		'colorpicker.module',
-		"gridster"
+		"gridster",
+		"toggle-switch"
 	])
 
 	// Use it to exports a Globals variable object

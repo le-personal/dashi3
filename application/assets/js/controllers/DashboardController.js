@@ -12,21 +12,13 @@
 		'Globals',
 		function($scope, $rootScope, $modal, $sails, Dashboard, Widgets, Globals) {
 			$scope.dashboard = {};
-			$scope.widgets = [];
-			$scope.init = function dashboardInit(dashboardId) {
-				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
-					$scope.dashboard = dashboard;
-					$scope.widgets = dashboard.widgets;
-
-					console.log(dashboard);
-				});
-			}
+			$scope.widgets = {};
 
 			$scope.gridsterOptions = {
 				margins: [5, 5],
 				columns: 7,
 				isMobile: true,
-				rowHeight: 'auto',
+				rowHeight: 300,
 				draggable: {
 					handle: 'header',
 					stop: function(event, $element, widget) {
@@ -37,11 +29,21 @@
           enabled: true,
           handles: ['n', 'e', 's', 'w', 'ne', 'se', 'sw', 'nw'],
           stop: function(event, $element, widget) {
-						console.log(widget);
 						$scope.$emit("widget:update", widget);
 					}
         },
 			};
+
+			// Update the dashboard using events to avoid async problems
+			$rootScope.$on("dashboard:update", function(ev, dashboard) {
+				$scope.dashboard = dashboard;
+
+				// We do this to subscribe to the model Widgets
+				// When we konw which dashboard is this, get the widgets
+				io.socket.get("/api/v1/dashboard/"+ $scope.dashboard.id +"/widgets", function(data) {
+					$scope.widgets = data;
+				});
+			});
 
 			// add the widget to the dashboard when is created
 			$rootScope.$on("dashboard:widget:new", function(ev, widget) {
@@ -72,9 +74,15 @@
 					row: widget.row
 				}
 
-				console.log(data);
 				Widgets.update(data);
+			});
 
+			// when there is a change on the server, refresh the dashboard by emmitting
+			// a new event, this is safer than changing just the changed widget because
+			// it might affected others
+			io.socket.on("widgets", function(data) {
+				// UPdate the dashboard if a widget changed
+				$rootScope.$emit("dashboard:update", $scope.dashboard);
 			});
 		}
 	]);

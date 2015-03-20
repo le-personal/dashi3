@@ -7,11 +7,6 @@
 
 module.exports = {
   attributes: {
-  	id: {
-  		type: "integer",
-  		autoIncrement: true,
-  		primaryKey: true
-  	},
   	name: {
   		type: "string",
   		required: true
@@ -24,7 +19,11 @@ module.exports = {
   		type: "string",
   		required: true,
   		unique: true
-  	}
+  	},
+    public: {
+      type: "boolean",
+      required: false,
+      defaultsTo: false
+    }
   }
 };
-

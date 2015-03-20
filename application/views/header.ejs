@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderController" ng-init="init(<%- dashboard.id %>)">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderController" ng-init="init('<%- dashboard.id %>')">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,11 +20,11 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="#" ng-click="openNewWidgetFormModal()">
-            <i class="glyphicon glyphicon-plus"></i> Widget
+          <a href="#" ng-click="openMarketplace()">
+            <i class="glyphicon glyphicon-th"></i> Marketplace
           </a>
         </li>
       </ul>
     </div>
-  </div>  
+  </div>
 </div>

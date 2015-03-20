@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h3 class="modal-title">Settings</h3>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+        <label for="id">Id</label>
+        <div class="form-control">{{ data.id }}</div>
+    </div>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" ng-model="data.title" name="title" />
+    </div>
+    <div class="form-group">
+      <label for="title">Description</label>
+      <textarea class="form-control" ng-model="data.description" name="description"></textarea>
+    </div>
+    <div class="form-horizontal">
+      <h4>Settings</h4>
+      <hr />
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label" for="showDate">Show date</label>
+        <div class="col-sm-9">
+          <toggle-switch ng-model="data.settings.showDate"><toggle-switch>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label" for="format">Date format</label>
+        <div class="col-sm-9">
+          <input type="text" name="format" class="form-control" ng-model="data.settings.format" />
+          <div class="help-block">Visit <a href="http://momentjs.com/docs/#/displaying/" target="_blank">the documentation</a> to understand more about formats</div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="update()">Update</button>
+    <button class="btn btn-danger" ng-click="remove()">Remove</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,7 @@
+{
+	"name": "Messages",
+	"description": "A widget that shows a stream of messages",
+	"category": "General",
+	"template": "messages",
+	"image": "messages.png"
+}
