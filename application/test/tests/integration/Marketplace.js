@@ -18,38 +18,53 @@ describe("Marketplace controller", function() {
 			assert.equal(err, null);
       res.body.should.be.an.Array;
 
-      res.body["time"].should.have.property("name", "Time");
-      res.body["time"].should.have.property("template", "time");
-      res.body["time"].should.have.property("description", "A widget that shows the time and date");
-      res.body["time"].should.have.property("image", "time.png");
-      res.body["time"].should.have.property("category", "General");
+			res.body.should.containEql({
+				category: 'General',
+				description: 'A widget that shows the time and date',
+				image: 'time.png',
+				name: 'Time',
+				template: 'time'
+			});
 
-      res.body["status"].should.have.property("name", "Status");
-      res.body["status"].should.have.property("template", "status");
-      res.body["status"].should.have.property("description", "A widget that shows some status");
-      res.body["status"].should.have.property("image", "status.png");
-      res.body["status"].should.have.property("category", "General");
+			res.body.should.containEql({
+				name: 'Single Line Graph',
+				description: 'A widget that shows a graph with a single line of data',
+				category: 'General',
+				template: 'singlelinegraph',
+				image: 'singlelinegraph.png'
+			});
 
-      res.body["singlelinegraph"].should.have.property("name", "Single Line Graph");
-      res.body["singlelinegraph"].should.have.property("template", "singlelinegraph");
-      res.body["singlelinegraph"].should.have.property("description", "A widget that shows a graph with a single line of data");
-      res.body["singlelinegraph"].should.have.property("image", "singlelinegraph.png");
-      res.body["singlelinegraph"].should.have.property("category", "General");
+			res.body.should.containEql({
+				name: 'Counter',
+				description: 'A widget that shows a counter',
+				category: 'General',
+				template: 'counter',
+				image: 'counter.png'
+			});
 
-      res.body["seriesgraph"].should.have.property("name", "Series Graph");
-      res.body["seriesgraph"].should.have.property("template", "seriesgraph");
-      res.body["seriesgraph"].should.have.property("image", "seriesgraph.png");
-      res.body["seriesgraph"].should.have.property("category", "General");
+			res.body.should.containEql({
+				name: 'Status',
+				description: 'A widget that shows some status',
+				category: 'General',
+				template: 'status',
+				image: 'status.png'
+			});
 
-      res.body["messages"].should.have.property("name", "Messages");
-      res.body["messages"].should.have.property("template", "messages");
-      res.body["messages"].should.have.property("image", "messages.png");
-      res.body["messages"].should.have.property("category", "General");
+			res.body.should.containEql({
+				name: 'Messages',
+				description: 'A widget that shows a stream of messages',
+				category: 'General',
+				template: 'messages',
+				image: 'messages.png'
+			});
 
-      res.body["counter"].should.have.property("name", "Counter");
-      res.body["counter"].should.have.property("template", "counter");
-      res.body["counter"].should.have.property("image", "counter.png");
-      res.body["counter"].should.have.property("category", "General");
+			res.body.should.containEql({
+				name: 'Series Graph',
+				description: 'A widget that shows a graph with a multiple line of data',
+				category: 'General',
+				template: 'seriesgraph',
+				image: 'seriesgraph.png'
+			});
 
 			done();
 		});

@@ -13,7 +13,6 @@ function MarketplaceRepository() {
  */
 MarketplaceRepository.prototype.all = function(done) {
 	var directory = path.join(__dirname, "../../views/widgets");
-	var files = [];
 
 	fs.readdir(directory, function(err, list) {
 		if(err) return done(err);
@@ -29,7 +28,6 @@ MarketplaceRepository.prototype.all = function(done) {
 								if(err) next(null);
 								if(file) {
 									var json = JSON.parse(file);
-									files[json.template] = json;
 									return next(null, json);
 								}
 							});
@@ -46,7 +44,6 @@ MarketplaceRepository.prototype.all = function(done) {
 		}
 
 		async.concat(list, walk, function(err, results) {
-			console.log(results);
 			if(err) console.log(err);
 			return done(err, results);
 		});

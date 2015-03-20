@@ -13,8 +13,6 @@ module.exports = {
 		var marketplace = new MarketplaceRepository();
 		marketplace.all(function(err, results) {
 			if(err) return res.badRequest(err);
-			console.log("Returning");
-			console.log(results);
 			return res.jsonp(200, results);
 		});
 	}
