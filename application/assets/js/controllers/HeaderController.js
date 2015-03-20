@@ -39,10 +39,13 @@
 		'Dashboard',
 		'Marketplace',
 		function($scope, $rootScope, $sails, $modal, Widgets, Dashboard, Marketplace) {
-			var dashboard = {};
-			$scope.init = function(dashboardId) {
-				dashboard = Dashboard.get({dashboardId: dashboardId});
-				$rootScope.dashboard = dashboard;
+			$rootScope.dashboard = {};
+
+			$scope.init = function dashboardInit(dashboardId) {
+				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
+					$rootScope.dashboard = dashboard;
+					$rootScope.$emit("dashboard:update", dashboard);
+				});
 			}
 
 			// this will have to go and we'll rely on the path
