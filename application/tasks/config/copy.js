@@ -27,6 +27,11 @@ module.exports = function(grunt) {
 				cwd: './views/widgets',
 				src: ["**/widget.js"],
 				dest: '.tmp/public/js/widgets'
+			}, {
+				expand: true,
+				cwd: './views/widgets',
+				src: ["**/*.png", "**/*.jpg", "**/*.gif", "**/*.jpeg"],
+				dest: ".tmp/public/images/widgets"
 			}]
 		},
 		build: {

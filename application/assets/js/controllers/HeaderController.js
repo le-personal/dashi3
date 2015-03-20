@@ -2,52 +2,33 @@
 	'use strict';
 
 	angular.module("dashi3")
-	.config([
-		'$routeProvider',
-		'$locationProvider',
-	  function($routeProvider, $locationProvider) {
-	    $routeProvider.
-	      when('/marketplace', {
-	        templateUrl: '/templates/marketplace',
-	        controller: 'MarketplaceController'
-	      });
-	      // when('/phones/:phoneId', {
-	      //   templateUrl: 'partials/phone-detail.html',
-	      //   controller: 'PhoneDetailCtrl'
-	      // }).
+	.service('SplitArray', function () {
+		return {
+	    split: function (array, columns) {
+        if (array.length <= columns) {
+            return [array];
+        };
 
-	  }
-	])
+        var rowsNum = Math.ceil(array.length / columns);
+        var rowsArray = new Array(rowsNum);
 
-	.controller("OpenMarketplaceController", [
-		"$scope",
-		"$rootScope",
-		"$modalInstance",
-		"$route",
-		"$routeParams",
-		"$location",
-		function($scope, $rootScope, $modalInstance, $route, $routeParams, $location) {
-			$rootScope.modalInstance = $modalInstance;
-			$scope.$route = $route;
-			$scope.$location = $location;
-			$scope.$routeParams = $routeParams;
+        for (var i = 0; i < rowsNum; i++) {
+          var columnsArray = new Array(columns);
+          for (j = 0; j < columns; j++) {
+            var index = i * columns + j;
 
-			// Al abrir el modal, redirigir hacia el path /marketplace
-			$location.path("/marketplace");
-
-			$scope.ok = function () {
-		    $modalInstance.close();
-		  };
-
-		  $scope.cancel = function () {
-		    $modalInstance.dismiss('cancel');
-		  };
-
-		  $rootScope.$on("closeModal", function() {
-		  	$modalInstance.close();
-		  })
+            if (index < array.length) {
+                columnsArray[j] = array[index];
+            } else {
+                break;
+            }
+          }
+          rowsArray[i] = columnsArray;
+        }
+        return rowsArray;
+	    }
 		}
-	])
+	})
 
 	.controller("HeaderController", [
 		'$scope',
@@ -66,31 +47,12 @@
 
 			// this will have to go and we'll rely on the path
 			$scope.openMarketplace = function() {
-				console.log("opening modal");
 				$modal.open({
-					templateUrl: "/templates/modal",
-					controller: "OpenMarketplaceController"
+					templateUrl: "/templates/marketplace",
+					controller: "MarketplaceController",
+					size: "lg"
 				});
 			}
-
-			// This is temporary, until the Marketplace is ready
-			// $scope.openNewWidgetFormModal = function() {
-			// 	var templates = Widgets.query({widgetId: "available"});
-			//
-			// 	$modal.open({
-			// 		templateUrl: "/templates/openNewWidgetFormModal",
-			// 		controller: "OpenNewWidgetFormModal",
-			// 		resolve: {
-			// 			templates: function() {
-			// 				return templates;
-			// 			},
-			// 			dashboard: function() {
-			// 				return dashboard;
-			// 			}
-			// 		}
-			// 	});
-			// }
-
 		}
 	])
 
@@ -100,10 +62,63 @@
 		"$location",
 		"$routeParams",
 		"Marketplace",
-		function($scope, $rootScope, $location, $routeParams, Marketplace) {
+		"Widgets",
+		"SplitArray",
+		"$modal",
+		"$modalInstance",
+		function($scope, $rootScope, $location, $routeParams, Marketplace, Widgets, SplitArray, $modal, $modalInstance) {
 			$scope.params = $routeParams;
-			console.log($rootScope.dashboard);
+			var dashboard = $rootScope.dashboard;
+
+			$scope.ok = function () {
+		    $modalInstance.close();
+		  };
+
+		  $scope.cancel = function () {
+		    $modalInstance.dismiss('cancel');
+		  };
+
+		  $rootScope.$on("closeModal", function() {
+		  	$modalInstance.close();
+		  });
+
 			$scope.widgets = Marketplace.index();
+			$scope.rows = SplitArray.split($scope.widgets, 3);
+			
+			$scope.addWidget = function(widgetTemplate) {		
+				var input = {
+					id: widgetTemplate.template + "_" + new Date().getTime(),
+					title: widgetTemplate.name,
+					type: widgetTemplate.template,
+					description: widgetTemplate.description,
+					label: "",
+					dashboard: $rootScope.dashboard.id,
+					sizeX: 1,
+					sizeY: 1,
+					settings: {
+
+					}
+				};
+
+				Widgets.save(input, function(widget) {
+					// emit an event
+					$rootScope.$emit("dashboard:widget:new", widget);
+					
+					// Close the current modal and then open a new one delegating the new
+					// responsability to the settings controller of the widget added
+					$modalInstance.close();
+					$modal.open({
+						templateUrl: "/widgets/" + widgetTemplate.template + "/settings",
+						controller: "Widget" + widgetTemplate.name + "SettingsController",
+						size: 'lg',
+						resolve: {
+							widget: function() {
+								return widget;
+							}
+						},
+					});
+				});
+			}
 		}
 	])
 
@@ -168,7 +183,6 @@
 					$rootScope.$emit("dashboard:widget:new", widget);
 					$modalInstance.close();
 				});
-
 			}
 
 			$scope.cancel = function() {
