@@ -121,3 +121,4 @@ logs/*
 fig.yml
 docker-compose.yml
 .DS_Store
+.vagrant
