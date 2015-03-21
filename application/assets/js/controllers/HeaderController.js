@@ -2,6 +2,8 @@
 	'use strict';
 
 	angular.module("dashi3")
+
+	// Splits the array in the given columns
 	.service('SplitArray', function () {
 		return {
 	    split: function (array, columns) {
@@ -87,8 +89,8 @@
 
 			$scope.widgets = Marketplace.index();
 			$scope.rows = SplitArray.split($scope.widgets, 3);
-			
-			$scope.addWidget = function(widgetTemplate) {		
+
+			$scope.addWidget = function(widgetTemplate) {
 				var input = {
 					id: widgetTemplate.template + "_" + new Date().getTime(),
 					title: widgetTemplate.name,
@@ -106,7 +108,7 @@
 				Widgets.save(input, function(widget) {
 					// emit an event
 					$rootScope.$emit("dashboard:widget:new", widget);
-					
+
 					// Close the current modal and then open a new one delegating the new
 					// responsability to the settings controller of the widget added
 					$modalInstance.close();

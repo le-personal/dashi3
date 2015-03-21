@@ -22,7 +22,10 @@
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
 			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function(data) {
-				$scope.data = data[0];
+				$scope.data = [];
+				if(typeof data[0] !== "undefined") {
+					$scope.data = data[0];
+				}
 
 				if(data.length > 0) {
 					// old data is the 1 in the

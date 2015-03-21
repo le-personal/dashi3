@@ -27,7 +27,7 @@
 				},
 				resizable: {
           enabled: true,
-          handles: ['n', 'e', 's', 'w', 'ne', 'se', 'sw', 'nw'],
+          handles: ['s', 'w', 'se', 'sw'],
           stop: function(event, $element, widget) {
 						$scope.$emit("widget:update", widget);
 					}
@@ -81,7 +81,7 @@
 			// a new event, this is safer than changing just the changed widget because
 			// it might affected others
 			io.socket.on("widgets", function(data) {
-				// UPdate the dashboard if a widget changed
+				// Update the dashboard if a widget changed
 				$rootScope.$emit("dashboard:update", $scope.dashboard);
 			});
 		}
