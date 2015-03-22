@@ -35,6 +35,7 @@
     "sails-disk": "~0.10.0",
     "sails-mongo": "^0.10.5",
     "sails-redis": "^0.10.3",
+    "twit": "^1.1.20",
     "validator": "^3.34.0"
   },
   "scripts": {

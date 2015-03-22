@@ -14,17 +14,7 @@ module.exports = {
 		},
 		type: {
 			type: "string",
-			required: true,
-			enum: [
-				"messages",
-				"completion",
-				"counter",
-				"singlelinegraph",
-				"seriesgraph",
-				"status",
-				"map",
-				"time"
-			]
+			required: true
 		},
 		dashboard: {
 			model: "Dashboard",

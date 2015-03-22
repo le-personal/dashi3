@@ -1,0 +1,27 @@
+<div class="item" ng-controller="WidgetTwitterfeedController">
+  <div class="dash-unit">
+    <header class="dash-title">
+      {{ widget.title }}
+    </header>
+    <div class="dash-content">
+      <div class="pull-right">{{ data.counter }}</div>
+      <div class="row"></div>
+
+      <div class="twitter-tweet" ng-repeat="tweet in data.tweets">
+        <div>{{ tweet.text }}</div>
+        <p>- {{ tweet.user.name }} (<a target="_blank" href="https://twitter.com/{{ tweet.user.screen_name }}">@{{ tweet.user.screen_name }}</a>) <a href="https://twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id }}">{{ tweet.created_at }}</a>
+        </p>
+        <hr />
+      </div>
+      <p></p>
+    </div>
+    <div class="dash-footer">
+      <span class="dash-description">
+        {{ widget.description }}
+      </span>
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
+      </div>
+    </div>
+  </div>
+</div>

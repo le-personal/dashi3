@@ -87,6 +87,10 @@ module.exports.routes = {
 
   'get /auth/:provider': 'AuthController.provider',
   'get /auth/:provider/callback': 'AuthController.callback',
-  'get /auth/:provider/:action': 'AuthController.callback'
+  'get /auth/:provider/:action': 'AuthController.callback',
+
+  'get /api/v1/providers/twitter/stream/:term/:language': 'TwitterController.stream',
+  'get /api/v1/providers/twitter/search/:term': 'TwitterController.search',
+  'get /api/v1/providers/twitter/statuses/:username': 'TwitterController.username',
 
 };
