@@ -2,9 +2,9 @@
   <div class="dash-unit">
     <header class="dash-title">
       {{ widget.title }}
+      <div class="pull-right">{{ data.counter }} tweets since {{ data.start }}</div>
     </header>
     <div class="dash-content">
-      <div class="pull-right">{{ data.counter }}</div>
       <div class="row"></div>
 
       <div class="twitter-tweet" ng-repeat="tweet in data.tweets">

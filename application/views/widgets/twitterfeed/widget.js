@@ -14,6 +14,7 @@
 
 			$scope.data = {
 				tweets: [],
+				start: moment().format("h:mm a"),
 				counter: 0
 			}
 
@@ -21,9 +22,6 @@
 			var language = $scope.widget.settings.language ? $scope.widget.settings.language : "en";
 
 			io.socket.get('/api/v1/providers/twitter/stream/' + term + "/" + language);
-
-			console.log("Listening for events with the term: " + term);
-			console.log("Getting streams from twitter:stream:"+term.replace(" ", "_"));
 			io.socket.on("twitter:stream:"+term.replace(" ", "_"), function(data) {
 				$scope.data.counter++;
 
