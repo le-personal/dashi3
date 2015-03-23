@@ -1,4 +1,6 @@
 CURRENT_DIRECTORY := $(shell pwd)
+TWITTER_APIKEY := $(shell env | grep TWITTER_APIKEY)
+TWITTER_APISECRET := $(shell env | grep TWITTER_APISECRET)
 
 prepare-test:
 	@echo "Starting database"
@@ -6,7 +8,7 @@ prepare-test:
 
 test:
 	@echo "Testing"
-	@docker run --rm -e NODE_ENV=test -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mongodb luis/sails npm test
+	docker run --rm -e NODE_ENV=test -e "$(TWITTER_APIKEY)" -e "$(TWITTER_APISECRET)" -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mongodb luis/sails npm test
 
 clean-test:
 	@if [ -f $(CURRENT_DIRECTORY)/.docker ]; \
