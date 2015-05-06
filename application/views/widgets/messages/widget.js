@@ -30,7 +30,7 @@
 						$scope.data.unshift(data.data);
 
 						// if the array is bigger than 10, reduce it
-						if($scope.data.length > 10) {
+						if($scope.data.length > 5) {
 							$scope.data.pop();
 						}
 					}
