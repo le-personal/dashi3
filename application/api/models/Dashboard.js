@@ -22,7 +22,6 @@ module.exports = {
   	},
     public: {
       type: "boolean",
-      required: false,
       defaultsTo: false
     }
   }

@@ -12,7 +12,7 @@ var WidgetsRepository = include("api/repositories/WidgetsRepository");
 module.exports = {
 	main: function main(req, res) {
 		// get all dashboards
-		new DashboardRepository().getAll(function(err, results) {
+		DashboardRepository.getAll(function(err, results) {
 			if(err) return res.serverError(err);
 			return res.view("homepage", {dashboards: results});
 		});
@@ -22,7 +22,7 @@ module.exports = {
 		var path = req.param("path");
 		sails.log("Getting dashboard with path: " + path);
 
-		new DashboardRepository().getByPath(path, function(err, dashboard) {
+		DashboardRepository.getByPath(path, function(err, dashboard) {
 
 			if(err) {
 				console.log(err);
@@ -40,7 +40,7 @@ module.exports = {
 		var id = req.param("id");
 		sails.log("Getting dashboard with id: " + id);
 
-		new DashboardRepository().get(id, function(err, dashboard) {
+		DashboardRepository.get(id, function(err, dashboard) {
 			if(err) return res.notFound();
 
 			new WidgetsRepository().getWidgets(dashboard.id, function(err, widgets) {
@@ -50,6 +50,15 @@ module.exports = {
 				result.widgets = widgets;
 				return res.jsonp(200, result);
 			});
+		})
+	},
+
+	createDashboard: function(req, res) {
+		DashboardRepository.save(req.body, function(err, result) {
+			if(err) return res.serverError(err);
+			if(result) {
+				return res.json(201, result);
+			}
 		})
 	}
 };

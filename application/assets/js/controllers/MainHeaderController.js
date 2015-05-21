@@ -48,10 +48,16 @@
 			$scope.ok = function () {
 				// On OK save the Dashboard and append the result to the
 				// dashboards array
-				var dashboard = Dashboard.save($scope.data);
-				dashboards.push(dashboard);
+				Dashboard.save($scope.data, function(result) {
+					if(result) {
+						dashboards.push(result);
+			    	$modalInstance.close();
+					}
+					else {
+						console.log("There was an error");
+					}
+				});
 
-		    $modalInstance.close();
 		  };
 
 		  $scope.cancel = function () {

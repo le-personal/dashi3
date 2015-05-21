@@ -1,16 +1,14 @@
 /**
  * Dashboard Class
  */
-function DashboardRepository() {
-
-}
+var DashboardRepository = {}
 
 /**
  * Get all dashboards
  * @param  {Function} callback A callback to execute when done
  * @return {Function}            The callback passed in the argument callback
  */
-DashboardRepository.prototype.getAll = function(callback) {
+DashboardRepository.getAll = function(callback) {
 	Dashboard.find().exec(function(err, results) {
 		if(err) return callback(err);
 		return callback(false, results);
@@ -23,7 +21,7 @@ DashboardRepository.prototype.getAll = function(callback) {
  * @param  {Function} callback A callback to execute when done
  * @return {Function}            The callback passed in the argument callback
  */
-DashboardRepository.prototype.getByPath = function(path, callback) {
+DashboardRepository.getByPath = function(path, callback) {
 	Dashboard.findOne({path: path})
 	.exec(function(err, result) {
 		if(err) return callback(err, false);
@@ -38,7 +36,7 @@ DashboardRepository.prototype.getByPath = function(path, callback) {
  * @param  {Function} callback A callback to execute when done
  * @return {Function}            The callback passed in the argument callback
  */
-DashboardRepository.prototype.get = function(id, callback) {
+DashboardRepository.get = function(id, callback) {
 	Dashboard.findOne({id: id})
 	.exec(function(err, result) {
 		if(err) return callback(err, false);
@@ -53,7 +51,7 @@ DashboardRepository.prototype.get = function(id, callback) {
  * @param  {Function} callback A callback to execute when done
  * @return {Function}            The callback passed in the argument callback
  */
-DashboardRepository.prototype.save = function(data, callback) {
+DashboardRepository.save = function(data, callback) {
 	Dashboard.create(data)
 	.exec(function(err, result) {
 		if(err) return callback(err, false);

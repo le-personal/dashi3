@@ -5,6 +5,7 @@ module.exports = function(Factory) {
 	Factory.define("dashboard", "Dashboard")
 		.attr("name", new Chance().word())
 		.attr("description", new Chance().string())
+		.attr("public", false)
 		.attr("path", new Chance().word());
 
 	Factory.define('widgetMessage', "Widgets")

@@ -1,30 +1,21 @@
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="MainHeaderController">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="../">
-        <span class="glyphicon glyphicon-chevron-left"></span>
+<div class="overlay"></div>
+    
+<!-- Sidebar -->
+<nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation" ng-controller="MainHeaderController">
+  <ul class="nav sidebar-nav">
+    <li class="sidebar-brand">
+      <a href="#">
+         Dashboard
       </a>
-      <a class="navbar-brand" href="/">Dashi3</a>
-    </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-left">
-        <li ng-repeat="dashboard in dashboards">
-          <a href="/dashboard/{{ dashboard.path }}" alt="{{ dashboard.description }}" title="{{ dashboard.name }}">{{ dashboard.name }}</a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="#" ng-click="openNewDashboardFormModal()">
-            <i class="glyphicon glyphicon-plus"></i> Dashboard
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+    </li>
+    <li>
+      <a href="#" ng-click="openNewDashboardFormModal()">
+        <i class="glyphicon glyphicon-plus"></i> New Dashboard
+      </a>
+    </li>
+    <li ng-repeat="dashboard in dashboards">
+      <a href="/dashboard/{{ dashboard.path }}" alt="{{ dashboard.description }}" title="{{ dashboard.name }}">{{ dashboard.name }}</a>
+    </li>
+  </ul>
+</nav>
+<!-- /#sidebar-wrapper -->

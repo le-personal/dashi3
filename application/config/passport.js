@@ -23,15 +23,15 @@ module.exports.passport = {
     strategy: require('passport-http-bearer').Strategy
   },
 
-  twitter: {
-    name: 'Twitter',
-    protocol: 'oauth',
-    strategy: require('passport-twitter').Strategy,
-    options: {
-      consumerKey: process.env.TWITTER_APIKEY,
-      consumerSecret: process.env.TWITTER_APISECRET
-    }
-  },
+  // twitter: {
+  //   name: 'Twitter',
+  //   protocol: 'oauth',
+  //   strategy: require('passport-twitter').Strategy,
+  //   options: {
+  //     consumerKey: process.env.TWITTER_APIKEY,
+  //     consumerSecret: process.env.TWITTER_APISECRET
+  //   }
+  // },
 
   // github: {
   //   name: 'GitHub',
