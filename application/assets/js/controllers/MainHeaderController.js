@@ -9,12 +9,13 @@
 	 */
 	.controller("MainHeaderController", [
 		'$scope',
+		'$rootScope',
 		'$modal',
 		'Dashboard',
-		function($scope, $modal, Dashboard) {
+		function($scope, $rootScope, $modal, Dashboard) {
 
 			// Get all dashboards so we can build the menu
-			$scope.dashboards = Dashboard.all();
+			$rootScope.dashboards = Dashboard.all();
 
 			// React to the click of openNewDashboardFormModal
 			// by opening a modal
@@ -24,7 +25,7 @@
 					controller: "CreateDashboardFormModal",
 					resolve: {
 						dashboards: function() {
-							return $scope.dashboards;
+							return $rootScope.dashboards;
 						}
 					}
 				});
@@ -40,17 +41,18 @@
 	 */
 	.controller("CreateDashboardFormModal", [
 		'$scope',
+		'$rootScope',
 		'$modalInstance',
 		"Dashboard",
 		"dashboards",
-		function($scope, $modalInstance, Dashboard, dashboards) {
+		function($scope, $rootScope, $modalInstance, Dashboard, dashboards) {
 			$scope.data = {};
 			$scope.ok = function () {
 				// On OK save the Dashboard and append the result to the
 				// dashboards array
 				Dashboard.save($scope.data, function(result) {
 					if(result) {
-						dashboards.push(result);
+						$rootScope.dashboards.push(result);
 			    	$modalInstance.close();
 					}
 					else {

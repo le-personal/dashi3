@@ -1,6 +1,6 @@
 <%- partial('headerFrontpage.ejs') %>
 
-<div id="page-content-wrapper">
+<div id="page-content-wrapper" ng-controller="MainHeaderController">
   <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
     <span class="hamb-top"></span>
     <span class="hamb-middle"></span>
@@ -8,20 +8,22 @@
   </button>
 
     <div class="container">
-      <% for(var row = 0; row < dashboards.length; row++) { %>
-        <div class="col-lg-4 col-md-4 col-sm-12">
-          <div class="dashboard-grid-item">
+      <div class="dashboard-grid-items">
+
+        <div class="col-lg-4 col-md-4 col-sm-12" ng-repeat="dashboard in dashboards">
+          <li class="dashboard-grid-item">
             <div class="dashboard-grid-name">
-              <a href="/dashboard/<%= dashboards[row].path %>">
-                <%= dashboards[row].name %>
+              <a href="/dashboard/{{ dashboard.path }}">
+                {{ dashboard.name }}
               </a>
             </div>
 
             <div class="dashboard-description">
-              <%= dashboards[row].description %>
+              {{ dashboard.description }}
             </div>
-          </div>
+          </li>
         </div>
-      <% } %>
+        
+      </div>
     </div>
 </div>
