@@ -1,24 +1,18 @@
 <div class="item" ng-controller="WidgetTimeController">
-  <div class="dash-unit">
-    <header class="dash-title">
+  <div class="panel panel-dark dash-unit">
+    <header class="panel-heading dash-title">
       {{ widget.title }}
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
+      </div>
     </header>
-    <div class="dash-content">
+    <div class="panel-body dash-content">
       <h2>
         {{ data.time }}
       </h2>
       <h5 ng-show="widget.settings.showDate === true">
         {{ data.date }}
       </h5>
-      <p></p>
-    </div>
-    <div class="dash-footer">
-      <span class="dash-description">
-        {{ widget.description }}
-      </span>
-      <div class="pull-right">
-        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
-      </div>
     </div>
   </div>
 </div>

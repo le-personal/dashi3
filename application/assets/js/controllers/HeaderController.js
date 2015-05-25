@@ -99,7 +99,7 @@
 					type: widgetTemplate.template,
 					description: widgetTemplate.description,
 					label: "",
-					dashboard: $rootScope.dashboard.id,
+					dashboard: $rootScope.currentDashboard.id,
 					sizeX: 1,
 					sizeY: 1,
 					settings: {
