@@ -41,11 +41,13 @@
 		'Dashboard',
 		'Marketplace',
 		function($scope, $rootScope, $sails, $modal, Widgets, Dashboard, Marketplace) {
-			$rootScope.dashboard = {};
+			$rootScope.currentDashboard = {};
+
+			$scope.dashboards = Dashboard.all();
 
 			$scope.init = function dashboardInit(dashboardId) {
 				Dashboard.get({dashboardId: dashboardId}, function(dashboard) {
-					$rootScope.dashboard = dashboard;
+					$rootScope.currentDashboard = dashboard;
 					$rootScope.$emit("dashboard:update", dashboard);
 				});
 			}

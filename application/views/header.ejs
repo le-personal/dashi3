@@ -1,78 +1,23 @@
 <div class="overlay"></div>
     
 <!-- Sidebar -->
-<nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation" ng-controller="HeaderController" ng-init="init('<%- dashboard.id %>')">
   <ul class="nav sidebar-nav">
     <li class="sidebar-brand">
-      <a href="#">
-         Brand
+      <a href="/">
+         Dashboards
       </a>
     </li>
     <li>
-      <a href="#">Home</a>
+      <a href="#" ng-click="openMarketplace()">
+        <i class="glyphicon glyphicon-th"></i> Marketplace
+      </a>
     </li>
-    <li>
-      <a href="#">About</a>
-    </li>
-    <li>
-      <a href="#">Events</a>
-    </li>
-    <li>
-      <a href="#">Team</a>
-    </li>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Works <span class="caret"></span></a>
-      <ul class="dropdown-menu" role="menu">
-        <li class="dropdown-header">Dropdown heading</li>
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Another action</a></li>
-        <li><a href="#">Something else here</a></li>
-        <li><a href="#">Separated link</a></li>
-        <li><a href="#">One more separated link</a></li>
-      </ul>
-    </li>
-    <li>
-        <a href="#">Services</a>
-    </li>
-    <li>
-        <a href="#">Contact</a>
-    </li>
-    <li>
-        <a href="https://twitter.com/maridlcrmn">Follow me</a>
+    <li role="presentation" class="divider"></li>
+    <li ng-repeat="dashboard in dashboards" ng-class="(currentDashboard.id == dashboard.id) ? 'selected' : ''">
+      <a ng-class="(currentDashboard.id == dashboard.id) ? 'selected' : ''" href="/dashboard/{{ dashboard.path }}" alt="{{ dashboard.description }}" title="{{ dashboard.name }}">{{ dashboard.name }}</a>
     </li>
   </ul>
 </nav>
 <!-- /#sidebar-wrapper -->
 
-
-
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderController" ng-init="init('<%- dashboard.id %>')">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="../">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-      </a>
-      <a class="navbar-brand" href="/"><%- dashboard.name %></a>
-    </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-left">
-        <li ng-repeat="dashboard in dashboards">
-          <a href="/dashboard/{{ dashboard.path }}" alt="{{ dashboard.description }}" title="{{ dashboard.name }}">{{ dashboard.name }}</a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="#" ng-click="openMarketplace()">
-            <i class="glyphicon glyphicon-th"></i> Marketplace
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>

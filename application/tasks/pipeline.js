@@ -16,6 +16,7 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
   'vendor/bootstrap/dist/css/bootstrap.min.css',
+  'vendor/bootstrap-cosmo/bootstrap.css',
   'vendor/angular-bootstrap-colorpicker/css/colorpicker.css',
   'vendor/angular-gridster/dist/angular-gridster.min.css',
   'vendor/angular-toggle-switch/angular-toggle-switch.css',
