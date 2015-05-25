@@ -1,9 +1,13 @@
 <div class="item" ng-controller="WidgetStatusController">
-  <div class="dash-unit">
-    <header class="dash-title">
+  <div class="panel panel-dark dash-unit">
+    <header class="panel-heading dash-title">
       {{ widget.title }}
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-plus" ng-click="openForm({})"></i>
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
+      </div>
     </header>
-    <div class="dash-content">
+    <div class="panel-body dash-content">
       <h2>
         {{ widget.title }}
       </h2>
@@ -17,15 +21,6 @@
           <img src="/images/status-danger.png" ng-show="data.value === 'error'" />
           <img src="/images/status-warning.png" ng-show="data.value === 'warning'" />
         </div>
-      </div>
-    </div>
-    <div class="dash-footer">
-      <span class="dash-description">
-        {{ widget.description }}
-      </span>
-      <div class="pull-right">
-        <i class="as-link glyphicon glyphicon-plus" ng-click="openForm({})"></i>
-        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
       </div>
     </div>
   </div>

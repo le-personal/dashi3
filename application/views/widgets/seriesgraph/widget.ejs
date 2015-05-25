@@ -1,21 +1,16 @@
 <div class="item w2" ng-controller="WidgetSeriesGraphController">
-  <div class="dash-unit">
-    <header class="dash-title">
+  <div class="panel panel-dark dash-unit">
+    <header class="panel-heading dash-title">
       {{ widget.title }}
-    </header>
-    <div class="dash-content">
-  		<canvas id="line" class="chart chart-line" data="data"
-			  labels="labels" legend="true" series="series"
-			  click="onClick">
-			</canvas>
-    </div>
-    <div class="dash-footer">
-      <span class="dash-description">
-        {{ widget.description }}
-      </span>
       <div class="pull-right">
         <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
       </div>
+    </header>
+    <div class="panel-body dash-content">
+      <canvas id="line" class="chart chart-line" data="data"
+        labels="labels" legend="true" series="series"
+        click="onClick">
+      </canvas>
     </div>
   </div>
 </div>

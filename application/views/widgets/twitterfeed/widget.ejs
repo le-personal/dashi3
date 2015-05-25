@@ -1,10 +1,13 @@
 <div class="item" ng-controller="WidgetTwitterfeedController">
-  <div class="dash-unit">
-    <header class="dash-title">
+  <div class="panel panel-dark dash-unit">
+    <header class="panel-heading dash-title">
       {{ widget.title }}
       <div class="pull-right">{{ data.counter }} tweets since {{ data.start }}</div>
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
+      </div>
     </header>
-    <div class="dash-content">
+    <div class="panel-body dash-content">
       <div class="row"></div>
 
       <div class="twitter-tweet" ng-repeat="tweet in data.tweets">
@@ -14,14 +17,6 @@
         <hr />
       </div>
       <p></p>
-    </div>
-    <div class="dash-footer">
-      <span class="dash-description">
-        {{ widget.description }}
-      </span>
-      <div class="pull-right">
-        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
-      </div>
     </div>
   </div>
 </div>
