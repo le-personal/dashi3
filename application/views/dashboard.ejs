@@ -11,7 +11,7 @@
 	  <div gridster="gridsterOptions">
 	    <ul>
 		    <li gridster-item="widget" ng-repeat="widget in widgets">
-		    		<div ng-include="'/widgets/' + widget.type" onload="widget = widget"></div>
+		    		<div class="container-item" ng-include="'/widgets/' + widget.type" onload="widget = widget"></div>
 		    </li>
 	    </ul>
 	  </div>

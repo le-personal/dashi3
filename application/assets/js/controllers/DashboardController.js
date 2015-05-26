@@ -18,7 +18,8 @@
 				margins: [5, 5],
 				columns: 7,
 				isMobile: true,
-				rowHeight: 300,
+				colWidth: 'auto',
+				rowHeight: 'match',
 				draggable: {
 					handle: 'header',
 					stop: function(event, $element, widget) {
@@ -27,7 +28,7 @@
 				},
 				resizable: {
           enabled: true,
-          handles: ['s', 'w', 'se', 'sw'],
+          handles: ['se'],
           stop: function(event, $element, widget) {
 						$scope.$emit("widget:update", widget);
 					}
