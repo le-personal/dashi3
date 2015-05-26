@@ -15,6 +15,7 @@ clean-test:
 	then \
   		docker rm --force testdb ; \
 		rm .docker; \
+	else echo "No test containers to clean"; \
 	fi;
 
 clean:
