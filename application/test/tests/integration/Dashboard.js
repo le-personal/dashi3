@@ -62,25 +62,6 @@ describe("Dashboard controller", function() {
 
 		});
 
-		it("Should get all dashboard pages", function(done) {
-			Factory.create("dashboard", function(dashboard) {
-				request.agent(sails.hooks.http.app)
-				.get("/")
-				.expect(200)
-				.end(function(err, res) {
-					assert.equal(null, err);
-					var dom = res.text;
-
-					var $ = cheerio.load(dom);
-					var title = $("h1").text();
-					title.should.equal("Dashboards");
-
-					done();
-				});
-			});
-
-		});
-
 	});
 
 });
