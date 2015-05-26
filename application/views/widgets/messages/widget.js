@@ -30,9 +30,12 @@
 						$scope.data.unshift(data.data);
 
 						// if the array is bigger than 10, reduce it
-						if($scope.data.length > 5) {
-							$scope.data.pop();
-						}
+						// if($scope.data.length > 5) {
+						// 	$scope.data.pop();
+						// }
+
+						
+						// $filter('limitTo')(input, limit);
 					}
 				}
 			});

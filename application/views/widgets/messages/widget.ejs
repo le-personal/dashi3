@@ -8,7 +8,7 @@
       </div>
     </header>
     <div class="panel-body dash-content">
-      <div ng-repeat="element in data">
+      <div ng-repeat="element in data | limitTo : 3">
         <div class="media">
           <div class="media-left" ng-show="element.value.image">
             <img src="{{ element.value.image }}" width="64"/>
