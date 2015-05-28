@@ -10,6 +10,35 @@
 var Sails = require("sails");
 var async = require("async");
 
+Array.prototype.asyncEach = function(iterator) {  
+  var list    = this,
+      n       = list.length,
+      i       = -1,
+      calls   = 0,
+      looping = false;
+
+  var iterate = function() {
+    calls -= 1;
+    i += 1;
+    if (i === n) return;
+    iterator(list[i], resume);
+  };
+
+  var loop = function() {
+    if (looping) return;
+    looping = true;
+    while (calls > 0) iterate();
+    looping = false;
+  };
+
+  var resume = function() {
+    calls += 1;
+    if (typeof setTimeout === 'undefined') loop();
+    else setTimeout(iterate, 1);
+  };
+  resume();
+};
+
 // Define all methods, there should be a way of do this automatically
 var models = ["dashboard", "data", "passport", "user", "widgets"];
 
@@ -27,16 +56,27 @@ function findAndRemove(model, next) {
       console.log(err);
       return next(err);
     }
+
+    var total = results.length;
+    var counter = 0;
     
+    if(total == counter) return next();
+
     // For each of the results, we run a calblack to destroy the result found
-    async.each(results, function(result, next) {
-      result.destroy(function(err, status) {
-        return next();
+    results.asyncEach(function(item, resume) {
+      item.destroy(function(err, status) {
+        counter++;
+
+        if(counter < total) {
+          resume();
+        }
+        else {
+          return next();
+        }
       })
-    }, function(err) {
-      if(err) console.log(err);
-      return next();
-    })
+    });
+
+    
   });
 }
 

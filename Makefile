@@ -4,7 +4,7 @@ TWITTER_APISECRET := $(shell env | grep TWITTER_APISECRET)
 
 prepare-test:
 	@echo "Starting database"
-	@docker run -d --name testdb -e MONGODB_DATATABASE=testdb mongo:2.6 > .docker
+	@docker run -d --name testdb -p 27020:27017 -e MONGODB_DATATABASE=testdb mongo:2.6 > .docker
 
 test:
 	@echo "Testing"

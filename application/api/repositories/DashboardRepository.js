@@ -15,6 +15,13 @@ DashboardRepository.getAll = function(callback) {
 	});
 }
 
+DashboardRepository.getPublic = function(callback) {
+	Dashboard.find({public: true}).exec(function(err, results) {
+		if(err) return callback(err);
+		return callback(false, results);
+	})
+}
+
 /**
  * Get a dashboard by path
  * @param  {string}   path     The path to use to retrieve the dashboard

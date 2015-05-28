@@ -9,6 +9,26 @@ var Factory = require("sails-factory").load();
 var Chance = require("chance");
 
 describe("DashboardRepository", function() {
+
+	describe("Public", function() {
+		it("Should get all public dashboards", function(done) {
+			Factory.create("dashboard", {public: true}, function(dashboard) {
+				DashboardRepository.getPublic(function(err, results) {
+					err.should.be.false;
+
+					results.should.have.lengthOf(1);
+
+					results[0].should.have.property("id");
+					results[0].should.have.property("name", dashboard.name);
+					results[0].should.have.property("path", dashboard.path);
+					results[0].should.have.property("public", true);
+					results[0].should.have.property("description", dashboard.description);
+					done();
+				});
+			});
+		});
+	})
+
 	describe("Get", function() {
 		it("Should save a fixed dashboard", function(done) {
 			var data = {

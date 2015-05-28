@@ -18,6 +18,14 @@ module.exports = {
 		});
 	},
 
+	public: function public(req, res) {
+		// get all public dashboards
+		DashboardRepository.getPublic(function(err, results) {
+			if(err) return res.serverError(err);
+			return res.view("homepage", {dashboards: results});
+		});
+	},
+
 	getDashboard: function getDashboard(req, res) {
 		var path = req.param("path");
 		sails.log("Getting dashboard with path: " + path);

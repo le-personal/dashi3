@@ -12,6 +12,20 @@ var cheerio = require("cheerio");
 describe("Dashboard controller", function() {
 	describe("API", function() {
 
+		it("Should access public dashboards", function(done) {
+			Factory.create("dashboard", {public: true}, function(dashboard) {
+				request.agent(sails.hooks.http.app)
+				.get("/d/" + dashboard.path)
+				.expect(200)
+				.end(function(err, res) {
+					assert.equal(null, err);
+					done();
+				});
+			});
+		});
+
+		// it("Should redirect to public dashboards when user is not logged in");
+
 		it("Should get a dashboard calling the route /api/v1/dashboard/:id", function(done) {
 			Factory.create("dashboard", function(dashboard) {
 				request.agent(sails.hooks.http.app)
@@ -52,7 +66,7 @@ describe("Dashboard controller", function() {
 		it("Should get a dashboard page", function(done) {
 			Factory.create("dashboard", function(dashboard) {
 				request.agent(sails.hooks.http.app)
-				.get("/dashboard/" + dashboard.path)
+				.get("/d/" + dashboard.path)
 				.expect(200)
 				.end(function(err, res) {
 					assert.equal(null, err);

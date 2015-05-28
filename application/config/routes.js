@@ -32,9 +32,12 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'get /': 'DashboardController.main',
+  'get /': 'FrontpageController.main',
 
-  'get /dashboard/:path': 'DashboardController.getDashboard',
+  'get /public': 'DashboardController.public',
+  'get /d': 'DashboardController.main',
+  'get /d/:path': 'DashboardController.getDashboard',
+
   'get /api/v1/dashboard/:id': 'DashboardController.getDashboardAPI',
   'post /api/v1/dashboard': 'DashboardController.createDashboard', 
   'get /api/v1/dashboard/:id/widgets': 'WidgetsController.getWidgets',
@@ -93,4 +96,10 @@ module.exports.routes = {
   'get /api/v1/providers/twitter/search/:term': 'TwitterController.search',
   'get /api/v1/providers/twitter/statuses/:username': 'TwitterController.username',
 
+  // 'get /admin': 'AdminController.main',
+  
+  // 'get /settings': 'AuthController.getSettings',
+  // 'post /settings': 'AuthController.postSettings',
+
+  
 };
