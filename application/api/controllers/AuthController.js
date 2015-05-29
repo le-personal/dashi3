@@ -92,8 +92,25 @@ var AuthController = {
    * @param {Object} res
    */
   register: function (req, res) {
+    var strategies = sails.config.passport
+      , providers  = {};
+
+    // Get a list of available providers for use in your templates.
+    Object.keys(strategies).forEach(function (key) {
+      if (key === 'local') {
+        return;
+      }
+
+      providers[key] = {
+        name: strategies[key].name
+      , slug: key
+      };
+    });
+
+    // Render the `auth/login.ext` view
     res.view({
-      errors: req.flash('error')
+      providers : providers
+    , errors    : req.flash('error')
     });
   },
 

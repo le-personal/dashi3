@@ -96,7 +96,7 @@ module.exports.routes = {
   'get /api/v1/providers/twitter/search/:term': 'TwitterController.search',
   'get /api/v1/providers/twitter/statuses/:username': 'TwitterController.username',
 
-  // 'get /admin': 'AdminController.main',
+  'get /admin': 'AdminController.main',
   
   // 'get /settings': 'AuthController.getSettings',
   // 'post /settings': 'AuthController.postSettings',

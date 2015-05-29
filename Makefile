@@ -1,6 +1,9 @@
 CURRENT_DIRECTORY := $(shell pwd)
 TWITTER_APIKEY := $(shell env | grep TWITTER_APIKEY)
 TWITTER_APISECRET := $(shell env | grep TWITTER_APISECRET)
+GOOGLE_OAUTH_CLIENTID := $(shell env | grep GOOGLE_OAUTH_CLIENTID)
+GOOGLE_OAUTH_CLIENTSECRET := $(shell env | grep GOOGLE_OAUTH_CLIENTSECRET)
+GOOGLE_OAUTH_CALLBACKURL := $(shell env | grep GOOGLE_OAUTH_CALLBACKURL)
 
 prepare-test:
 	@echo "Starting database"
@@ -8,7 +11,7 @@ prepare-test:
 
 test:
 	@echo "Testing"
-	docker run --rm -e NODE_ENV=test -e "$(TWITTER_APIKEY)" -e "$(TWITTER_APISECRET)" -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mongodb luis/sails npm test
+	docker run --rm -e NODE_ENV=test -e "$(TWITTER_APIKEY)" -e "$(TWITTER_APISECRET)" -e "$(GOOGLE_OAUTH_CLIENTID)" -e "$(GOOGLE_OAUTH_CLIENTSECRET)" -e "$(GOOGLE_OAUTH_CALLBACKURL)" -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mongodb luis/sails npm test
 
 clean-test:
 	@if [ -f $(CURRENT_DIRECTORY)/.docker ]; \
