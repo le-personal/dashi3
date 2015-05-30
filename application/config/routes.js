@@ -101,5 +101,9 @@ module.exports.routes = {
   // 'get /settings': 'AuthController.getSettings',
   // 'post /settings': 'AuthController.postSettings',
 
+  'get /admin/tokens': 'TokenController.all',
+  'get /admin/tokens/add': 'TokenController.add',
+  'post /admin/tokens/add': 'TokenController.create',
+  'get /admin/tokens/:id': 'TokenController.get',
   
 };

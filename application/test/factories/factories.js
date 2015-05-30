@@ -194,8 +194,11 @@ module.exports = function(Factory) {
 	  });
 
 	Factory.define("token", "Token")
+		.attr("name", function() {
+			return new Chance().string();
+		})
 		.attr("token", function () {
-			return new Chance().string()
+			return new Chance().string();
 		})
 		.parent("user");
 }

@@ -3,8 +3,17 @@ var Token = {
   schema: true,
 
   attributes: {
-    token  : { type: 'string', unique: true },
-    user : { model: "user" }
+  	name: {
+  		type: "string", required: true,
+  	},
+    token: { 
+    	type: 'string', 
+    	unique: true,
+    	required: true 
+   	},
+    user: { 
+    	model: "user"
+    }
   }
 };
 

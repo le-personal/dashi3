@@ -55,5 +55,9 @@ module.exports.policies = {
 
   DataController: {
     '*': "dataWidgetHasValidTokenAccess"
-  }
+  },
+
+  // TokenController: {
+  //   "*": ["bearerAuth"]
+  // }
 };

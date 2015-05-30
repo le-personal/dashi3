@@ -1,0 +1,19 @@
+<div class="container well">
+	<h1>Tokens</h1>
+	<table class="table table-stripped table-hover">
+		<thead>
+			<th>Name</th>
+			<th>Token</th>
+			<th></th>
+		</thead>
+		<tbody>
+			<% _.each(results, function(result) { %>
+				<tr>
+					<td><%= result.name %></td>
+					<td><%= result.token %></td>
+					<td><a href="/admin/tokens/<%= result.id %>" class="btn btn-sm btn-primary">View</a></td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+</div>
