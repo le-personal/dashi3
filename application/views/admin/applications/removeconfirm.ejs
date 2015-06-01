@@ -1,0 +1,18 @@
+<% include ../header.ejs %>
+
+<div id="admin-page">
+	<div class="container">
+		<h1>Remove <%= result.name %></h1>
+		<hr />
+		<div class="alert alert-warning">
+			<p><strong>Are you sure you want to remove this application token?</strong></p>
+			<p>All the data created by this application token will be left untouched but you will not be able to use this application token to create new data. This action cannot be undone</p>
+		</div>
+		<form action="/admin/applications/<%= result.id %>/remove" method="POST">
+			<div class="form-group">
+				<button class="btn btn-danger" type="submit">Remove</button>
+				<a href="/admin/applications" class="btn btn-info">Cancel</a>
+			</div>
+		</form>
+	</div>
+</div>

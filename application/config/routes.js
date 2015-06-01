@@ -42,9 +42,8 @@ module.exports.routes = {
   'post /api/v1/dashboard': 'DashboardController.createDashboard', 
   'get /api/v1/dashboard/:id/widgets': 'WidgetsController.getWidgets',
 
-  'get /api/v1/widgets/:widget/data': 'DataController.index',
-  'get /api/v1/widgets/:widget/data/:dataid': 'DataController.get',
-  'post /api/v1/widgets/:widget/data': 'DataController.post',
+  'get /api/v1/data/:dataset': 'DataController.get',
+  'post /api/v1/data/:dataset': 'DataController.post',
 
   'get /api/v1/marketplace': 'MarketPlaceController.index',
 
@@ -101,11 +100,11 @@ module.exports.routes = {
   // 'get /settings': 'AuthController.getSettings',
   // 'post /settings': 'AuthController.postSettings',
 
-  'get /admin/tokens': 'TokenController.all',
-  'get /admin/tokens/add': 'TokenController.add',
-  'post /admin/tokens/add': 'TokenController.create',
-  'get /admin/tokens/:id': 'TokenController.get',
-  'get /admin/tokens/:id/remove': 'TokenController.removeConfirm',
-  'post /admin/tokens/:id/remove': 'TokenController.remove'
+  'get /admin/applications': 'ApplicationController.all',
+  'get /admin/applications/add': 'ApplicationController.add',
+  'post /admin/applications/add': 'ApplicationController.create',
+  'get /admin/applications/:id': 'ApplicationController.get',
+  'get /admin/applications/:id/remove': 'ApplicationController.removeConfirm',
+  'post /admin/applications/:id/remove': 'ApplicationController.remove'
   
 };

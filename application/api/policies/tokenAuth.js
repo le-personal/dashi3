@@ -2,7 +2,7 @@ var include = require("include");
 var WidgetsRepository = include("api/repositories/WidgetsRepository");
 
 // policies/canWrite.js
-module.exports = function dataWidgetHasValidTokenAccess (req, res, next) {
+module.exports = function tokenAuth (req, res, next) {
   // var widgetId = req.param('widget');
   // var access_token = req.query.access_token;
   //
@@ -23,5 +23,5 @@ module.exports = function dataWidgetHasValidTokenAccess (req, res, next) {
   //   }
   // });
 
-  return next()
+  return next();
 };

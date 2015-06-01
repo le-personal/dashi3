@@ -10,7 +10,7 @@ var request = require("supertest");
 var cheerio = require("cheerio");
 
 
-describe("Token controller", function() {
+describe("Application controller", function() {
 	describe("Get", function() {
 		
 		// it("Should get a token", function(done) {

@@ -40,7 +40,7 @@ Array.prototype.asyncEach = function(iterator) {
 };
 
 // Define all methods, there should be a way of do this automatically
-var models = ["dashboard", "data", "passport", "user", "widgets", "token"];
+var models = ["dashboard", "data", "passport", "user", "widgets", "application"];
 
 /**
  * Find all records of a model and remove them

@@ -9,39 +9,39 @@ var include = require("include");
 var DataRepository = include("/api/repositories/DataRepository");
 
 module.exports = {
-	index: function index(req, res) {
-		// Get the storage first to determine the type
-		var widgetId = req.param("widget");
+	// index: function index(req, res) {
+	// 	// Get the storage first to determine the type
+	// 	var widgetId = req.param("widget");
 
-		new DataRepository().all(widgetId, function(err, results) {
-			if(err) return res.notFound();
-			if(results) {
-				Data.subscribe(req.socket);
-				return res.jsonp(200, results);
-			}
-		});
-	},
+	// 	new DataRepository().all(widgetId, function(err, results) {
+	// 		if(err) return res.notFound();
+	// 		if(results) {
+	// 			Data.subscribe(req.socket);
+	// 			return res.jsonp(200, results);
+	// 		}
+	// 	});
+	// },
 
 	get: function get(req, res) {
-		var dataId = req.param("dataid");
+		var dataset = req.params.dataset;
 
-		new DataRepository().get(dataId, function(err, result) {
+		DataRepository.all(dataset, function(err, result) {
 			if(err) return res.notFound();
 			return res.jsonp(200, result);
 		});
 	},
 
 	post: function save(req, res) {
-		var data = req.body;
-		var widgetId = req.param("widget");
+		var dataset = req.params.dataset;
+		var content = req.body;
+		var access_token = req.query.access_token;
 
-		data.widget = widgetId;
-
-		new DataRepository().save(data, function(err, result) {
-			if(err) console.log(err);
-			if(err) return res.badRequest(err);
+		DataRepository.save(access_token, dataset, content)
+		.then(function(result) {
 			return res.jsonp(201, result);
+		})
+		.fail(function(err) {
+			return res.serverError(err);
 		});
-
 	}
 };

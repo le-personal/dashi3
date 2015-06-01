@@ -3,22 +3,22 @@
 <div id="admin-page">
 	<div class="container">
 		<h1>
-			Tokens
+			Applications
 			<div class="pull-right">
 
-				<a href="/admin/tokens/add" class="btn btn-primary">
-					<span class="glyphicon glyphicon-plus"></span> Add token
+				<a href="/admin/applications/add" class="btn btn-primary">
+					<span class="glyphicon glyphicon-plus"></span> Add application
 				</a>
 			</div>
 		</h1>
 		<hr />
 		<% include ../../messages.ejs %>
 		<% if(results.length === 0) { %>
-			<div class="well">No tokens added yet. <a href="/admin/tokens/add">Add the first one</a></div>
+			<div class="well">No applications added yet. <a href="/admin/applications/add">Add the first one</a></div>
 		<% } else { %>
 			<table class="table table-stripped table-hover">
 				<thead>
-					<th>Name</th>
+					<th>Application name</th>
 					<th>Token</th>
 					<th></th>
 				</thead>
@@ -28,8 +28,8 @@
 							<td><%= result.name %></td>
 							<td><%= result.token %></td>
 							<td>
-								<a href="/admin/tokens/<%= result.id %>" class="btn btn-sm btn-primary">View</a>	
-								<a href="/admin/tokens/<%= result.id %>/remove" class="btn btn-sm btn-warning">Remove</a>
+								<a href="/admin/applications/<%= result.id %>" class="btn btn-sm btn-primary">View</a>	
+								<a href="/admin/applications/<%= result.id %>/remove" class="btn btn-sm btn-warning">Remove</a>
 							</td>
 						</tr>
 					<% }) %>

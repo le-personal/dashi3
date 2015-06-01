@@ -65,7 +65,7 @@ module.exports.policies = {
   // }, 
 
   DataController: {
-    '*': "dataWidgetHasValidTokenAccess"
+    '*': "tokenAuth"
   },
 
   // TokenController: {

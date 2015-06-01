@@ -7,11 +7,15 @@
 
 module.exports = {
   attributes: {
-  	widget: {
-  		model: "Widgets",
-      required: true
-  	},
-  	value: {
+    dataset: {
+      type: "string",
+      required: true,
+    },
+    application: {
+      model: "application",
+      required: false,
+    },
+  	content: {
   		type: "json",
   		required: true
   	}

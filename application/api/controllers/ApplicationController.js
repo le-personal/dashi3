@@ -1,14 +1,14 @@
 var include = require("include");
-var TokenRepository = include("api/repositories/TokenRepository");
+var ApplicationRepository = include("api/repositories/ApplicationRepository");
 
 module.exports = {
 	get: function get(req, res) {
 		var id = req.params.id;
 		
-		TokenRepository.get(id)
+		ApplicationRepository.get(id)
 		.then(function(result) {
 			res.locals.layout = "admin/layout";
-			return res.view("admin/tokens/view", {result: result});
+			return res.view("admin/applications/view", {result: result});
 		})
 		.fail(function(err) {
 			return res.notFound(err);
@@ -16,10 +16,10 @@ module.exports = {
 	},
 
 	all: function all(req, res) {
-		TokenRepository.all()
+		ApplicationRepository.all()
 		.then(function(results) {
 			res.locals.layout = "admin/layout";
-			return res.view("admin/tokens/all", {results: results});
+			return res.view("admin/applications/all", {results: results});
 		}).
 		fail(function(err) {
 			return res.serverError(err);
@@ -28,33 +28,33 @@ module.exports = {
 
 	add: function add(req, res) {
 		res.locals.layout = "admin/layout";
-		return res.view("admin/tokens/add");
+		return res.view("admin/applications/add");
 	},
 
 	create: function create(req, res) {
 		var name = req.body.name;
 		var userId = req.user.id;
 
-		TokenRepository.save(name, userId)
+		ApplicationRepository.save(name, userId)
 		.then(function(result) {
-			req.flash("success", "The token was created successfully");
-			return res.redirect("/admin/tokens");
+			req.flash("success", "The application was created successfully");
+			return res.redirect("/admin/applications");
 		})
 		.catch(function(err) {
 			if(err) {
 				req.flash('error', err);
 				console.log(err);
-				res.redirect("/admin/tokens/add");
+				res.redirect("/admin/applications/add");
 			}
 		});
 	},
 
 	removeConfirm: function removeConfirm(req, res) {
 		var id = req.params.id;
-		TokenRepository.get(id)
+		ApplicationRepository.get(id)
 		.then(function(result) {
 			res.locals.layout = "admin/layout";
-			return res.view("admin/tokens/removeconfirm", {result: result});
+			return res.view("admin/applications/removeconfirm", {result: result});
 		})
 		.fail(function(err) {
 			return res.notFound(err);
@@ -64,10 +64,10 @@ module.exports = {
 	remove: function remove(req, res) {
 		var id = req.params.id;
 
-		TokenRepository.remove(id)
+		ApplicationRepository.remove(id)
 		.then(function(result) {
-			req.flash("success", "The token was removed successfully");
-			res.redirect("/admin/tokens");
+			req.flash("success", "The application was removed successfully");
+			res.redirect("/admin/applications");
 		})
 		.catch(function(err) {
 			return res.serverError(err);

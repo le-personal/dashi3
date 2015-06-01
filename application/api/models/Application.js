@@ -1,4 +1,4 @@
-var Token = {
+var Application = {
   // Enforce model schema in the case of schemaless databases
   schema: true,
 
@@ -17,4 +17,4 @@ var Token = {
   }
 };
 
-module.exports = Token;
+module.exports = Application;
