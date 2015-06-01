@@ -105,5 +105,7 @@ module.exports.routes = {
   'get /admin/tokens/add': 'TokenController.add',
   'post /admin/tokens/add': 'TokenController.create',
   'get /admin/tokens/:id': 'TokenController.get',
+  'get /admin/tokens/:id/remove': 'TokenController.removeConfirm',
+  'post /admin/tokens/:id/remove': 'TokenController.remove'
   
 };

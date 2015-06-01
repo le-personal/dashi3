@@ -81,7 +81,19 @@ TokenRepository.save = function save(name, userId, next) {
  * @return {promise}        Promise to return
  */
 TokenRepository.remove = function remove(id, next) {
+	var d = Q.defer();
+	if(!id) d.reject("No id");
 
+	Token.destroy({id: id})
+	.exec(function(err, result) {
+		if(err) d.reject(err);
+		else {
+			d.resolve(result);
+		}
+	})
+
+	d.promise.nodeify(next);
+	return d.promise;
 }
 
 module.exports = TokenRepository;

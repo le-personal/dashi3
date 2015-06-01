@@ -1,8 +1,12 @@
-<div class="container well">
-	<h1><%= result.name %></h1>
-	
-	<div class="form-group">
-		<label class="form-label">Token</label>
-		<div class="form-control"><%= result.token %></div>
+<% include ../header.ejs %>
+
+<div id="admin-page">
+	<div class="container">
+		<h1><%= result.name %></h1>
+		<hr />
+		<div class="form-group">
+			<label class="form-label">Token</label>
+			<div class="form-control"><%= result.token %></div>
+		</div>
 	</div>
 </div>

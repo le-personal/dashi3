@@ -26,10 +26,15 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  '*': ["passport"],
+  '*': ['all', 'passport', 'sessionAuth'],
 
-  'auth': {
-    '*': ['passport']
+  AuthController: {
+    callback: ["passport"],
+    session: ['passport'],
+    login: ['all', 'isAnonymous'],
+    register: ['all', 'isAnonymous'],
+    logout: ['passport', 'sessionAuth'],
+    settings: ['passport', 'sessionAuth'],
   },
 
   /***************************************************************************
@@ -52,6 +57,12 @@ module.exports.policies = {
 		// before letting any users feed our rabbits
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
+  //
+  // TokenController: {
+  //   index: ['passport', 'sessionAuth'],
+  //   add: ['passport', 'sessionAuth'],
+  //   create: ['passport', 'sessionAuth'],
+  // }, 
 
   DataController: {
     '*': "dataWidgetHasValidTokenAccess"

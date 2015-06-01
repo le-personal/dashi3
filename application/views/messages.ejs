@@ -1,0 +1,23 @@
+<% if (req.session.flash) { %>
+  <% if (req.session.flash.error) { %>
+  	<div class="alert alert-danger">
+  		<button type="button" class="close" data-dismiss="alert">×</button>
+    	
+      <% _.each(req.flash("error"), function(error) { %>
+        <p><%= error %></p>
+      <% }) %>
+  	</div>
+  <% } %>
+  <% if (req.session.flash.success) { %>
+  	<div class="alert alert-success">
+  		<button type="button" class="close" data-dismiss="alert">×</button>
+    	<%= req.flash('success') %>
+    </div>
+  <% } %>
+  <% if (req.session.flash.info) { %>
+  	<div class="alert alert-info">
+  		<button type="button" class="close" data-dismiss="alert">×</button>
+    	<%= req.flash('info') %>
+    </div>
+  <% } %>
+<% } %>

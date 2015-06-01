@@ -1,19 +1,40 @@
-<div class="container well">
-	<h1>Tokens</h1>
-	<table class="table table-stripped table-hover">
-		<thead>
-			<th>Name</th>
-			<th>Token</th>
-			<th></th>
-		</thead>
-		<tbody>
-			<% _.each(results, function(result) { %>
-				<tr>
-					<td><%= result.name %></td>
-					<td><%= result.token %></td>
-					<td><a href="/admin/tokens/<%= result.id %>" class="btn btn-sm btn-primary">View</a></td>
-				</tr>
-			<% }) %>
-		</tbody>
-	</table>
+<% include ../header.ejs %>
+
+<div id="admin-page">
+	<div class="container">
+		<h1>
+			Tokens
+			<div class="pull-right">
+
+				<a href="/admin/tokens/add" class="btn btn-primary">
+					<span class="glyphicon glyphicon-plus"></span> Add token
+				</a>
+			</div>
+		</h1>
+		<hr />
+		<% include ../../messages.ejs %>
+		<% if(results.length === 0) { %>
+			<div class="well">No tokens added yet. <a href="/admin/tokens/add">Add the first one</a></div>
+		<% } else { %>
+			<table class="table table-stripped table-hover">
+				<thead>
+					<th>Name</th>
+					<th>Token</th>
+					<th></th>
+				</thead>
+				<tbody>
+					<% _.each(results, function(result) { %>
+						<tr>
+							<td><%= result.name %></td>
+							<td><%= result.token %></td>
+							<td>
+								<a href="/admin/tokens/<%= result.id %>" class="btn btn-sm btn-primary">View</a>	
+								<a href="/admin/tokens/<%= result.id %>/remove" class="btn btn-sm btn-warning">Remove</a>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		<% } %>
+	</div>
 </div>
