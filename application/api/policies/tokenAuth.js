@@ -1,27 +1,18 @@
 var include = require("include");
-var WidgetsRepository = include("api/repositories/WidgetsRepository");
+var ApplicationRepository = include("api/repositories/ApplicationRepository");
 
 // policies/canWrite.js
 module.exports = function tokenAuth (req, res, next) {
-  // var widgetId = req.param('widget');
-  // var access_token = req.query.access_token;
-  //
-  // if(!access_token) {
-  //   return res.forbidden("An access token is required");
-  // }
-  //
-  // new WidgetsRepository().get(widgetId, function(err, widget) {
-  //   if(err) return res.serverError(err);
-  //
-  //   // check if the storage.access_token and the access_token sent are the same
-  //   // if not, send an access denied
-  //   if(widget.access_token === access_token) {
-  //     return next();
-  //   }
-  //   else {
-  //     return res.forbidden("The access token is invalid");
-  //   }
-  // });
+  var access_token = req.query.access_token;
 
-  return next();
+  ApplicationRepository.getByToken(access_token)
+  .then(function(result) {
+    if(result) return next();
+    else {
+      return res.forbidden("Invalid token");
+    }
+  })
+  .fail(function(err) {
+    return res.serverError(err);
+  });
 };
