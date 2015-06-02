@@ -10,6 +10,15 @@ var WidgetsRepository = include("api/repositories/WidgetsRepository");
  */
 
 module.exports = {
+	all: function all(req, res) {
+		DashboardRepository.getAll(function(err, results) {
+			if(err) return res.serverError(err);
+
+			res.locals.layout = "admin/layout";
+			return res.view("admin/dashboards/all", {results: results});
+		});
+	},
+
 	main: function main(req, res) {
 		// get all dashboards
 		DashboardRepository.getAll(function(err, results) {

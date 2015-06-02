@@ -1,0 +1,40 @@
+<% include ../header.ejs %>
+
+<div id="admin-page">
+	<div class="container">
+		<h1>
+			Dashboards
+			<div class="pull-right">
+
+				<a href="/admin/dashboards/add" class="btn btn-primary">
+					<span class="glyphicon glyphicon-plus"></span> Add dashboard
+				</a>
+			</div>
+		</h1>
+		<hr />
+		<% include ../../messages.ejs %>
+		<% if(results.length === 0) { %>
+			<div class="well">No dashboards added yet. <a href="/admin/dashboards/add">Add the first one</a></div>
+		<% } else { %>
+			<table class="table table-stripped table-hover">
+				<thead>
+					<th>Dashboard name</th>
+					<th>Public access enabled</th>
+					<th></th>
+				</thead>
+				<tbody>
+					<% _.each(results, function(result) { %>
+						<tr>
+							<td><%= result.name %></td>
+							<td><%= result.public %></td>
+							<td>
+								<a href="/d/<%= result.path %>" class="btn btn-sm btn-primary">View</a>	
+								<a href="/admin/dashboards/<%= result.id %>/remove" class="btn btn-sm btn-warning">Remove</a>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		<% } %>
+	</div>
+</div>
