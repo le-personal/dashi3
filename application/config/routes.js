@@ -108,5 +108,9 @@ module.exports.routes = {
   'post /admin/applications/:id/remove': 'ApplicationController.remove',
 
   'get /admin/dashboards': 'DashboardController.all',
+  'get /admin/dashboards/add': 'DashboardController.add',
+  'post /admin/dashboards/add': 'DashboardController.create',
+  'get /admin/dashboards/:id/remove': 'DashboardController.removeConfirm',
+  'post /admin/dashboards/:id/remove': 'DashboardController.remove',
   
 };

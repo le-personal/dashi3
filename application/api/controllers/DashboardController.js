@@ -10,6 +10,10 @@ var WidgetsRepository = include("api/repositories/WidgetsRepository");
  */
 
 module.exports = {
+
+	/**
+	 * ADMIN PAGES
+	 */
 	all: function all(req, res) {
 		DashboardRepository.getAll(function(err, results) {
 			if(err) return res.serverError(err);
@@ -19,6 +23,61 @@ module.exports = {
 		});
 	},
 
+	add: function add(req, res) {
+		res.locals.layout = "admin/layout";
+		return res.view("admin/dashboards/add");
+	},
+
+	create: function create(req, res) {
+		var dashboard = {
+			name: req.body.name,
+			description: req.body.description,
+			path: req.body.path,
+			public: req.body.public
+		}
+
+		DashboardRepository.save(dashboard, function(err, result) {
+			if(err) {
+				req.flash("error", err);
+				return res.redirect("/admin/dashboards/add");
+			}
+
+			if(result) {
+				req.flash("success", "The dashboard was created successfully");
+				return res.redirect("/admin/dashboards");
+			}
+		});
+	},
+
+	removeConfirm: function removeConfirm(req, res) {
+		var id = req.params.id;
+
+		DashboardRepository.get(id)
+		.then(function(result) {
+			res.locals.layout = "admin/layout";
+			return res.view("admin/dashboards/removeconfirm", {result: result});
+		})
+		.fail(function(err) {
+			return res.notFound(err);
+		});
+	},
+
+	remove: function remove(req, res) {
+		var id = req.params.id;
+
+		DashboardRepository.remove(id)
+		.then(function(result) {
+			req.flash("success", "The dashboard was removed successfully");
+			res.redirect("/admin/dashboards");
+		})
+		.catch(function(err) {
+			return res.serverError(err);
+		});
+	},
+
+	/**
+	 * REST PATHS
+	 */
 	main: function main(req, res) {
 		// get all dashboards
 		DashboardRepository.getAll(function(err, results) {
@@ -76,7 +135,7 @@ module.exports = {
 			if(result) {
 				return res.json(201, result);
 			}
-		})
+		});
 	}
 };
 

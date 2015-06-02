@@ -26,7 +26,7 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  '*': ['all', 'passport', 'sessionAuth'],
+  '*': ['all'],
 
   AuthController: {
     callback: ["passport"],

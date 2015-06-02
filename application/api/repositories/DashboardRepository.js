@@ -1,3 +1,5 @@
+var Q = require("q");
+
 /**
  * Dashboard Class
  */
@@ -43,13 +45,21 @@ DashboardRepository.getByPath = function(path, callback) {
  * @param  {Function} callback A callback to execute when done
  * @return {Function}            The callback passed in the argument callback
  */
-DashboardRepository.get = function(id, callback) {
+DashboardRepository.get = function(id, next) {
+	var d = Q.defer();
+
+	if(!id) d.reject("No valid id");
+
 	Dashboard.findOne({id: id})
 	.exec(function(err, result) {
-		if(err) return callback(err, false);
-		if(result) return callback(false, result);
-		return callback(true, false);
+		if(err) d.reject(err);
+		else {
+			d.resolve(result);
+		}
 	});
+
+	d.promise.nodeify(next);
+	return d.promise;
 }
 
 /**
@@ -58,13 +68,38 @@ DashboardRepository.get = function(id, callback) {
  * @param  {Function} callback A callback to execute when done
  * @return {Function}            The callback passed in the argument callback
  */
-DashboardRepository.save = function(data, callback) {
+DashboardRepository.save = function(data, next) {
+	var d = Q.defer();
+
+	if(!data.name) d.reject("No valid name");
+	if(!data.path) d.reject("No valid path, enter another one");
+
 	Dashboard.create(data)
 	.exec(function(err, result) {
-		if(err) return callback(err, false);
-		if(result) return callback(false, result);
-		return callback(true, false);
+		if(err) d.reject(err);
+		else {
+			d.resolve(result);
+		}
 	});
+	
+	d.promise.nodeify(next);
+	return d.promise;
+}
+
+DashboardRepository.remove = function(id, next) {
+	var d = Q.defer();
+	if(!id) d.reject("No id");
+
+	Dashboard.destroy({id: id})
+	.exec(function(err, result) {
+		if(err) d.reject(err);
+		else {
+			d.resolve(result);
+		}
+	})
+
+	d.promise.nodeify(next);
+	return d.promise;
 }
 
 module.exports = DashboardRepository;
