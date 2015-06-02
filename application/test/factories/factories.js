@@ -15,6 +15,9 @@ module.exports = function(Factory) {
 		});
 
 	Factory.define("user", "User")
+		.attr("isAdmin", function() {
+			return false;
+		})
 		.attr("username", function() {
 			return new Chance().word();
 		})

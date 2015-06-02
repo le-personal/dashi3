@@ -43,44 +43,57 @@ exports.register = function (req, res, next) {
     return next(new Error('No password was entered.'));
   }
 
-  User.create({
-    username : username
-  , email    : email
-  }, function (err, user) {
-    if (err) {
-      if (err.code === 'E_VALIDATION') {
-        if (err.invalidAttributes.email) {
-          req.flash('error', 'Error.Passport.Email.Exists');
-        } else {
-          req.flash('error', 'Error.Passport.User.Exists');
-        }
-      }
-
-      return next(err);
+  // The first user will always be admin
+  User.find().exec(function(err, results) {
+    var isAdmin = false;
+    if(!results) {
+      isAdmin = true;
     }
 
-    // Generating accessToken for API authentication
-    var token = crypto.randomBytes(48).toString('base64');
+    if(results.length == 0) {
+      isAdmin = true;
+    }
 
-    Passport.create({
-      protocol    : 'local'
-    , password    : password
-    , user        : user.id
-    , accessToken : token
-    }, function (err, passport) {
+    User.create({
+      username : username,
+      isAdmin  : isAdmin,
+      email    : email
+    }, function (err, user) {
       if (err) {
         if (err.code === 'E_VALIDATION') {
-          req.flash('error', 'Error.Passport.Password.Invalid');
+          if (err.invalidAttributes.email) {
+            req.flash('error', 'Error.Passport.Email.Exists');
+          } else {
+            req.flash('error', 'Error.Passport.User.Exists');
+          }
         }
 
-        return user.destroy(function (destroyErr) {
-          next(destroyErr || err);
-        });
+        return next(err);
       }
 
-      next(null, user);
+      // Generating accessToken for API authentication
+      var token = crypto.randomBytes(48).toString('base64');
+
+      Passport.create({
+        protocol    : 'local'
+      , password    : password
+      , user        : user.id
+      , accessToken : token
+      }, function (err, passport) {
+        if (err) {
+          if (err.code === 'E_VALIDATION') {
+            req.flash('error', 'Error.Passport.Password.Invalid');
+          }
+
+          return user.destroy(function (destroyErr) {
+            next(destroyErr || err);
+          });
+        }
+
+        next(null, user);
+      });
     });
-  });
+  })
 };
 
 /**

@@ -68,6 +68,10 @@ module.exports.policies = {
     '*': "tokenAuth"
   },
 
+  ApplicationController: {
+    '*': ["all", "passport", "isAdmin"]
+  }
+
   // TokenController: {
   //   "*": ["bearerAuth"]
   // }
