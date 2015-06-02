@@ -40,10 +40,13 @@ var AuthController = {
         return;
       }
 
-      providers[key] = {
-        name: strategies[key].name
-      , slug: key
-      };
+      // only add to the array those providers with the property show 
+      if(strategies[key].show) {
+        providers[key] = {
+          name: strategies[key].name
+        , slug: key
+        };
+      }
     });
 
     // Render the `auth/login.ext` view
@@ -101,10 +104,12 @@ var AuthController = {
         return;
       }
 
-      providers[key] = {
-        name: strategies[key].name
-      , slug: key
-      };
+      if(strategies[key].show) {
+        providers[key] = {
+          name: strategies[key].name
+        , slug: key
+        };
+      }
     });
 
     // Render the `auth/login.ext` view
@@ -121,6 +126,13 @@ var AuthController = {
    * @param {Object} res
    */
   provider: function (req, res) {
+    // If a session is defined and a req.query.destination is present
+    // then we are talking about a user who is already logged in, we need to redirect
+    // to the destination set in req.query.destination, we use the session object to pass
+    // this value between callbacks
+    if(req.session && req.query.destination) {
+      req.session.destination = req.query.destination;
+    }
     passport.endpoint(req, res);
   },
 
@@ -186,8 +198,15 @@ var AuthController = {
         req.session.authenticated = true
         
         // Upon successful login, send the user to the homepage were req.user
-        // will be available.
-        res.redirect('/');
+        // will be available unless there's a destination
+        if(req.session.destination) {
+          var destination = req.session.destination;
+          res.redirect(destination);
+          delete req.session.destination;
+        }
+        else {
+          res.redirect('/');
+        }
       });
     });
   },

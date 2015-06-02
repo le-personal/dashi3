@@ -48,20 +48,10 @@ describe("DashboardRepository", function() {
 			});
 		});
 
-		it("Should verify that the database is being truncated", function(done) {
-			DashboardRepository.get(1, function(err, result) {
-				result.should.not.have.property("id", 1);
-				result.should.not.have.property("name", "Test dashboard name");
-				result.should.not.have.property("path", "test");
-				result.should.not.have.property("description", "Test dashboard");
-				done();
-			});
-		});
-
-		it("Should create a dashboard and get it", function(done) {
+		it("Should get a dashboard it", function(done) {
 			Factory.create("dashboard", function(dashboard) {
-				DashboardRepository.get(dashboard.id, function(err, result) {
-					err.should.be.false;
+				DashboardRepository.get(dashboard.id)
+				.then(function(result) {
 					result.should.have.property("id", dashboard.id);
 					result.should.have.property("name", dashboard.name);
 					result.should.have.property("path", dashboard.path);
@@ -73,9 +63,13 @@ describe("DashboardRepository", function() {
 
 		it("Should return an error when not finding a dashboard", function(done) {
 			var id = 100;
-			DashboardRepository.get(id, function(err, result) {
+			DashboardRepository.get(id)
+			.then(function(result) {
+				should.not.exist(result);
+				done();
+			})
+			.fail(function(err) {
 				err.should.not.be.false;
-				result.should.be.false;
 				done();
 			});
 		});
@@ -125,8 +119,8 @@ describe("DashboardRepository", function() {
 				path: new Chance().word()
 			};
 
-			DashboardRepository.save(dash1, function(err, dashboard) {
-				err.should.be.false;
+			DashboardRepository.save(dash1)
+			.then(function(dashboard) {
 				dashboard.should.have.property("id");
 				dashboard.should.have.property("name", dash1.name);
 				dashboard.should.have.property("path", dash1.path);
@@ -145,11 +139,14 @@ describe("DashboardRepository", function() {
 			};
 
 			Factory.create("dashboard", {path: path}, function(dashboard) {
-				DashboardRepository.save(dash2, function(err, result) {
+				DashboardRepository.save(dash2)
+				.then(function(result) {
 					result.should.be.false;
+				})
+				.fail(function(err) {
 					err.should.not.be.false;
 					done();
-				});
+				})
 			});
 		});
 
@@ -160,11 +157,14 @@ describe("DashboardRepository", function() {
 				path: new Chance().word()
 			};
 
-			DashboardRepository.save(dash1, function(err, result) {
-				err.should.not.be.false;
-				result.should.be.false;
+			DashboardRepository.save(dash1)
+			.then(function(result) {
+				should.not.exist(result);
+			})
+			.fail(function(err) {
+				err.should.be.equal("No valid name")
 				done();
-			});
+			})
 		});
 
 		it("Should give an error when not providing the path of the dashboard", function(done) {
@@ -174,9 +174,13 @@ describe("DashboardRepository", function() {
 				path: ""
 			};
 
-			DashboardRepository.save(dash1, function(err, result) {
+			DashboardRepository.save(dash1)
+			.then(function(result) {
+				should.not.exist(result);
+			})
+			.fail(function(err) {
 				err.should.not.be.false;
-				result.should.be.false;
+				err.should.be.equal("No valid path, enter another one");
 				done();
 			});
 		});

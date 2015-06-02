@@ -1,0 +1,42 @@
+<% include ../header.ejs %>
+
+<div id="admin-page">
+	<div class="container">
+		<h1>Settings</h1>
+		<hr />
+		<% include ../../messages.ejs %>
+		<form action="/account/settings method="POST">
+			<div class="form-group">
+				<label class="form-label">Username</label>
+				<input type="text" name="username" class="form-control" disabled="true" value="<%= result.username %>"/>
+			</div>
+
+			<div class="form-group">
+				<label class="form-label">Email</label>
+				<input type="text" name="email" class="form-control" disabled="true" value="<%= result.email %>" />
+			</div>
+
+			<h2>Linked accounts</h2>
+			<table class="table">
+				<tbody>
+					<tr>
+						<td>Google</td>
+						<%  if(_.find(result.passports, {provider: "google"})) { %>
+							<td><a href="/auth/google/disconnect?destination=/account/settings" class="btn btn-primary btn-sm">Unlink your Google account</a>
+						<% } else { %>
+							<td><a href="/auth/google?destination=/account/settings" class="btn btn-primary btn-sm">Link your Google account</a>
+						<% } %>
+					</tr>
+					<tr>
+						<td>Twitter</td>
+						<%  if(_.find(result.passports, {provider: "twitter"})) { %>
+							<td><a href="/auth/twitter/disconnect?destination=/account/settings" class="btn btn-primary btn-sm">Unlink your Twitter account</a>
+						<% } else { %>
+							<td><a href="/auth/twitter?destination=/account/settings" class="btn btn-primary btn-sm">Link your Twitter account</a>
+						<% } %>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>

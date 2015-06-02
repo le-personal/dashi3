@@ -17,6 +17,7 @@ web:
     SECRET: c205e344a308f4f93b9c9098922ef73a
     TWITTER_APIKEY: somekey
     TWITTER_APISECRET: somesecretkey
+    TWITTER_CALLBACKURL: http://local.iiiepe.net/auth/twitter/callback
 mongodb:
   image: mongo:2.6
   expose:

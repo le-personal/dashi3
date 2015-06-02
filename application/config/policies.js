@@ -79,7 +79,12 @@ module.exports.policies = {
     'getDashboardAPI': ["all", "passport", "isAdmin"],
     'createDashboard': ["all", "passport", "isAdmin"],
     'public': ["all"]
-  }
+  },
+
+  UserController: {
+    'getSettings': ['all', 'passport'],
+    'postSettings': ['all', 'passport']
+  },
 
   // TokenController: {
   //   "*": ["bearerAuth"]

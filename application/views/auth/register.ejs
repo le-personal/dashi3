@@ -19,15 +19,15 @@
       <input class="form-control" type="password" name="password" placeholder="Password">
 
       <button class="btn btn-primary" type="submit">Register</button>
+      
+      <% if (providers) { %>
+        <hr />
+        <% _.each(providers, function (provider) { %>
+          <a href="/auth/<%= provider.slug %>" class="btn btn-default" role="button"><%= provider.name %></a>
+        <% }) %>
+      <% } %>
     </form>
 
-    <% if (providers.length) {%>
-      <h4>You can also use one of these...</h4>
-
-      <% Object.keys(providers).forEach(function (key) { %>
-        <a href="/auth/<%= providers[key].slug %>" role="button"><%= providers[key].name %></a>
-      <% }) %>
-    <% } %>
   </div>
 </div>
 <div class="signin-line"></div>

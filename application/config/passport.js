@@ -29,8 +29,10 @@ module.exports.passport = {
     strategy: require('passport-twitter').Strategy,
     options: {
       consumerKey: process.env.TWITTER_APIKEY,
-      consumerSecret: process.env.TWITTER_APISECRET
-    }
+      consumerSecret: process.env.TWITTER_APISECRET,
+      callbackURL: process.env.TWITTER_CALLBACKURL
+    },
+    show: true
   },
 
   // github: {
@@ -63,7 +65,8 @@ module.exports.passport = {
       clientSecret: process.env.GOOGLE_OAUTH_CLIENTSECRET,
       callbackURL: process.env.GOOGLE_OAUTH_CALLBACKURL
     },
-    scope: ["email", "openid", "profile"]
+    scope: ["email", "openid", "profile"],
+    show: true
   },
 
   // cas: {

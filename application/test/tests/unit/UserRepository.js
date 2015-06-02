@@ -36,4 +36,23 @@ describe("UserRepository", function() {
 			});
 		});
 	});
+
+	describe("Get", function() {
+		it("Should get a user", function(done) {
+			Factory.create("user", function(user) {
+				UserRepository.get(user.id)
+				.then(function(result) {
+					result.should.be.an.Object;
+					result.should.have.property("id", user.id);
+					result.should.have.property("username", user.username);
+					result.should.have.property("isAdmin", false);
+					done();
+				})
+				.fail(function(err) {
+
+				});
+			});
+		});
+	});
+
 });

@@ -97,8 +97,8 @@ module.exports.routes = {
 
   'get /admin': 'AdminController.main',
   
-  // 'get /settings': 'AuthController.getSettings',
-  // 'post /settings': 'AuthController.postSettings',
+  'get /account/settings': 'UserController.getSettings',
+  'post /account/settings': 'UserController.postSettings',
 
   'get /admin/applications': 'ApplicationController.all',
   'get /admin/applications/add': 'ApplicationController.add',
@@ -107,6 +107,7 @@ module.exports.routes = {
   'get /admin/applications/:id/remove': 'ApplicationController.removeConfirm',
   'post /admin/applications/:id/remove': 'ApplicationController.remove',
 
+  'get /admin': 'DashboardController.all',
   'get /admin/dashboards': 'DashboardController.all',
   'get /admin/dashboards/add': 'DashboardController.add',
   'post /admin/dashboards/add': 'DashboardController.create',
