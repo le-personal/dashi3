@@ -70,6 +70,15 @@ module.exports.policies = {
 
   ApplicationController: {
     '*': ["all", "passport", "isAdmin"]
+  },
+
+  DashboardController: {
+    'all': ["all", "passport", "isAdmin"],
+    'main': ["all", "passport", "isAdmin"],
+    'getDashboard': ["all", "passport", "isAdmin"],
+    'getDashboardAPI': ["all", "passport", "isAdmin"],
+    'createDashboard': ["all", "passport", "isAdmin"],
+    'public': ["all"]
   }
 
   // TokenController: {
