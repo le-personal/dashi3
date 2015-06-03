@@ -7,10 +7,20 @@
 		<% include ../../messages.ejs %>
 		<form action="/admin/settings" method="POST">
 
-			
 			<div class="form-group">
 				<label class="form-label">Theme</label>
-				<input type="text" name="theme" class="form-control" value="<%= config.theme %>"/>
+				<select name="theme" class="form-control">
+					<option value="dark" <%= (config.theme == 'dark') ? 'selected' : '' %>>Dark</option>
+					<option value="light" <%= (config.theme == 'light') ? 'selected' : '' %>>Light</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label class="form-label">Widget size</label>
+				<select name="widget_size" class="form-control">
+					<option value="default" <%= (config.widget_size == 'default') ? 'selected' : '' %>>Default</option>
+					<option value="large" <%= (config.widget_size == 'large') ? 'selected' : '' %>>Large</option>
+				</select>
 			</div>
 	
 			<div class="form-group">

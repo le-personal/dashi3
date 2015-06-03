@@ -12,8 +12,7 @@
 var Config = require("config-persistence");
 
 module.exports.bootstrap = function(cb) {
-
-	var db = 2;
+	var db = sails.config.session.settings_db;
 	var options = {
 		port: sails.config.session.port,
 		host: sails.config.session.host,
@@ -23,9 +22,11 @@ module.exports.bootstrap = function(cb) {
 
 	console.log(sails.config.settings);
 	config.init(sails.config.settings);
-  sails.services.passport.loadStrategies();
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  cb();
+	config.on("initialized", function() {
+	  sails.services.passport.loadStrategies();
+	  // It's very important to trigger this callback method when you are finished
+	  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+	  cb();
+	})
 	
 };

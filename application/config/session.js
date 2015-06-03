@@ -55,7 +55,8 @@ module.exports.session = {
   // host: process.env.REDIS_PORT_6379_TCP_ADDR,
   // port: process.env.REDIS_PORT_6379_TCP_PORT,
   // ttl: <redis session TTL in seconds>,
-  // db: 0,
+  db: 0,
+  settings_db: 2,
   // pass: <redis auth password>
   // prefix: 'sess:'
 
