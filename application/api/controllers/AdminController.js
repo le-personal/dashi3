@@ -1,17 +1,9 @@
-var Config = require("config-persistence");
-var _ = require("lodash");
 
-var db = sails.config.session.settings_db;
-var options = {
-	port: sails.config.session.port,
-	host: sails.config.session.host,
-}
+var _ = require("lodash");
 
 module.exports = {
 	getSettings: function getSettings(req, res) {
-		var client = new Config(db, options);
-
-		client.all()
+		config.all()
 		.then(function(results) {
 			res.locals.layout = "admin/layout";
 			res.view("admin/settings/settings", {config: results});
@@ -22,15 +14,13 @@ module.exports = {
 	},
 
 	postSettings: function postSettings(req, res) {
-		var client = new Config(db, options);
-
 		var settings = {
 			theme: req.body.theme,
 			widget_size: req.body.widget_size
 		};
 		
-		client.mset(settings);
-		client.on("mset", function(values) {
+		config.mset(settings);
+		config.on("mset", function(values) {
 			req.flash("success", "Configuration saved");
 			res.redirect("/admin/settings");
 		});

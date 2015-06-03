@@ -155,6 +155,7 @@ var AuthController = {
   callback: function (req, res) {
     
     function tryAgain (err) {
+      console.log("Trying again");
 
       // Only certain error messages are returned via req.flash('error', someError)
       // because we shouldn't expose internal authorization errors to the user.
@@ -183,46 +184,21 @@ var AuthController = {
         default:
           res.redirect('/login');
       }
-    }
-
-    
-    
-      // passport.admin_callback(req, res, function(err, user, challenges, statuses) {
-      //   if (err || !user) {
-      //     return tryAgain(challenges);
-      //   }
-
-      //   console.log("Just be here");
-      //   req.login(user, function (err) {
-      //     if (err) {
-      //       return tryAgain(err);
-      //     }
-          
-      //     // Mark the session as authenticated to work with default Sails sessionAuth.js policy
-      //     req.session.authenticated = true
-          
-      //     // Upon successful login, send the user to the homepage were req.user
-      //     // will be available unless there's a destination
-      //     if(req.session.destination) {
-      //       var destination = req.session.destination;
-      //       res.redirect(destination);
-      //       delete req.session.destination;
-      //     }
-      //     else {
-      //       res.redirect('/');
-      //     }
-      //   });
-      // })
-    
+    }   
 
     passport.callback(req, res, function (err, user, challenges, statuses) {
       if (err || !user) {
         return tryAgain(challenges);
       }
 
-      var action = req.param('action');
-      if(action === "admin") {
-        console.log("Do something here?");
+      if(req.session.action == "global-connect") {
+        var query = req.user.query;
+        if(query.provider === "twitter") {
+          config.set("twitter_identifier", query.identifier);
+          config.set("twitter_token", query.tokens.token);
+          config.set("twitter_token_secret", query.tokens.tokenSecret);
+        }
+        return res.redirect("/admin/settings");
       }
 
       req.login(user, function (err) {

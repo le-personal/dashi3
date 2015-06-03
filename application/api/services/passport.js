@@ -67,10 +67,6 @@ passport.connect = function (req, query, profile, next) {
   var user = {}
     , provider;
 
-  console.log("Action goes here");
-  console.log(req.params);
-  console.log(req.param('action'));
-
   // Get the authentication provider from the query.
   query.provider = req.param('provider');
 
@@ -99,6 +95,13 @@ passport.connect = function (req, query, profile, next) {
   // whoever's next in the line take care of it.
   if (!user.username && !user.email) {
     return next(new Error('Neither a username nor email was available'));
+  }
+
+  // If the destination is /admin/settings means we're trying to link
+  // a global account
+  if(req.session.action === "global-connect") {
+    req.user.query = query;
+    return next(null, req.user);
   }
 
   Passport.findOne({
@@ -274,14 +277,15 @@ passport.callback = function (req, res, next) {
     if (action === 'disconnect' && req.user) {
       this.disconnect(req, res, next) ;
     } 
-    else if (action === "admin") {
-      // by the time we we call this.authenticate, which in turn
-      // will call this.connect, the action gets lost and is undefined
-      // in this.connect
-      req.params.push({action: action});
-      this.authenticate(provider, next)(req, res, req.next);
+    else if(action === "global-disconnect") {
+      console.log("Disconnecting");
+      req.session.action = "global-disconnect";
+      this.disconnect(req, res, next);
     }
     else {
+      if(action === "global-connect") {
+        req.session.action = "global-connect";
+      }
       // The provider will redirect the user to this URL after approval. Finish
       // the authentication process by attempting to obtain an access token. If
       // access was granted, the user will be logged in. Otherwise, authentication
@@ -386,22 +390,35 @@ passport.disconnect = function (req, res, next) {
   var user     = req.user
     , provider = req.param('provider');
 
-  Passport.findOne({
-      provider : provider,
-      user     : user.id
-    }, function (err, passport) {
-      if (err) {
-        return next(err);
-      }
+  if(req.session.action === "global-disconnect") {
+    if(provider === "twitter") {
+      config.set("twitter_identifier", "");
+      config.set("twitter_token", "");
+      config.set("twitter_token_secret", "");
+    }
 
-      Passport.destroy(passport.id, function (error) {
+    // Redirection is an issue
+    req.session.destination = "/admin/settings";
+    return next(null, req.user);
+  }
+  else {
+    Passport.findOne({
+        provider : provider,
+        user     : user.id
+      }, function (err, passport) {
         if (err) {
           return next(err);
         }
 
-        next(null, user);
-      });
-  });
+        Passport.destroy(passport.id, function (error) {
+          if (err) {
+            return next(err);
+          }
+
+          next(null, user);
+        });
+    });
+  }
 };
 
 passport.serializeUser(function (user, next) {

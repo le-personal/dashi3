@@ -22,8 +22,6 @@
 					<option value="large" <%= (config.widget_size == 'large') ? 'selected' : '' %>>Large</option>
 				</select>
 			</div>
-	
-			
 
 			<div class="form-group">
 				<button class="btn btn-success" type="submit">Save</button>
@@ -32,13 +30,16 @@
 			<h2>Linked accounts</h2>
 			<table class="table">
 				<tbody>
-					
 					<tr>
-						<td>Twitter</td>
-						
-							<td><a href="/auth/twitter/admin?destination=/admin/settings" class="btn btn-primary btn-sm">Link a Twitter account</a>
-						
+						<td><strong>Twitter</strong></td>
+						<% if(config.twitter_identifier && config.twitter_token && config.twitter_token_secret) { %>
+							<td>User <%= config.twitter_identifier %></td>
+							<td><a href="/auth/twitter/global-disconnect?destination=/admin/settings" class="btn btn-primary btn-sm">Unlink the global Twitter account</a>
+						<% } else { %>
+							<td><a href="/auth/twitter/global-connect?destination=/admin/settings" class="btn btn-primary btn-sm">Link a global Twitter account</a>
+						<% } %>
 					</tr>
+
 				</tbody>
 			</table>
 
