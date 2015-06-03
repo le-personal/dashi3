@@ -1,0 +1,22 @@
+<% include ../header.ejs %>
+
+<div id="admin-page">
+	<div class="container">
+		<h1>Settings</h1>
+		<hr />
+		<% include ../../messages.ejs %>
+		<form action="/admin/settings" method="POST">
+
+			
+			<div class="form-group">
+				<label class="form-label">Theme</label>
+				<input type="text" name="theme" class="form-control" value="<%= config.theme %>"/>
+			</div>
+	
+			<div class="form-group">
+				<button class="btn btn-success" type="submit">Save</button>
+			</div>
+			
+		</form>
+	</div>
+</div>

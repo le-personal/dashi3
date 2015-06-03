@@ -95,8 +95,6 @@ module.exports.routes = {
   'get /api/v1/providers/twitter/search/:term': 'TwitterController.search',
   'get /api/v1/providers/twitter/statuses/:username': 'TwitterController.username',
 
-  'get /admin': 'AdminController.main',
-  
   'get /account/settings': 'UserController.getSettings',
   'post /account/settings': 'UserController.postSettings',
 
@@ -108,6 +106,8 @@ module.exports.routes = {
   'post /admin/applications/:id/remove': 'ApplicationController.remove',
 
   'get /admin': 'DashboardController.all',
+  'get /admin/settings': 'AdminController.getSettings',
+  'post /admin/settings': 'AdminController.postSettings',
   'get /admin/dashboards': 'DashboardController.all',
   'get /admin/dashboards/add': 'DashboardController.add',
   'post /admin/dashboards/add': 'DashboardController.create',
