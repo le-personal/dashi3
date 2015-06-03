@@ -106,8 +106,14 @@ module.exports.routes = {
   'post /admin/applications/:id/remove': 'ApplicationController.remove',
 
   'get /admin': 'DashboardController.all',
+  
   'get /admin/settings': 'AdminController.getSettings',
   'post /admin/settings': 'AdminController.postSettings',
+  
+  'get /admin/auth/:provider': 'AdminController.provider',
+  // 'get /admin/auth/:provider/callback': 'AdminController.callback',
+  // 'get /admin/auth/:provider/:action': 'AdminController.callback',
+
   'get /admin/dashboards': 'DashboardController.all',
   'get /admin/dashboards/add': 'DashboardController.add',
   'post /admin/dashboards/add': 'DashboardController.create',

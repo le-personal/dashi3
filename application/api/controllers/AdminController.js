@@ -34,5 +34,10 @@ module.exports = {
 			req.flash("success", "Configuration saved");
 			res.redirect("/admin/settings");
 		});
-	}
+	},
+
+	provider: function (req, res) {
+		console.log("Should I set an action here?");
+    passport.endpoint(req, res);
+  },
 }

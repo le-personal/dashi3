@@ -20,7 +20,7 @@ module.exports = {
     migrate: 'alter'
   },
   log: {
-    level: "info"
+    level: "debug"
   },
   port: process.env.PORT,
   session: {
