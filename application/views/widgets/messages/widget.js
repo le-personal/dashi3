@@ -14,9 +14,11 @@
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
-			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function(data) {
+			console.log(widget.dataset);
+			io.socket.get("/api/v1/data/" + widget.dataset, function(data) {
 				angular.forEach(data, function(element, key) {
-					$scope.data.push(element);
+					console.log(element.content);
+					$scope.data.push(element.content);
 				});
 			});
 
@@ -80,7 +82,9 @@
 		"$modalInstance",
 		"widget",
 		"Widgets",
-		function($scope, $rootScope, $modalInstance, widget, Widgets) {
+		"Data",
+		"Datasets",
+		function($scope, $rootScope, $modalInstance, widget, Widgets, Data, Datasets) {
 			$scope.data = widget;
 			$scope.remove = function() {
 				Widgets.remove({widgetId: widget.id});
@@ -88,10 +92,18 @@
 				$modalInstance.close();
 			}
 
+			$scope.datasets = [];
+			$scope.getDatasets = function(query) {
+				return Datasets.get(query, function(results) {
+					return results;
+				});
+			}
+
 			$scope.update = function () {
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
 					description: $scope.data.description,
+					dataset: $scope.data.dataset,
 					settings: {
 						
 					}

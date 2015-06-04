@@ -30,7 +30,6 @@ $(document).ready(function () {
 (function() {
 	'use strict';
 
-
 	angular.module("dashi3", [
 		'ngResource',
 		'ngRoute',

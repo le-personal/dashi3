@@ -5,10 +5,17 @@
   .service("Data", [
     "$resource",
     function($resource) {
-      return $resource("/api/v1/widgets/:widgetId/data/:dataId", {
-        widgetId: "@widgetId",
-        dataId: "@dataId"
+      return $resource("/api/v1/data/:dataset", {
+        dataset: "@dataset"
       }, {
+        index: {
+          method: "GET",
+          isArray: true,
+          params: {
+            query: "@query",
+            access_token: "@access_token"
+          }
+        },
         get: {
           method: "GET",
           isArray: true,
@@ -24,6 +31,26 @@
           }
         }
       })
+    }
+  ])
+
+  angular.module("dashi3")
+  .service("Datasets", [
+    "$http",
+    function($http) {
+      return {
+        get: function(query) {
+          return $http.get("/api/v1/data", {
+            params: {
+              query: query
+            }
+          }).then(function(response) {
+            return response.data.map(function(item) {
+              return item.dataset;
+            });
+          });
+        }
+      }
     }
   ]);
 

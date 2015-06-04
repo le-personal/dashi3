@@ -10,18 +10,18 @@
     <div class="panel-body dash-content">
       <div ng-repeat="element in data | limitTo : 3">
         <div class="media">
-          <div class="media-left" ng-show="element.value.image">
-            <img src="{{ element.value.image }}" width="32"/>
+          <div class="media-left" ng-show="element.image">
+            <img src="{{ element.image }}" width="32"/>
           </div>
           <div class="media-body">
             <h4 class="media-heading">
-              {{ element.value.title }}
+              {{ element.title }}
             </h4>
             <div>
-              {{ element.value.content }}
+              {{ element.content }}
             </div>
-            <div ng-show="element.value.link">
-              <a class="btn btn-xs btn-primary" target="_blank" href="{{ element.value.link }}">
+            <div ng-show="element.link">
+              <a class="btn btn-xs btn-primary" target="_blank" href="{{ element.link }}">
                 More
               </a>
             </div>

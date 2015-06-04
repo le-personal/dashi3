@@ -26,6 +26,8 @@ module.exports = {
 
 		DataRepository.all(dataset, function(err, result) {
 			if(err) return res.notFound();
+
+			Data.subscribe(req.socket, result);
 			return res.jsonp(200, result);
 		});
 	},
@@ -35,8 +37,13 @@ module.exports = {
 		var content = req.body;
 		var access_token = req.query.access_token;
 
+		if(req.headers["content-type"] != "application/json") {
+			return res.serverError("The server only accepts JSON content, please set the headers to Content-Type: application/json");
+		}
+
 		DataRepository.save(access_token, dataset, content)
 		.then(function(result) {
+
 			return res.jsonp(201, result);
 		})
 		.fail(function(err) {
