@@ -22,7 +22,18 @@ module.exports = {
 		config.mset(settings);
 		config.on("mset", function(values) {
 			req.flash("success", "Configuration saved");
-			res.redirect("/admin/settings");
+
+			config.all()
+			.then(function(results) {
+				console.log(results);
+				sails.config.settings = results;
+				res.redirect("/admin/settings");
+			})
+			.fail(function(err) {
+				console.log("Can't sync values");
+				res.redirect("/admin/settings");
+			});
+
 		});
 	},
 

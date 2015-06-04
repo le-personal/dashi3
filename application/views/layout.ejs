@@ -38,7 +38,7 @@
     <!--STYLES END-->
   </head>
 
-  <body class="application" ng-app="dashi3">
+  <body class="application <%= sails.config.settings.theme %> widget-size-<%= sails.config.settings.widget_size %>" ng-app="dashi3">
     <div id="wrapper">
       <%- body %>
     </div>

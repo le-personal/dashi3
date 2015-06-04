@@ -10,5 +10,15 @@
 		res.locals.authenticated = true;
 	}
 
-	return next();
+	// get configuration and sync with variable
+	// sails.config.settings so it's always in sync
+	config.all()
+	.then(function(results) {
+		sails.config.settings = results;
+		return next();
+	})
+	.fail(function(err) {
+		// console.log("Can't sync values");
+	});
+
 }

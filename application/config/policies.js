@@ -86,6 +86,10 @@ module.exports.policies = {
     'postSettings': ['all', 'passport']
   },
 
+  AdminController: {
+    '*': ["all", "passport", "isAdmin"]
+  }
+
   // TokenController: {
   //   "*": ["bearerAuth"]
   // }
