@@ -42,6 +42,7 @@ module.exports.routes = {
   'post /api/v1/dashboard': 'DashboardController.createDashboard', 
   'get /api/v1/dashboard/:id/widgets': 'WidgetsController.getWidgets',
 
+  'get /api/v1/data': 'DataController.index',
   'get /api/v1/data/:dataset': 'DataController.get',
   'post /api/v1/data/:dataset': 'DataController.post',
 

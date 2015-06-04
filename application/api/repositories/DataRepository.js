@@ -91,4 +91,24 @@ Repository.all = function(dataset, next) {
 	return d.promise;
 }
 
+Repository.index = function index(query, next) {
+	var d = Q.defer();
+
+	if(!query) d.reject("No valid query");
+
+	Data.find({
+		dataset: { 'contains': query }
+	}, {fields: ['id', 'dataset']})
+	.limit(1)
+	.exec(function(err, results) {
+		if(err) d.reject(err);
+		else {
+			d.resolve(results);
+		}
+	});
+
+	d.promise.nodeify(next);
+	return d.promise;
+}
+
 module.exports = Repository;

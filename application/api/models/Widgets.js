@@ -42,6 +42,10 @@ module.exports = {
 			defaultsTo: 1,
 			enum: [1, 2, 3, 4, 5, 6]
 		},
+		dataset: {
+			type: "string",
+			required: false
+		},
 		settings: {
 			type: "json",
 			required: false
