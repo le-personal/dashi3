@@ -25,6 +25,24 @@ module.exports = {
   },
   log: {
   	level: "info"
+  },
+  session: {
+    secret: process.env.SECRET,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000 * 30
+    },
+    adapter: 'redis',
+    host: process.env.REDIS_PORT_6379_TCP_ADDR,
+    port: process.env.REDIS_PORT_6379_TCP_PORT,
+    ttl: 24 * 60 * 60 * 30,
+    db: 0,
+    // pass: <redis auth password>
+    prefix: 'sess:'
+  },
+  sockets: {
+    adapter: 'redis',
+    host: process.env.REDIS_PORT_6379_TCP_ADDR,
+    port: process.env.REDIS_PORT_6379_TCP_PORT,
   }
 
 };
