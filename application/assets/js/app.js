@@ -38,7 +38,8 @@ $(document).ready(function () {
 		'ngSails',
 		'colorpicker.module',
 		"gridster",
-		"toggle-switch"
+		"toggle-switch",
+    "angular-flot"
 	])
 
 	// Use it to exports a Globals variable object

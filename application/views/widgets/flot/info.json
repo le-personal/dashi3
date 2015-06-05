@@ -1,0 +1,7 @@
+{
+	"name": "Flot",
+	"description": "A widget that shows a flot chart",
+	"category": "General",
+	"template": "flot",
+	"image": "flot.png"
+}

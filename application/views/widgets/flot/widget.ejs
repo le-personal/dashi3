@@ -1,0 +1,16 @@
+<div class="item" ng-controller="WidgetFlotController">
+  <div class="panel panel-<%= sails.config.settings.theme %> dash-unit">
+    <header class="panel-heading dash-title">
+      {{ widget.title }}
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
+      </div>
+    </header>
+    <div class="panel-body dash-content">
+      <div class="row">        
+        <flot dataset="dataset" options="options" width="100%" height="280px"></flot>
+        <div id="flot-{{ widget.id }}"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -50,6 +50,10 @@ var jsFilesToInject = [
   'vendor/angular-moment/angular-moment.min.js',
   // 'vendor/Sortable/Sortable.min.js',
   // 'vendor/Sortable/ng-sortable.js',
+  
+  'vendor/flot/jquery.flot.js',
+  'vendor/flot/jquery.flot.resize.js',
+  'vendor/angular-flot/angular-flot.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
   'vendor/angular-gridster/dist/angular-gridster.min.js',
