@@ -1,0 +1,7 @@
+{
+	"name": "Gauge",
+	"description": "A widget that shows a gauge",
+	"category": "General",
+	"template": "gauge",
+	"image": "gauge.png"
+}

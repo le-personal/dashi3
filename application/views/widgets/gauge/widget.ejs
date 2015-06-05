@@ -1,0 +1,18 @@
+<div class="item" ng-controller="WidgetGaugeController">
+  <div class="panel panel-<%= sails.config.settings.theme %> dash-unit">
+    <header class="panel-heading dash-title">
+      {{ widget.title }}
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
+      </div>
+    </header>
+    <div class="panel-body dash-content">
+      <div class="row">
+        <div id="gauge-{{widget.id}}" class="gauge"></div>
+        <div class="col-lg-12">
+          <span class="help-block">{{ message }}</span>
+        </div>      
+      </div>
+    </div>
+  </div>
+</div>
