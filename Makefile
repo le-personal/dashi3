@@ -6,19 +6,27 @@ GOOGLE_OAUTH_CLIENTSECRET := $(shell env | grep GOOGLE_OAUTH_CLIENTSECRET)
 GOOGLE_OAUTH_CALLBACKURL := $(shell env | grep GOOGLE_OAUTH_CALLBACKURL)
 
 prepare-test:
-	@echo "Starting database"
-	@docker run -d --name testdb -p 27020:27017 -e MONGODB_DATATABASE=testdb mongo:2.6 > .docker
+	@echo "Starting mongodb database and redis"
+	@docker run -d --name testdb -p 27020:27017 -e MONGODB_DATATABASE=testdb mongo:2.6 > .docker-mongo
+	@docker run -d --name testRedis -p 26379:6389 redis:latest > .docker-redis
 
 test:
 	@echo "Testing"
-	docker run --rm -e NODE_ENV=test -e "$(TWITTER_APIKEY)" -e "$(TWITTER_APISECRET)" -e "$(GOOGLE_OAUTH_CLIENTID)" -e "$(GOOGLE_OAUTH_CLIENTSECRET)" -e "$(GOOGLE_OAUTH_CALLBACKURL)" -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mongodb luis/sails npm test
+	docker run --rm -e NODE_ENV=test -e "$(TWITTER_APIKEY)" -e "$(TWITTER_APISECRET)" -e "$(GOOGLE_OAUTH_CLIENTID)" -e "$(GOOGLE_OAUTH_CLIENTSECRET)" -e "$(GOOGLE_OAUTH_CALLBACKURL)" -v $(CURRENT_DIRECTORY)/application:/var/www -p 3999:3000 --link testdb:mongodb --link testRedis:redis luis/sails npm test
 
 clean-test:
-	@if [ -f $(CURRENT_DIRECTORY)/.docker ]; \
+	@if [ -f $(CURRENT_DIRECTORY)/.docker-mongo ]; \
 	then \
   		docker rm --force testdb ; \
-		rm .docker; \
-	else echo "No test containers to clean"; \
+		rm .docker-mongo; \
+	else echo "No mongo container to clean"; \
+	fi;
+
+	@if [ -f $(CURRENT_DIRECTORY)/.docker-redis ]; \
+	then \
+  		docker rm --force testRedis ; \
+		rm .docker-redis; \
+	else echo "No redis container to clean"; \
 	fi;
 
 clean:

@@ -116,7 +116,7 @@ application/.netbeans
 application/nbproject
 application/.idea
 application/.node_history
-.docker
+.docker-*
 logs/*
 fig.yml
 docker-compose.yml
