@@ -15,19 +15,24 @@
       <label for="title">Description</label>
       <textarea class="form-control" ng-model="data.description" name="description"></textarea>
     </div>
+    <div class="form-group">
+      <label for="title">Data source</label>
+      <input type="text" ng-model="data.dataset" placeholder="Enter a dataset" typeahead="datasets for datasets in getDatasets($viewValue)" typeahead-loading="loadingLocations" class="form-control">
+      <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    </div>
     <div class="form-horizontal">
       <h4>Settings</h4>
       <hr />
 
       <div class="form-group">
-        <label class="col-sm-3 control-label" for="twitterusername">Term to monitor</label>
+        <label class="col-sm-3 control-label" for="twitterusername">Term or hashtag to monitor</label>
         <div class="col-sm-9">
           <input type="text" name="format" class="form-control" ng-model="data.settings.term" />
         </div>
       </div>
 
       <div class="form-group">
-        <label class="col-sm-3 control-label" for="twitterusername">Tweets to show</label>
+        <label class="col-sm-3 control-label" for="twitterusername">Number of tweets to show</label>
         <div class="col-sm-9">
           <input type="text" name="maxTweets" class="form-control" ng-model="data.settings.maxTweets" />
         </div>

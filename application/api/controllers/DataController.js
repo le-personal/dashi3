@@ -27,7 +27,8 @@ module.exports = {
 		DataRepository.all(dataset, function(err, result) {
 			if(err) return res.notFound();
 
-			Data.subscribe(req.socket, result);
+			// if the result is added as a second argument, it doesn't work
+			Data.subscribe(req.socket);
 			return res.jsonp(200, result);
 		});
 	},
@@ -43,7 +44,7 @@ module.exports = {
 
 		DataRepository.save(access_token, dataset, content)
 		.then(function(result) {
-
+			Data.publishCreate(result);
 			return res.jsonp(201, result);
 		})
 		.fail(function(err) {

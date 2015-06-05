@@ -19,6 +19,11 @@
       <label for="label">Label</label>
       <input type="text" class="form-control" ng-model="data.label" name="label" />
     </div>
+    <div class="form-group">
+      <label for="title">Data source</label>
+      <input type="text" ng-model="data.dataset" placeholder="Enter a dataset" typeahead="datasets for datasets in getDatasets($viewValue)" typeahead-loading="loadingLocations" class="form-control">
+      <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    </div>
   </form>
 </div>
 <div class="modal-footer">

@@ -10,7 +10,8 @@
 		'Dashboard',
 		'Widgets',
 		'Globals',
-		function($scope, $rootScope, $modal, $sails, Dashboard, Widgets, Globals) {
+		'Datasets',
+		function($scope, $rootScope, $modal, $sails, Dashboard, Widgets, Globals, Datasets) {
 			$scope.dashboard = {};
 			$scope.widgets = {};
 
@@ -34,6 +35,12 @@
 					}
         },
 			};
+
+			$rootScope.getDatasets = function(query) {
+				return Datasets.get(query, function(results) {
+					return results;
+				});
+			}
 
 			// Update the dashboard using events to avoid async problems
 			$rootScope.$on("dashboard:update", function(ev, dashboard) {

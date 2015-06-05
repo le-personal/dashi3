@@ -14,10 +14,8 @@
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
-			console.log(widget.dataset);
 			io.socket.get("/api/v1/data/" + widget.dataset, function(data) {
 				angular.forEach(data, function(element, key) {
-					console.log(element.content);
 					$scope.data.push(element.content);
 				});
 			});
@@ -26,18 +24,10 @@
 			// data is refering to the model Data
 			io.socket.on("data", function(data) {
 				if(data.verb == "created") {
-					// only update if the storage of this widget is the same
-					// as the storage of the data updated
-					if(data.data.widget == widget.id) {
-						$scope.data.unshift(data.data);
-
-						// if the array is bigger than 10, reduce it
-						// if($scope.data.length > 5) {
-						// 	$scope.data.pop();
-						// }
-
-						
-						// $filter('limitTo')(input, limit);
+					// only update if the dataset of this widget is the same
+					// as the dataset of the data updated
+					if(data.data.dataset == widget.dataset) {
+						$scope.data.unshift(data.data.content);
 					}
 				}
 			});
@@ -90,13 +80,6 @@
 				Widgets.remove({widgetId: widget.id});
 				$rootScope.$broadcast("dashboard:widget:remove", widget);
 				$modalInstance.close();
-			}
-
-			$scope.datasets = [];
-			$scope.getDatasets = function(query) {
-				return Datasets.get(query, function(results) {
-					return results;
-				});
 			}
 
 			$scope.update = function () {

@@ -7,21 +7,16 @@
         <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
       </div>
     </header>
-    <div class="panel-body dash-content">
+    <div class="panel-body dash-content status-{{ data.value }}">
       <h2>
-        {{ widget.title }}
+        {{ widget.title }} {{ data.value }}
       </h2>
       <p></p>
-      <div class="row">
-        <div class="col-lg-7">
-          <span class="help-block">{{ data.message }}</span>
-        </div>
-        <div class="col-lg-5">
-          <img src="/images/status-ok.png" ng-show="data.value === 'ok'" />
-          <img src="/images/status-danger.png" ng-show="data.value === 'error'" />
-          <img src="/images/status-warning.png" ng-show="data.value === 'warning'" />
-        </div>
+      
+      <div class="status-message">
+        <span class="help-block">{{ data.message }}</span>
       </div>
+    
     </div>
   </div>
 </div>

@@ -18,18 +18,19 @@
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
-			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function(data) {
-				$scope.data.value = data[0].value;
-				$scope.data.message = "Last change reported " + moment(data[0].createdAt).format("MMMM/D h:m a");
+			io.socket.get("/api/v1/data/" + widget.dataset, function(data) {
+				$scope.data.value = data[0].content.value;
+				$scope.data.message = "Last change reported " + moment(data[0].createdAt).format("MMMM/D h:mm a");
 			});
 
 			// when there is a change on the server, update
 			// data is refering to the model Data
 			io.socket.on("data", function(data) {
 				if(data.verb == "created") {
-					if(data.data.widget == widget.id) {
-						$scope.data.value = data.data.value;
-						$scope.data.message = "Last change reported " + moment(data.data.createdAt).format("MMMM/D h:m a");
+					if(data.data.dataset == widget.dataset) {
+						$scope.data.value = data.data.content.value;
+						console.log($scope.data.value);
+						$scope.data.message = "Last change reported " + moment(data.data.createdAt).format("MMMM/D h:mm a");
 					}
 				}
 			});
@@ -86,6 +87,7 @@
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
 					description: $scope.data.description,
+					dataset: $scope.data.dataset,
 					settings: {
 						
 					}

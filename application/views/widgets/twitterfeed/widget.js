@@ -80,6 +80,7 @@
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
 					description: $scope.data.description,
+					dataset: $scope.dataset,
 					settings: {
 						term: $scope.data.settings.term,
 						language: $scope.data.settings.language,

@@ -21,16 +21,17 @@
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
-			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function(data) {
+			io.socket.get("/api/v1/data/" + widget.dataset, function(data) {
 				$scope.data = [];
-				if(typeof data[0] !== "undefined") {
-					$scope.data = data[0];
+				if(typeof data[0].content !== "undefined") {
+					$scope.data = data[0].content;
 				}
 
 				if(data.length > 0) {
 					// old data is the 1 in the
-					var oldData = data[1];
-					var latest = data[0];
+					var oldData = data[1].content;
+					var latest = data[0].content;
+
 					if(latest.value > oldData.value) {
 						$scope.indicator = "up";
 						$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
@@ -52,19 +53,19 @@
 				if(data.verb == "created") {
 					// only update if the widget of this widget is the same
 					// as the widget of the data updated
-					if(data.data.widget == widget.id) {
+					if(data.data.dataset == widget.dataset) {
 						var oldData = $scope.data;
-						$scope.data = data.data;
+						$scope.data = data.data.content;
 
-						if(data.data.value > oldData.value) {
+						if(data.data.content.value > oldData.value) {
 							$scope.indicator = "up";
 							$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
 						}
-						if(data.data.value < oldData.value) {
+						if(data.data.content.value < oldData.value) {
 							$scope.indicator = "down";
 							$scope.message = "Down from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
 						}
-						if(data.data.value == oldData.value) {
+						if(data.data.content.value == oldData.value) {
 							$scope.indicator = "same";
 							$scope.message = "No change since " + moment(oldData.createdAt).format("MMMM/D h:m a");
 						}
@@ -187,6 +188,7 @@
 					title: $scope.data.title,
 					description: $scope.data.description,
 					label: $scope.data.label,
+					dataset: $scope.data.dataset
 				}, function(result) {
 
 				});
