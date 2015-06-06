@@ -18,7 +18,7 @@
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
-			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function getWidget(data) {
+			io.socket.get("/api/v1/data/" + widget.dataset, function getWidget(data) {
 				angular.forEach(data, function(item) {
 					$scope.labels.push(moment(item.createdAt).format("MMM/D"));
 					chartData.push(item.value);
@@ -38,48 +38,16 @@
 						$scope.labels.push(moment(data.data.createdAt).format("MMM/D"));
 					}
 				}
-			});
-
-			// /**
-			//  * React to event "openDataList"
-			//  * @type {[type]}
-			//  */
-			// $scope.openDataList = function(widget) {
-			// 	$modal.open({
-			// 		templateUrl: "/templates/openDataList",
-			// 		controller: "OpenDataList",
-			// 		resolve: {
-			// 			widget: function() {
-			// 				return $scope.widget;
-			// 			}
-			// 		}
-			// 	});
-			// }
-
-			/**
-			 * React to event "openAddDataPoint"
-			 * @type {[type]}
-			 */
-			$scope.openForm = function(widget) {
-				$modal.open({
-					templateUrl: "/widgets/singlelinegraph/form",
-					controller: "WidgetSingleLingGraphFormController",
-					resolve: {
-						widget: function() {
-							return $scope.widget;
-						}
-					}
-				});
-			}
+			});			
 
 			/**
 			 * React to event "openWidgetSettings"
 			 * @type {[type]}
 			 */
-			$scope.openWidgetSettings = function(widget) {
+			$scope.openSettings = function(widget) {
 				$modal.open({
-					templateUrl: "/widgets/simplelinegraph/settings",
-					controller: "WidgetSingleLingGraphSettingsController",
+					templateUrl: "/widgets/singlelinegraph/settings",
+					controller: "WidgetSingleLineGraphSettingsController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -90,7 +58,7 @@
 		}
 	])
 
-	.controller("WidgetSingleLingGraphFormController", [
+	.controller("WidgetSingleLineGraphFormController", [
 		"$scope",
 		"$modalInstance",
 		"widget",
@@ -116,7 +84,7 @@
 		}
 	])
 
-	.controller("WidgetSingleLingGraphSettingsController", [
+	.controller("WidgetSingleLineGraphSettingsController", [
 		"$scope",
 		"$rootScope",
 		"$modalInstance",
@@ -133,7 +101,8 @@
 			$scope.update = function () {
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
-					description: $scope.data.description
+					description: $scope.data.description,
+					dataset: $scope.data.dataset,
 				}, function(result) {
 
 				});

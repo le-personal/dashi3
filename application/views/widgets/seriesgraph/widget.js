@@ -18,21 +18,22 @@
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
 			// can listen to changes
-			io.socket.get("/api/v1/widgets/" + widget.id + "/data", function getWidget(data) {
+			io.socket.get("/api/v1/data/" + widget.dataset, function getWidget(data) {
 				// Series and labels are taken from the first element of the array
-				var labels = [];
-				$scope.series = data[0].value.series;
+				var labels = data[0].content.labels;
+				$scope.series = data[0].content.series;
+				chartData[0].content.data;
 
-				angular.forEach(data, function(row, i) {
-					labels.push(row.value.labels[0]);
+				// angular.forEach(data.content, function(row, i) {
+				// 	// labels.push(row.value.labels[0]);
 
-					angular.forEach(row.value.data, function(item, index) {
-						if(typeof chartData[index] === "undefined") {
-							chartData[index] = [];
-						}
-						chartData[index].unshift(item);
-					});
-				});
+				// 	angular.forEach(row.value.data, function(item, index) {
+				// 		if(typeof chartData[index] === "undefined") {
+				// 			chartData[index] = [];
+				// 		}
+				// 		chartData[index].unshift(item);
+				// 	});
+				// });
 
 				$scope.labels = labels.reverse();
 				$scope.data = chartData;
@@ -44,7 +45,7 @@
 				if(data.verb == "created") {
 					// only update if the storage of this widget is the same
 					// as the storage of the data updated
-					if(data.data.widget == widget.id) {
+					if(data.data.dataset == widget.dataset) {
 						$scope.labels.push(data.data.value.labels);
 
 						// if($scope.labels.length > 15) {
@@ -105,7 +106,11 @@
 			$scope.update = function () {
 				Widgets.update({widgetId: widget.id}, {
 					title: $scope.data.title,
-					description: $scope.data.description
+					description: $scope.data.description,
+					dataset: $scope.data.dataset,
+					settings: {
+
+					}
 				}, function(result) {
 
 				});
