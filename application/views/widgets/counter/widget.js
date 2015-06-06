@@ -34,15 +34,15 @@
 
 					if(latest.value > oldData.value) {
 						$scope.indicator = "up";
-						$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+						$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:mm a");
 					}
 					if(latest.value < oldData.value) {
 						$scope.indicator = "down";
-						$scope.message = "Down from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+						$scope.message = "Down from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:mm a");
 					}
 					if(latest.value == oldData.value) {
 						$scope.indicator = "same";
-						$scope.message = "No change since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+						$scope.message = "No change since " + moment(oldData.createdAt).format("MMMM/D h:mm a");
 					}
 				}
 			});
@@ -59,15 +59,15 @@
 
 						if(data.data.content.value > oldData.value) {
 							$scope.indicator = "up";
-							$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+							$scope.message = "Up from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:mm a");
 						}
 						if(data.data.content.value < oldData.value) {
 							$scope.indicator = "down";
-							$scope.message = "Down from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+							$scope.message = "Down from " + oldData.value + " since " + moment(oldData.createdAt).format("MMMM/D h:mm a");
 						}
 						if(data.data.content.value == oldData.value) {
 							$scope.indicator = "same";
-							$scope.message = "No change since " + moment(oldData.createdAt).format("MMMM/D h:m a");
+							$scope.message = "No change since " + moment(oldData.createdAt).format("MMMM/D h:mm a");
 						}
 					}
 				}

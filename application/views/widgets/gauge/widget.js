@@ -3,19 +3,6 @@
 	
 	google.load("visualization", "1", {packages:["gauge"]});
 
-	/**
-	 * Draws the gauge chart
-	 * @param  {string} widgetId The id of the widget to use
-	 * @param  {string} label    The string to use as label of the gauge widget
-	 * @param  {integer} value    The value of the gauge
-	 * @return {void}          
-	 */
-  function drawChart(widgetId, label, value) {
-		
-
-    
-  }
-
 	angular.module("dashi3")
 	.controller("WidgetGaugeController", [
 		"$scope",
