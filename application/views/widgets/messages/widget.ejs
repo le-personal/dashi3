@@ -8,7 +8,7 @@
       </div>
     </header>
     <div class="panel-body dash-content">
-      <div ng-repeat="element in data | limitTo : 3">
+      <div ng-repeat="element in data | limitTo : widget.settings.limit">
         <div class="media">
           <div class="media-left" ng-show="element.image">
             <img src="{{ element.image }}" width="32"/>

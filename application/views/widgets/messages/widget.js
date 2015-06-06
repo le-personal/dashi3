@@ -88,7 +88,7 @@
 					description: $scope.data.description,
 					dataset: $scope.data.dataset,
 					settings: {
-						
+						limit: $scope.data.settings.limit
 					}
 				}, function(result) {
 					console.log(result);
