@@ -240,14 +240,23 @@ div.twitter-tweet a:focus {
     list-style: none;
 }
 
-.sidebar-nav li {
+ul.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  width: 220px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li, .bottom-nav li{
     position: relative; 
     line-height: 20px;
     display: inline-block;
     width: 100%;
 }
 
-.sidebar-nav li:before {
+.sidebar-nav li:before, .bottom-nav li:before {
     content: '';
     position: absolute;
     top: 0;
@@ -262,36 +271,51 @@ div.twitter-tweet a:focus {
             transition: width .2s ease-in;
 
 }
-.sidebar-nav li:first-child a {
+.sidebar-nav li:first-child a, 
+.bottom-nav li:first-child a {
     color: #fff;
     background-color: #1a1a1a;
 }
-.sidebar-nav li:nth-child(2):before {
+.sidebar-nav li:nth-child(1):before,
+.bottom-nav li:nth-child(1):before {
+  background-color: #279636;   
+}
+.sidebar-nav li:nth-child(2):before,
+.bottom-nav li:nth-child(2):before {
   background-color: #ec1b5a;   
 }
-.sidebar-nav li:nth-child(3):before {
+.sidebar-nav li:nth-child(3):before,
+.bottom-nav li:nth-child(3):before {
     background-color: #79aefe;   
 }
-.sidebar-nav li:nth-child(4):before {
+.sidebar-nav li:nth-child(4):before,
+.bottom-nav li:nth-child(4):before {
     background-color: #314190;   
 }
-.sidebar-nav li:nth-child(5):before {
+.sidebar-nav li:nth-child(5):before,
+.bottom-nav li:nth-child(5):before {
     background-color: #279636;   
 }
-.sidebar-nav li:nth-child(6):before {
+.sidebar-nav li:nth-child(6):before,
+.bottom-nav li:nth-child(6):before {
     background-color: #7d5d81;   
 }
-.sidebar-nav li:nth-child(7):before {
+.sidebar-nav li:nth-child(7):before,
+.bottom-nav li:nth-child(7):before {
     background-color: #ead24c;   
 }
-.sidebar-nav li:nth-child(8):before {
+.sidebar-nav li:nth-child(8):before,
+.bottom-nav li:nth-child(8):before {
     background-color: #2d2366;   
 }
-.sidebar-nav li:nth-child(9):before {
+.sidebar-nav li:nth-child(9):before,
+.bottom-nav li:nth-child(9):before {
     background-color: #35acdf;   
 }
 .sidebar-nav li:hover:before,
-.sidebar-nav li.open:hover:before {
+.sidebar-nav li.open:hover:before,
+.bottom-nav li:hover:before,
+.bottom-nav li.open:hover:before {
     width: 100%;
     -webkit-transition: width .2s ease-in;
       -moz-transition:  width .2s ease-in;
@@ -300,7 +324,8 @@ div.twitter-tweet a:focus {
 
 }
 
-.sidebar-nav li a {
+.sidebar-nav li a,
+.bottom-nav li a {
     display: block;
     color: #ddd;
     text-decoration: none;
@@ -312,7 +337,13 @@ div.twitter-tweet a:focus {
 .sidebar-nav li a:focus,
 .sidebar-nav li.open a:hover,
 .sidebar-nav li.open a:active,
-.sidebar-nav li.open a:focus{
+.sidebar-nav li.open a:focus,
+.bottom-nav li a:hover,
+.bottom-nav li a:active,
+.bottom-nav li a:focus,
+.bottom-nav li.open a:hover,
+.bottom-nav li.open a:active,
+.bottom-nav li.open a:focus {
     color: #fff;
     text-decoration: none;
     background-color: transparent;
@@ -323,7 +354,8 @@ div.twitter-tweet a:focus {
     font-size: 20px;
     line-height: 44px;
 }
-.sidebar-nav .dropdown-menu {
+.sidebar-nav .dropdown-menu,
+.bottom-nav .dropdown-menu {
     position: relative;
     width: 100%;
     padding: 0;
@@ -334,11 +366,13 @@ div.twitter-tweet a:focus {
     box-shadow: none;
 }
 
-.sidebar-nav li.selected {
+.sidebar-nav li.selected,
+.bottom-nav li.selected {
   background-color: #c9c9c9;
 }
 
-.sidebar-nav a.selected {
+.sidebar-nav a.selected,
+.bottom-nav a.selected {
   font-weight: bold;
   color: #000;
 }

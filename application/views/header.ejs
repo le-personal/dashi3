@@ -18,6 +18,17 @@
       <a ng-class="(currentDashboard.id == dashboard.id) ? 'selected' : ''" href="/dashboard/{{ dashboard.path }}" alt="{{ dashboard.description }}" title="{{ dashboard.name }}">{{ dashboard.name }}</a>
     </li>
   </ul>
+
+  <ul class="nav bottom-nav">
+    <li class="divider"></li>
+    <% if(authenticated) { %>
+      <li><a href="/account/settings"><span class="glyphicon glyphicon-user"></span> Account settings</a></li>
+      <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+    <% } else { %>
+      <li><a href="/login">Sign in</a></li>
+      <li><a href="/register">Register</a></li>
+    <% } %>
+  </ul>
 </nav>
 <!-- /#sidebar-wrapper -->
 

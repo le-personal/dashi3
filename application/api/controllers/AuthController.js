@@ -198,6 +198,8 @@ var AuthController = {
           config.set("twitter_token", query.tokens.token);
           config.set("twitter_token_secret", query.tokens.tokenSecret);
         }
+
+        req.session.action = null;
         return res.redirect("/admin/settings");
       }
 

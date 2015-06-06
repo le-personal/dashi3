@@ -256,7 +256,6 @@ passport.endpoint = function (req, res) {
 passport.callback = function (req, res, next) {
   var provider = req.param('provider', 'local')
     , action   = req.param('action');
-
   // Passport.js wasn't really built for local user registration, but it's nice
   // having it tied into everything else.
   if (provider === 'local' && action !== undefined) {
@@ -277,15 +276,15 @@ passport.callback = function (req, res, next) {
     if (action === 'disconnect' && req.user) {
       this.disconnect(req, res, next) ;
     } 
-    else if(action === "global-disconnect") {
-      console.log("Disconnecting");
+    else if(action === "global-disconnect") {      
       req.session.action = "global-disconnect";
       this.disconnect(req, res, next);
     }
-    else {
+    else {      
       if(action === "global-connect") {
         req.session.action = "global-connect";
       }
+      
       // The provider will redirect the user to this URL after approval. Finish
       // the authentication process by attempting to obtain an access token. If
       // access was granted, the user will be logged in. Otherwise, authentication
@@ -397,6 +396,8 @@ passport.disconnect = function (req, res, next) {
       config.set("twitter_token_secret", "");
     }
 
+    req.session.action = null;
+    
     // Redirection is an issue
     req.session.destination = "/admin/settings";
     return next(null, req.user);
