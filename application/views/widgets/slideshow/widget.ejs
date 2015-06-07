@@ -1,0 +1,22 @@
+<div class="item" ng-controller="WidgetSlideshowController">
+  <div class="panel panel-<%= sails.config.settings.theme %> dash-unit">
+    <header class="panel-heading dash-title">
+      {{ widget.title }}
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-plus" ng-click="openForm({})"></i>
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
+      </div>
+    </header>
+    <div class="panel-body dash-content status-{{ data.value }}">
+      <carousel interval="myInterval">
+        <slide ng-repeat="slide in slides" active="slide.active">
+          <img ng-src="{{slide.image}}" style="margin:auto;">
+          <div class="carousel-caption">
+            <h4>{{slide.title}}</h4>
+            <p>{{slide.subtitle}}</p>
+          </div>
+        </slide>
+      </carousel>
+    </div>
+  </div>
+</div>

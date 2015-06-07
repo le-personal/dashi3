@@ -1,0 +1,7 @@
+{
+	"name": "Slideshow",
+	"description": "A widget that shows a slideshow",
+	"category": "General",
+	"template": "slideshow",
+	"image": "slideshow.png"
+}
