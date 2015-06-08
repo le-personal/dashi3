@@ -11,14 +11,7 @@ module.exports = {
     var term = req.param('term');
     var language = req.param("language") ? req.param("language") : "en";
     if (term && req.isSocket) {
-
-    	console.log("Term detected: " + term);
-    	if(req.isSocket) console.log("Is socket");
-
     	var data = sails.config.settings;
-    	
-  		console.log("Getting configuration data");
-  		console.log(data);
 
 			if(data.twitter_token && data.twitter_token_secret) {
 				var T = new Twit({
@@ -28,7 +21,6 @@ module.exports = {
 				  access_token_secret: data.twitter_token_secret
 				});
 
-				console.log("looking for tweets with the word: " + term + " using the language " + language);
 	    	var stream = T.stream("statuses/filter", {track: term, language: language});
 
 	    	stream.on("tweet", function(tweet) {
