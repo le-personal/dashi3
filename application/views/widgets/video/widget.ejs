@@ -1,0 +1,19 @@
+<div class="item" ng-controller="WidgetVideoController">
+  <div class="panel panel-<%= sails.config.settings.theme %> dash-unit">
+    <header class="panel-heading dash-title">
+      {{ widget.title }}
+      <div class="pull-right">
+        <i class="as-link glyphicon glyphicon-plus" ng-click="openForm({})"></i>
+        <i class="as-link glyphicon glyphicon-cog" ng-click="openSettings({})"></i>
+      </div>
+    </header>
+    <div class="panel-body dash-content">
+      <div class="widget-video">
+        <div class="embed-responsive embed-responsive-16by9">
+          <youtube-video video-url="video" player-vars="playerVars"></youtube-video>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+</div>

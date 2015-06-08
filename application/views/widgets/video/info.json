@@ -1,0 +1,7 @@
+{
+	"name": "Video",
+	"description": "A widget that shows a video in a loop",
+	"category": "General",
+	"template": "video",
+	"image": "video.png"
+}

@@ -39,7 +39,8 @@ $(document).ready(function () {
 		'colorpicker.module',
 		"gridster",
 		"toggle-switch",
-    "angular-flot"
+    "angular-flot",
+    "youtube-embed"
 	])
 
 	// Use it to exports a Globals variable object

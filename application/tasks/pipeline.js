@@ -59,6 +59,7 @@ var jsFilesToInject = [
   'vendor/angular-gridster/dist/angular-gridster.min.js',
   'vendor/javascript-detect-element-resize/jquery.resize.js',
   'vendor/angular-toggle-switch/angular-toggle-switch.min.js',
+  'vendor/angular-youtube-mb/src/angular-youtube-embed.js',
   'js/app.js',
   'js/**/*.js'
 ];
