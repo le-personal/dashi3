@@ -111,4 +111,22 @@ Repository.index = function index(query, next) {
 	return d.promise;
 }
 
+Repository.remove = function remove(id, next) {
+	var d = Q.defer();
+
+	if(!id) d.reject("No id provided");
+	Data.destroy({
+		id: id
+	})
+	.exec(function(err) {
+		if(err) d.reject(err);
+		else {
+			d.resolve();
+		}
+	});
+
+	d.promise.nodeify(next);
+	return d.promise;
+}
+
 module.exports = Repository;

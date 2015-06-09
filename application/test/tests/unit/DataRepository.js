@@ -160,14 +160,29 @@ describe("DataRepository", function() {
 					.then(function(results) {
 						results.should.be.an.Array.with.lengthOf(5);
 						results[0].should.be.an.Object.with.property("dataset", data.dataset).and.property("content");
+						done();
 					})
 					.fail(function(err) {
-						should.not.exist(err);
-					})
-					.fin(done);
+						done();
+					});
 				}
 			);
 		});
 	});
+
+	describe("Remove", function() {
+		it("Should remove a data item", function(done) {
+			Factory.create("dataValue", function(data) {
+				DataRepository.remove(data.id)
+				.then(function() {
+					done();
+				})
+				.fail(function(err) {
+					should.not.exist(err);
+					done();
+				})
+			})
+		});
+	})
 
 });

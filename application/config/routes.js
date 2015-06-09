@@ -44,6 +44,8 @@ module.exports.routes = {
 
   'get /api/v1/data': 'DataController.index',
   'get /api/v1/data/:dataset': 'DataController.get',
+  'get /api/v1/data/:dataset/:id': 'DataController.getOne',
+  'delete /api/v1/data/:dataset/:id': 'DataController.remove',
   'post /api/v1/data/:dataset': 'DataController.post',
 
   'get /api/v1/marketplace': 'MarketPlaceController.index',

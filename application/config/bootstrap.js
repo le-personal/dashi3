@@ -20,7 +20,6 @@ module.exports.bootstrap = function(cb) {
 
 	var config = new Config(db, options);
 
-	console.log(sails.config.settings);
 	config.init(sails.config.settings);
 	config.on("initialized", function() {
 	  sails.services.passport.loadStrategies();

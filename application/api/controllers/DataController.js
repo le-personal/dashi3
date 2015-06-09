@@ -33,6 +33,30 @@ module.exports = {
 		});
 	},
 
+	getOne: function getOne(req, res) {
+		var id = req.params.id;
+
+		DataRepository.get(id)
+		.then(function(result) {
+			return res.jsonp(200, result);
+		})
+		.fail(function(err) {
+			return res.notFound();
+		})
+	},
+
+	remove: function remove(req, res) {
+		var id = req.params.id;
+
+		DataRepository.remove(id)
+		.then(function() {
+			return res.jsonp(200, true);
+		})
+		.fail(function(err) {
+			return res.notFound();
+		})
+	},
+
 	post: function save(req, res) {
 		var dataset = req.params.dataset;
 		var content = req.body;
