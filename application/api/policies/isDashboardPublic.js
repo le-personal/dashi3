@@ -2,7 +2,17 @@ var include = require("include");
 var DashboardRepository = include("api/repositories/DashboardRepository");
 
 module.exports = function(req, res, next) {
+	var path = req.params.path;
 	var id = req.params.id;
+
+	var method;
+
+	if(path) {
+		method = DashboardRepository.getByPath(path);
+	}
+	else {
+		method = DashboardRepository.get(id);
+	}
 
 	/** 
 	 * Check if a dashboard is public
@@ -10,7 +20,7 @@ module.exports = function(req, res, next) {
 	 * if is not, check if the user is authenticated, and then next
 	 * else, deny access to Castle Grayskull
 	 */
-	DashboardRepository.get(id)
+	method
 	.then(function(result) {
 		if(result.public) {
 			return next();
