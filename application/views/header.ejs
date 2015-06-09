@@ -15,7 +15,7 @@
     </li>
     <li role="presentation" class="divider"></li>
     <li ng-repeat="dashboard in dashboards" ng-class="(currentDashboard.id == dashboard.id) ? 'selected' : ''">
-      <a ng-class="(currentDashboard.id == dashboard.id) ? 'selected' : ''" href="/dashboard/{{ dashboard.path }}" alt="{{ dashboard.description }}" title="{{ dashboard.name }}">{{ dashboard.name }}</a>
+      <a ng-class="(currentDashboard.id == dashboard.id) ? 'selected' : ''" href="/d/{{ dashboard.path }}" alt="{{ dashboard.description }}" title="{{ dashboard.name }}">{{ dashboard.name }}</a>
     </li>
   </ul>
 

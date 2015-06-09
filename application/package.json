@@ -45,7 +45,7 @@
   "scripts": {
     "start": "sails lift",
     "debug": "node debug app.js",
-    "test": "mocha test/tests/unit/*"
+    "test": "mocha test/tests/*"
   },
   "main": "app.js",
   "repository": {
