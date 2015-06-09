@@ -75,8 +75,8 @@ module.exports.policies = {
   DashboardController: {
     'all': ["all", "passport", "isAdmin"],
     'main': ["all", "passport", "isAdmin"],
-    'getDashboard': ["all", "passport", "isAdmin"],
-    'getDashboardAPI': ["all", "passport", "isAdmin"],
+    'getDashboard': ["all", "isDashboardPublic", "passport", "isAdmin"],
+    'getDashboardAPI': ["all", "isDashboardPublic", "passport"],
     'createDashboard': ["all", "passport", "isAdmin"],
     'public': ["all"]
   },
