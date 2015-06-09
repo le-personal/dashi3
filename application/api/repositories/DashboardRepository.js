@@ -30,13 +30,21 @@ DashboardRepository.getPublic = function(callback) {
  * @param  {Function} callback A callback to execute when done
  * @return {Function}            The callback passed in the argument callback
  */
-DashboardRepository.getByPath = function(path, callback) {
+DashboardRepository.getByPath = function(path, next) {
+	var d = Q.defer();
+
+	if(!path) d.reject("No valid path");
+
 	Dashboard.findOne({path: path})
 	.exec(function(err, result) {
-		if(err) return callback(err, false);
-		if(result) return callback(false, result);
-		return callback(true, false);
+		if(err) d.reject(err);
+		else {
+			d.resolve(result);
+		}
 	});
+
+	d.promise.nodeify(next);
+	return d.promise;
 }
 
 /**

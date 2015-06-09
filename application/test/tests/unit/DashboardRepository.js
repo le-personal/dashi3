@@ -77,7 +77,7 @@ describe("DashboardRepository", function() {
 		it("Should get a dashboard using the path", function(done) {
 			Factory.create("dashboard", function(dashboard) {
 				DashboardRepository.getByPath(dashboard.path, function(err, result) {
-					err.should.be.false;
+					should.not.exist(err);
 					result.should.have.property("id", dashboard.id);
 					result.should.have.property("name", dashboard.name);
 					result.should.have.property("path", dashboard.path);

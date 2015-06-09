@@ -98,18 +98,16 @@ module.exports = {
 		var path = req.param("path");
 		sails.log("Getting dashboard with path: " + path);
 
-		DashboardRepository.getByPath(path, function(err, dashboard) {
-
-			if(err) {
-				console.log(err);
-				return res.notFound();
-			}
-
+		DashboardRepository.getByPath(path)
+		.then(function(dashboard) {
 			new WidgetsRepository().getWidgets(dashboard.id, function(err, widgets) {
 				if(err) return res.notFound();
 				return res.view("dashboard", {dashboard: dashboard, widgets: widgets});
 			});
 		})
+		.fail(function(err) {
+			return res.notFound();
+		});
 	},
 
 	getDashboardAPI: function getDashboardAPI(req, res) {
