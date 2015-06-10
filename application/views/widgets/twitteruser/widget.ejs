@@ -10,10 +10,20 @@
     <div class="panel-body dash-content">
       <div class="row"></div>
 
-      <div class="twitter-tweet" ng-repeat="tweet in data.tweets">
-        <div>{{ tweet.text }}</div>
-        <p>- {{ tweet.user.name }} (<a target="_blank" href="https://twitter.com/{{ tweet.user.screen_name }}">@{{ tweet.user.screen_name }}</a>) <a href="https://twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id }}">{{ tweet.created_at }}</a>
-        </p>
+      <div class="twitter-tweet" ng-repeat="tweet in data.tweets | limitTo : limit">
+        <div class="media">
+          <div class="media-left">
+            <img src="{{ tweet.user.profile_image_url }}" />
+          </div>
+          <div class="media-body">
+            <div>{{ tweet.text }}</div>
+            <p>- {{ tweet.user.name }} (<a target="_blank" href="https://twitter.com/{{ tweet.user.screen_name }}">@{{ tweet.user.screen_name }}</a>) <a href="https://twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id }}">{{ tweet.created_at }}</a>
+            </p>
+            <div ng-if="{{ tweet.entities.media[0] }}">
+            <img src="{{ tweet.entities.media[0].media_url }}" width="80%" />
+          </div>
+          </div>
+        </div>
         <hr />
       </div>
       <p></p>
