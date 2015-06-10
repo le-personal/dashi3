@@ -39,13 +39,16 @@ module.exports = {
 	},
 
 	username: function(req, res) {
-		var term = req.param('username');
+		// Not going to work
+		var username = req.params.username;
     var counter = 0;
 		
-    if (term && req.isSocket) {
+    if (username && req.isSocket) {
     	config.all()
     	.then(function(data) {
 				if(data.twitter_token && data.twitter_token_secret) {
+					console.log("Twitter configured");
+
 					var T = new Twit({
 					  consumer_key: process.env.TWITTER_APIKEY,
 					  consumer_secret: process.env.TWITTER_APISECRET,
@@ -58,7 +61,7 @@ module.exports = {
 
 		    	stream.on("tweet", function(tweet) {
 		    		counter++;
-		    		sails.sockets.emit(sails.sockets.id(req.socket), "twitter:username:" + term.replace(" ", "_"), {tweet: tweet});
+		    		sails.sockets.emit(sails.sockets.id(req.socket), "twitter:username:" + username, {tweet: tweet});
 
 		    		if(counter > 10) {
 		    			console.log("Found 10 tweets");

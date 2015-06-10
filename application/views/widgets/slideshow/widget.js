@@ -11,6 +11,7 @@
 			var widget = $scope.widget;
 
 			$scope.slides = [];
+			$scope.interval = $scope.widget.settings.interval;
 
 			// When opening the widget we need to get all the latest data
 			// this will also subscribe ourself to the data model so we
@@ -85,7 +86,7 @@
 					description: $scope.data.description,
 					dataset: $scope.data.dataset,
 					settings: {
-						
+						interval: $scope.data.settings.interval
 					}
 				}, function(result) {
 					console.log(result);
