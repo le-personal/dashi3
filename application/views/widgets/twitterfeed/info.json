@@ -1,7 +1,7 @@
 {
-	"name": "Twitter user",
-	"description": "Shows twitter feeds",
+	"name": "Twitter feed",
+	"description": "Shows twitter feeds from a term",
 	"category": "Twitter",
-	"template": "twitteruser",
-	"image": "twitteruser.png"
+	"template": "twitterfeed",
+	"image": "twitterfeed.png"
 }

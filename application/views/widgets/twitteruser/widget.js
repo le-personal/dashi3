@@ -3,7 +3,7 @@
 
 
 	angular.module("dashi3")
-	.controller("WidgetTwitterfeedController", [
+	.controller("WidgetTwitteruserController", [
 		"$scope",
 		"$rootScope",
 		"$modal",
@@ -18,11 +18,8 @@
 				counter: 0
 			}
 
-			var term = $scope.widget.settings.term ? $scope.widget.settings.term : "angular";
-			var language = $scope.widget.settings.language ? $scope.widget.settings.language : "en";
-
-			io.socket.get('/api/v1/providers/twitter/stream/' + term + "/" + language);
-			io.socket.on("twitter:stream:"+term.replace(" ", "_"), function(data) {
+			io.socket.get('/api/v1/providers/twitter/statuses');
+			io.socket.on("twitter:user", function(data) {
 				$scope.data.counter++;
 
 				if($scope.data.tweets.length > $scope.widget.settings.maxTweets-1) {
@@ -32,7 +29,6 @@
 				else {
 					$scope.data.tweets.push(data.tweet);
 				}
-
 			});
 
 			/**
@@ -40,10 +36,9 @@
 			 * @type {[type]}
 			 */
 			$scope.openSettings = function(widget) {
-				console.log("Opening settings");
 				$modal.open({
-					templateUrl: "/widgets/twitterfeed/settings",
-					controller: "WidgetTwitterfeedSettingsController",
+					templateUrl: "/widgets/twitteruser/settings",
+					controller: "WidgetTwitteruserSettingsController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -54,7 +49,7 @@
 		}
 	])
 
-	.controller("WidgetTwitterfeedSettingsController", [
+	.controller("WidgetTwitteruserSettingsController", [
 		"$scope",
 		"$rootScope",
 		"$modalInstance",
@@ -68,12 +63,8 @@
 				$modalInstance.close();
 			}
 
-			if(!$scope.data.settings.term) {
-				$scope.data.settings.term = "twitter";
-			}
-
-			if(!$scope.data.settings.language) {
-				$scope.data.settings.language = "en";
+			if(!$scope.data.settings.user) {
+				$scope.data.settings.user = "twitter";
 			}
 
 			$scope.update = function () {
@@ -82,12 +73,10 @@
 					description: $scope.data.description,
 					dataset: $scope.dataset,
 					settings: {
-						term: $scope.data.settings.term,
-						language: $scope.data.settings.language,
 						maxTweets: $scope.data.settings.maxTweets
 					}
 				}, function(result) {
-					console.log(result);
+					
 				});
 
 		    $modalInstance.close();

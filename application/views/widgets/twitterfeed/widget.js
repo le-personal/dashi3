@@ -3,7 +3,7 @@
 
 
 	angular.module("dashi3")
-	.controller("WidgetTwitteruserController", [
+	.controller("WidgetTwitterfeedController", [
 		"$scope",
 		"$rootScope",
 		"$modal",
@@ -18,10 +18,11 @@
 				counter: 0
 			}
 
-			var user = $scope.widget.settings.user ? $scope.widget.settings.user : "twitter";
+			var term = $scope.widget.settings.term ? $scope.widget.settings.term : "angular";
+			var language = $scope.widget.settings.language ? $scope.widget.settings.language : "en";
 
-			io.socket.get('/api/v1/providers/twitter/statuses/' + user);
-			io.socket.on("twitter:username:"+user, function(data) {
+			io.socket.get('/api/v1/providers/twitter/stream/' + term + "/" + language);
+			io.socket.on("twitter:stream:"+term.replace(" ", "_"), function(data) {
 				$scope.data.counter++;
 
 				if($scope.data.tweets.length > $scope.widget.settings.maxTweets-1) {
@@ -31,6 +32,7 @@
 				else {
 					$scope.data.tweets.push(data.tweet);
 				}
+
 			});
 
 			/**
@@ -38,9 +40,10 @@
 			 * @type {[type]}
 			 */
 			$scope.openSettings = function(widget) {
+				console.log("Opening settings");
 				$modal.open({
-					templateUrl: "/widgets/twitteruser/settings",
-					controller: "WidgetTwitteruserSettingsController",
+					templateUrl: "/widgets/twitterfeed/settings",
+					controller: "WidgetTwitterfeedSettingsController",
 					resolve: {
 						widget: function() {
 							return $scope.widget;
@@ -51,7 +54,7 @@
 		}
 	])
 
-	.controller("WidgetTwitteruserSettingsController", [
+	.controller("WidgetTwitterfeedSettingsController", [
 		"$scope",
 		"$rootScope",
 		"$modalInstance",
@@ -65,8 +68,12 @@
 				$modalInstance.close();
 			}
 
-			if(!$scope.data.settings.user) {
-				$scope.data.settings.user = "twitter";
+			if(!$scope.data.settings.term) {
+				$scope.data.settings.term = "twitter";
+			}
+
+			if(!$scope.data.settings.language) {
+				$scope.data.settings.language = "en";
 			}
 
 			$scope.update = function () {
@@ -75,7 +82,8 @@
 					description: $scope.data.description,
 					dataset: $scope.dataset,
 					settings: {
-						user: $scope.data.settings.user,
+						term: $scope.data.settings.term,
+						language: $scope.data.settings.language,
 						maxTweets: $scope.data.settings.maxTweets
 					}
 				}, function(result) {
