@@ -19,9 +19,9 @@
             <div>{{ tweet.text }}</div>
             <p>- {{ tweet.user.name }} (<a target="_blank" href="https://twitter.com/{{ tweet.user.screen_name }}">@{{ tweet.user.screen_name }}</a>) <a href="https://twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id }}">{{ tweet.created_at }}</a>
             </p>
-            <div ng-if="{{ tweet.entities.media[0] }}">
-            <img src="{{ tweet.entities.media[0].media_url }}" width="80%" />
-          </div>
+            <div ng-if="{{ tweet.hasImage }}">
+              <img src="{{ tweet.entities.media[0].media_url }}" width="80%" />
+            </div>
           </div>
         </div>
         <hr />

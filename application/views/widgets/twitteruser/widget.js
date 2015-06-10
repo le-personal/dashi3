@@ -22,6 +22,7 @@
 			io.socket.get('/api/v1/providers/twitter/statuses');
 			io.socket.on("twitter:user", function(data) {
 				$scope.data.counter++;
+				if(tweet.entities.media[0].media_url) data.tweet.hasImage = true;
 				$scope.data.tweets.unshift(data.tweet);
 			});
 
