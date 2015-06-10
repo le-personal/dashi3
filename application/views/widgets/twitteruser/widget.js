@@ -22,16 +22,7 @@
 			io.socket.get('/api/v1/providers/twitter/statuses');
 			io.socket.on("twitter:user", function(data) {
 				$scope.data.counter++;
-				console.log(data.tweet);
 				$scope.data.tweets.unshift(data.tweet);
-
-				// if($scope.data.tweets.length > $scope.widget.settings.maxTweets-1) {
-				// 	$scope.data.tweets.pop();
-				// 	$scope.data.tweets.unshift(data.tweet);
-				// }
-				// else {
-				// 	$scope.data.tweets.unshift(data.tweet);
-				// }
 			});
 
 			/**
